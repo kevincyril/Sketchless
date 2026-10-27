@@ -29,3 +29,27 @@
 **/*.pem
 **/*.key
 **/__pycache__/**
+
+!frontend/gallery.html
+!frontend/scripts/
+!frontend/scripts/**
+!examples/
+!examples/spec.json
+!examples/inspection.json
+!examples/part.step
+!examples/part.stl
+!examples/bracket/
+!examples/bracket/*
+!examples/table/
+!examples/table/*
+!examples/robot/
+!examples/robot/*
+!examples/cleaner/
+!examples/cleaner/*
+# Reapply secret exclusions after all allow rules.
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+**/*.sqlite3
+**/*.zip

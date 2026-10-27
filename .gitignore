@@ -21,3 +21,9 @@ frontend/playwright-report/
 *.p12
 *.pfx
 *.log
+
+# Private database/artifact snapshots
+backups/
+*.zip
+frontend/gallery-dist/
+frontend/public/samples/

@@ -1,4 +1,4 @@
-import json, os, sqlite3, subprocess, sys, time, uuid, threading, re
+import json, os, sqlite3, subprocess, sys, time, uuid, threading, re, contextvars
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
 from pathlib import Path
@@ -15,6 +15,7 @@ from backend.scene_schema import SceneSpec, RestoreAction
 from backend.routing import route_workflow, concept_clarification
 from backend.agent import interpret, require_free_tier, FREE_MODELS, DEFAULT_MODEL
 from ml.model import classify
+from backend import public_access
 ROOT=Path(__file__).resolve().parents[1]
 load_dotenv(ROOT/'.env')
 DATA=Path(os.getenv('SKETCHLESS_DATA_DIR',str(ROOT/'data'))).resolve(); DATA.mkdir(parents=True,exist_ok=True)
@@ -24,8 +25,11 @@ with sqlite3.connect(DB) as c:
     c.execute('CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, payload TEXT)')
     if 'name' not in {row[1] for row in c.execute('PRAGMA table_info(sessions)')}:
         c.execute('ALTER TABLE sessions ADD COLUMN name TEXT')
+    if 'owner' not in {row[1] for row in c.execute('PRAGMA table_info(sessions)')}:
+        c.execute('ALTER TABLE sessions ADD COLUMN owner TEXT')
 c.close()
 app=FastAPI(title='Sketchless')
+public_access.install(app,lambda:DB)
 pool=ThreadPoolExecutor(max_workers=2)
 slots=threading.BoundedSemaphore(4)
 lock=threading.Lock(); active=set()
@@ -74,13 +78,20 @@ class Request(BaseModel):
             raise ValueError('Choose a component before requesting a selection-only edit.')
         return self
 
+@app.get('/healthz')
+def health():
+    try:
+        with db() as connection:connection.execute('SELECT 1 FROM sessions LIMIT 1').fetchone()
+    except sqlite3.Error:raise HTTPException(503,'Storage is unavailable.') from None
+    return JSONResponse({'service':'Sketchless','status':'ok'},headers={'Cache-Control':'no-store'})
+
 @app.get('/api/config')
 def config():
-    return {'name':'Sketchless','mode':'DEMO_MODE' if os.getenv('DEMO_MODE','true').lower()=='true' else 'LIVE_AGENT','defaults':{'wall_thickness_mm':3,'base_thickness_mm':3,'open_top':True,'bracket':{'thickness_mm':3,'hole_diameter_mm':5,'holes_per_face':2}},'families':['enclosure','tray','bracket'],'workflows':['precise','concept'],'concept_examples':['cleaner','robot','table','stand'],'ai_configured':os.getenv('DEMO_MODE','true').lower()!='true' and bool(os.getenv('GEMINI_API_KEY', '').strip()) and os.getenv('GEMINI_FREE_TIER_CONFIRMED','').lower()=='true' and os.getenv('GEMINI_MODEL',DEFAULT_MODEL).strip() in FREE_MODELS}
+    return {'name':'Sketchless','mode':'DEMO_MODE' if os.getenv('DEMO_MODE','true').lower()=='true' else 'LIVE_AGENT','defaults':{'wall_thickness_mm':3,'base_thickness_mm':3,'open_top':True,'bracket':{'thickness_mm':3,'hole_diameter_mm':5,'holes_per_face':2}},'families':['enclosure','tray','bracket'],'workflows':['precise','concept'],'concept_examples':['cleaner','robot','table','stand'],'public_mode':public_access.enabled(),'ai_configured':os.getenv('DEMO_MODE','true').lower()!='true' and bool(os.getenv('GEMINI_API_KEY', '').strip()) and os.getenv('GEMINI_FREE_TIER_CONFIRMED','').lower()=='true' and os.getenv('GEMINI_MODEL',DEFAULT_MODEL).strip() in FREE_MODELS}
 @app.post('/api/sessions')
 def create_session():
     sid=str(uuid.uuid4())
-    with db() as c: c.execute('INSERT INTO sessions (id,spec,job) VALUES (?,NULL,NULL)',(sid,))
+    with db() as c: c.execute('INSERT INTO sessions (id,spec,job,owner) VALUES (?,NULL,NULL,?)',(sid,public_access.owner_for_request()))
     return {'session_id':sid}
 @app.get('/api/sessions/{sid}')
 def get_session(sid:uuid.UUID):
@@ -117,7 +128,7 @@ class DesignDocument(BaseModel):
 @app.get('/api/designs')
 def designs():
     with db() as c:
-        rows=c.execute('SELECT id,name,spec,job FROM sessions WHERE name IS NOT NULL ORDER BY rowid DESC LIMIT 100').fetchall()
+        rows=c.execute('SELECT id,name,spec,job FROM sessions WHERE name IS NOT NULL'+(' AND owner=?' if public_access.enabled() else '')+' ORDER BY rowid DESC LIMIT 100',(public_access.owner_for_request(),) if public_access.enabled() else ()).fetchall()
     return [{'session_id':r[0],'name':r[1],'spec':json.loads(r[2]) if r[2] else None,'job_id':r[3]} for r in rows]
 
 @app.post('/api/sessions/{sid}/name')
@@ -174,13 +185,17 @@ def submit(req:Request):
     sid=str(req.session_id)
     try: session(sid)
     except ValueError as e: raise HTTPException(404,str(e))
+    if public_access.enabled():
+        if not public_access.owns(DB,sid,public_access.owner_for_request() or ''):raise HTTPException(404,'Design not found in this browser.')
+        try:public_access.admit_job(DB,uses_storage=not bool(re.fullmatch(r'\s*(?:please )?restore (?:the )?previous version[.!]?\s*',req.description,re.I)))
+        except ValueError as exc:raise HTTPException(429,str(exc),headers={'Retry-After':'60'}) from None
     with lock:
         if sid in active: raise HTTPException(409,'A generation is already running for this session.')
         if not slots.acquire(False): raise HTTPException(429,'Generation queue full. Try again shortly.')
         active.add(sid)
     summary=('Chat: '+req.description) if not req.spec and req.edit_length_delta_mm is None else ('Change length by '+str(req.edit_length_delta_mm)+' mm') if req.edit_length_delta_mm is not None else ('Generate '+req.spec.name+' concept') if isinstance(req.spec,SceneSpec) else ('Generate '+req.spec.part_type+' · '+str(req.spec.length_mm)+' × '+str(req.spec.width_mm)+' × '+str(req.spec.height_mm)+' mm')
     job={'id':str(uuid.uuid4()),'session_id':sid,'status':'queued','events':[], 'request_summary':summary,'description':req.description if not req.spec else ''}
-    save(job); pool.submit(run,job,req)
+    save(job); pool.submit(contextvars.copy_context().run,run,job,req)
     return job
 
 def run(job,req):

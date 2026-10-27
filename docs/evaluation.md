@@ -6,6 +6,8 @@ Sketchless has three separate kinds of evidence. They must not be combined into 
 2. **Scripted end-to-end checks:** mocked SDK responses plus real routing, validation, approval, CAD, exports and restoration. These do not measure Gemini language quality.
 3. **Live Gemini evaluation:** actual Developer API responses on frozen requests, judged against explicit task predicates.
 
+The recorded v1 scores apply to historical baseline **`fc027bb`**. Public-access infrastructure subsequently changed fingerprinted application files. The current revision has offline regression coverage, but no new held-out live score. The original lock/results remain unchanged. To reproduce v1, use a separate checkout at `fc027bb`, install its requirements and follow the commands below; do not rewrite the lock to admit later changes.
+
 ## Frozen modeling suite v1
 
 `evaluation/modeling_v1.json` was authored and frozen on 2026-10-26 before executing the suite. It has two development scenarios and six held-out scenarios. Entire request/edit/restore chains stay in one split. The adjacent lock records dataset and modeling implementation SHA-256 fingerprints. The runner rejects held-out execution when those modeling files differ. Reports also identify the evaluator, provider model, Python/platform and package versions. `.gitattributes` preserves the frozen input bytes across Git checkouts so automatic line-ending conversion does not invalidate the snapshot.

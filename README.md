@@ -2,7 +2,11 @@
 
 Sketchless turns a description into a reviewable 3D design, then builds CAD geometry that you can inspect, edit conversationally, restore and export. It is a standalone portfolio project combining a small trained text classifier, the Gemini Developer API and a deterministic geometry engine.
 
-**Status:** working local application; public deployment is pending. The Linux container is prepared but has not been built or verified here. Azure student access is pending. There is no public demo URL yet.
+**[Explore saved CAD examples](https://kevincyril.github.io/Sketchless/)** - rotate models, select components and download real CAD files. This gallery works without Gemini; it does not generate new designs.
+
+**Status:** working local application with an independent saved-example gallery. Live AI hosting is pending Azure student access. The Linux container is prepared but has not been built or verified here.
+
+Build the service-independent gallery with `npm --prefix frontend run build:gallery`; deploy `frontend/gallery-dist/` as static files. These are saved CAD examples, not live AI output.
 
 ![Sketchless workspace](docs/screenshots/robot-desktop.png)
 
@@ -86,7 +90,9 @@ Its existing split has 72 train / 18 validation / 18 test samples, with source g
 The versioned suite in `evaluation/modeling_v1.json` contains two development scenarios and six held-out scenarios, with expected dimensions, component edits, preservation and restoration criteria. Dataset and modeling-implementation hashes are frozen in the adjacent lock file. No prompt, classifier or geometry tuning is allowed against that held-out result.
 
 ```powershell
-# Scripted SDK responses + real API/CAD: verifies the evaluator and wiring, not AI quality.
+# Reproduce v1 in a separate checkout of baseline fc027bb first.
+# Current public-safety changes intentionally fail the v1 implementation lock.
+# Scripted SDK responses + real API/CAD: verifies wiring, not AI quality.
 .\.venv\Scripts\python -m scripts.evaluate_modeling --mode offline --split development
 .\.venv\Scripts\python -m scripts.evaluate_modeling --mode offline --split heldout
 
@@ -96,11 +102,11 @@ The versioned suite in `evaluation/modeling_v1.json` contains two development sc
 
 Live evaluation consumes your free quota. Quota/access failures stop further requests and remain visible as blocked/not-run results. Reports distinguish measured intent checks, geometry checks, exports, API latency, whole-step latency and restore latency. Concept approvals in the runner are explicit harness actions, not automatic product approval. Immutable JSON reports are written under `evaluation/results/`.
 
-**Recorded live snapshot:** 6/6 frozen scenarios passed using 11 real Gemini requests, including five edits and five zero-model-call restorations. This small, project-authored supported-task suite is not general prompt accuracy. Read [evaluation protocol and actual results](docs/evaluation.md). Earlier [design-quality diagnostics](docs/quality-check.md) remain visible, including dimension mismatches and floating parts; they are development examples, not fresh held-out evidence.
+**Historical baseline `fc027bb` live snapshot:** 6/6 frozen scenarios passed using 11 real Gemini requests, including five edits and five zero-model-call restorations. This small, project-authored supported-task suite is not general prompt accuracy. Read [evaluation protocol and actual results](docs/evaluation.md). Earlier [design-quality diagnostics](docs/quality-check.md) remain visible, including dimension mismatches and floating parts; they are development examples, not fresh held-out evidence.
 
 ## Deployment and limitations
 
-A persistent recruiter-facing link is the deployment goal. See the [hosting comparison](docs/resume-hosting-comparison.md) and [container preparation/status](docs/free-hosting.md). No billing or public deployment has been enabled. The current local API still needs access controls, session isolation, quota protection and hosted storage verification before public release.
+A persistent recruiter-facing link is the deployment goal. See the [hosting comparison](docs/resume-hosting-comparison.md) and [container preparation/status](docs/free-hosting.md). No paid billing has been enabled. Opt-in public mode now isolates anonymous browser sessions and persists application request budgets. See [public-mode configuration, backups and release checklist](docs/public-deployment.md). Hosted storage and Linux container validation remain pending.
 
 The application uses SQLite and local artifact folders, a bounded process-local queue and one active request per session. Use one ASGI worker. A failed build or model request preserves the accepted model. Restarting interrupts in-flight work; it does not resume generation. Portable design JSON retains parameters/components, not conversation history. Back up local designs separately.
 

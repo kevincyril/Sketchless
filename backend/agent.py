@@ -8,6 +8,7 @@ from google import genai
 from google.genai import types, errors
 from pydantic import ValidationError
 from backend.schemas import Spec, BracketSpec, parse_spec
+from backend.public_access import before_model_request, pause_on_quota
 
 DEFAULT_MODEL = 'gemini-3.5-flash-lite'
 # Models with documented free text tiers; never silently substitute another model.
@@ -43,6 +44,7 @@ def interpret(description,current,classification,emit,client=None,context=None,s
         return _interpret(client, model, description, current, classification, emit, context)
     except errors.APIError as exc:
         if exc.code == 429:
+            pause_on_quota()
             raise ValueError('Gemini free quota or rate limit reached. Wait for your quota to reset and try again; check limits in Google AI Studio. No automatic retry, billing upgrade, or provider fallback was attempted. Your previous model is unchanged.') from None
         if exc.code in (401,403):
             raise ValueError('Gemini access denied. Check the backend GEMINI_API_KEY, API restrictions, region eligibility, and Free Tier project access. Your previous model is unchanged.') from None
@@ -72,6 +74,7 @@ def _interpret(client,model,description,current,classification,emit,context):
         candidate_count=1,max_output_tokens=1500)
     for attempt in range(3):
         start=time.perf_counter()
+        before_model_request()
         response=client.models.generate_content(model=model,contents=history,config=config)
         candidates=response.candidates or []
         if not candidates or not candidates[0].content:
@@ -140,7 +143,7 @@ def _interpret_scene(client,model,description,current,emit,context,selected_id,s
     history.append(types.Content(role='user',parts=[types.Part.from_text(text=description)]))
     config=types.GenerateContentConfig(system_instruction=system,tools=[types.Tool(function_declarations=tools)],automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),tool_config=types.ToolConfig(function_calling_config=types.FunctionCallingConfig(mode='VALIDATED' if model==DEFAULT_MODEL else 'AUTO')),candidate_count=1,max_output_tokens=6000)
     for attempt in range(3):
-        start=time.perf_counter();response=client.models.generate_content(model=model,contents=history,config=config)
+        start=time.perf_counter();before_model_request();response=client.models.generate_content(model=model,contents=history,config=config)
         if not response.candidates or not response.candidates[0].content:raise ValueError('Gemini returned no usable concept response. Try a simpler description.')
         candidate=response.candidates[0]
         if candidate.finish_reason not in (None,types.FinishReason.STOP):raise ValueError('Gemini could not complete the concept. Simplify it; your previous model is unchanged.')

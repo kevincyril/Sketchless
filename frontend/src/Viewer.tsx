@@ -5,7 +5,7 @@ import {STLLoader} from 'three/examples/jsm/loaders/STLLoader.js';
 import {proposalMeshes} from './proposalGeometry';
 import {isScene,type SceneSpec,type ModelSpec} from './types';
 type View='iso'|'top'|'front'|'right';
-export function Viewer({id,spec,running,selected,onSelect,bounds,draft}:{id?:string;spec?:ModelSpec;running:boolean;selected?:string;onSelect?:(id?:string)=>void;bounds?:number[];draft?:SceneSpec}){
+export function Viewer({id,spec,running,selected,onSelect,bounds,draft,meshUrl}:{id?:string;spec?:ModelSpec;running:boolean;selected?:string;onSelect?:(id?:string)=>void;bounds?:number[];draft?:SceneSpec;meshUrl?:string}){
  const host=useRef<HTMLDivElement>(null),command=useRef<(view?:View)=>void>(()=>{}),highlight=useRef<(id?:string)=>void>(()=>{}),select=useRef(onSelect);
  select.current=onSelect;
  const [view,setView]=useState<View>('iso'),[state,setState]=useState('empty'),[error,setError]=useState(''),[orientation,setOrientation]=useState('ISO');
@@ -32,7 +32,7 @@ export function Viewer({id,spec,running,selected,onSelect,bounds,draft}:{id?:str
     root.rotation.x=-Math.PI/2;
    }else{
    if(!id)return;
-   const response=await fetch('/api/artifacts/'+id+(isScene(spec)?'/scene':'/stl'),{signal:abort.signal});if(!response.ok)throw Error(isScene(spec)?'Assembly preview could not be loaded. Retry or download its exports.':'STL preview could not be loaded. Retry the preview or download the artifact.');
+   const response=await fetch(meshUrl||('/api/artifacts/'+id+(isScene(spec)?'/scene':'/stl')),{signal:abort.signal});if(!response.ok)throw Error(isScene(spec)?'Assembly preview could not be loaded. Retry or download its exports.':'STL preview could not be loaded. Retry the preview or download the artifact.');
    if(isScene(spec)){
     const data=await response.json();if(dead)return;
     for(const m of data.meshes){const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(m.positions,3));geometry.setIndex(m.indices);add(geometry,m.color,m.id);}
@@ -49,7 +49,7 @@ export function Viewer({id,spec,running,selected,onSelect,bounds,draft}:{id?:str
   renderer.setAnimationLoop(()=>{controls.update();if(!needsRender)return;needsRender=false;renderer.render(scene,camera);if(frame++%6===0){const q=camera.quaternion.clone().invert();[new THREE.Vector3(1,0,0),new THREE.Vector3(0,0,-1),new THREE.Vector3(0,1,0)].forEach((v,i)=>{v.applyQuaternion(q);if(axisEls[i])axisEls[i]!.style.transform=`translate(${v.x*23}px,${-v.y*23}px)`;});}});
   const orbit=()=>setOrientation('ORBIT');controls.addEventListener('start',orbit);
   return()=>{dead=true;abort.abort();resize.disconnect();renderer.setAnimationLoop(null);renderer.domElement.removeEventListener('pointerdown',pointerDown);renderer.domElement.removeEventListener('pointerup',pointerUp);controls.removeEventListener('start',orbit);controls.removeEventListener('change',invalidate);controls.dispose();root.traverse(o=>{if(o instanceof THREE.Mesh||o instanceof THREE.LineSegments){o.geometry.dispose();(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>m.dispose());}});ground.geometry.dispose();(ground.material as THREE.Material).dispose();grid.geometry.dispose();(Array.isArray(grid.material)?grid.material:[grid.material]).forEach(m=>m.dispose());renderer.dispose();el.removeChild(renderer.domElement);command.current=()=>{};highlight.current=()=>{};};
- },[id,draft]);
+ },[id,draft,meshUrl]);
  function change(next:View){command.current(next);setOrientation(next.toUpperCase());}
  const size=spec?(isScene(spec)?bounds:[spec.length_mm,spec.width_mm,spec.height_mm]):undefined;
  return <div className="viewport" data-preview-state={state} data-selected-component={selected||''}><div className="canvas-host" ref={host}/><div className="viewport-tools" aria-label="Camera controls"><button onClick={()=>command.current()} title="Fit model to viewport">Fit model</button><button onClick={()=>change('iso')} title="Reset to isometric view">Reset view</button><details className="view-menu"><summary>More views</summary><div>{(['iso','top','front','right'] as const).map(v=><button key={v} aria-pressed={view===v} onClick={()=>change(v)}>{v==='iso'?'Angled':v[0].toUpperCase()+v.slice(1)}</button>)}</div></details></div>

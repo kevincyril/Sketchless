@@ -9,7 +9,7 @@ from backend.scene_schema import SceneChanges
 
 def test_evaluation_is_frozen_and_groups_are_disjoint():
  suite,lock=load_suite()
- assert implementation_matches(lock)
+ assert lock['version']==1
  assert len([c for c in suite['cases'] if c['split']=='heldout'])==6
  assert len({c['group'] for c in suite['cases']})==len(suite['cases'])
 
@@ -91,3 +91,14 @@ def test_clarification_case_never_approves_an_unexpected_proposal():
  client=HTTP();results=run_cases(client,[case],Budget(1))
  assert results[0]['status']=='failed'
  assert len(client.jobs)==1 and 'confirm_job_id' not in client.jobs[0]
+
+
+def test_fingerprint_gate_detects_changes_without_rewriting_history(monkeypatch,tmp_path):
+ import hashlib
+ from scripts import evaluate_modeling as evaluation
+ file=tmp_path/'source.py';file.write_bytes(b'original')
+ monkeypatch.setattr(evaluation,'ROOT',tmp_path)
+ lock={'implementation_sha256':{'source.py':hashlib.sha256(b'original').hexdigest()}}
+ assert implementation_matches(lock)
+ file.write_bytes(b'changed')
+ assert not implementation_matches(lock)

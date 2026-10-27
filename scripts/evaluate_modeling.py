@@ -251,7 +251,7 @@ def main():
     from fastapi.testclient import TestClient
     (ROOT/'data').mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory(prefix='modeling-evaluation-',dir=ROOT/'data') as folder:
-        os.environ['SKETCHLESS_DATA_DIR']=folder;os.environ['DEMO_MODE']='false'
+        os.environ['SKETCHLESS_DATA_DIR']=folder;os.environ['DEMO_MODE']='false';os.environ['SKETCHLESS_PUBLIC_MODE']='false'
         from backend import app as server
         try:
             with TestClient(server.app) as http:report['cases']=run_cases(http,cases,budget)

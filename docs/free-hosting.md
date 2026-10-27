@@ -23,7 +23,7 @@ When Docker is available, a local-only smoke run is:
 ```sh
 docker build -t sketchless:demo .
 docker volume create sketchless-data
-docker run --rm --name sketchless-demo -p 127.0.0.1:8000:8000 --mount source=sketchless-data,target=/app/data -e DEMO_MODE=true sketchless:demo
+docker run --rm --name sketchless-demo -p 127.0.0.1:8000:8000 --mount source=sketchless-data,target=/app/data -e SKETCHLESS_DEPLOYMENT_MODE=local -e DEMO_MODE=true sketchless:demo
 ```
 
 Stop the existing Windows server first or use a different local host port. A new named Docker volume inherits the image data-directory ownership; external bind mounts may need permissions for UID 10001. Keep the volume when replacing a container. Export/back up designs separately; a persistent volume is not itself a backup.
@@ -32,7 +32,7 @@ Live mode must receive GEMINI_API_KEY through the chosen host's private secret s
 
 ## Still required before a public deployment
 
-Choose an eligible free account/host; validate the Linux image and memory limits; add invitation/access controls and session ownership; enforce server-side Gemini request budgets; verify persistence and restart recovery; then test the complete hosted workflow. The package is currently for private local verification, not an unrestricted public deployment.
+Browser session isolation, durable server-side Gemini budgets, storage admission and private backup/restore are now implemented and offline-tested. See [public deployment configuration](public-deployment.md). Azure eligibility, the Linux image/memory profile, hosted persistence and the complete HTTPS workflow still require verification before exposing the live service.
 
 ## No-card follow-up
 

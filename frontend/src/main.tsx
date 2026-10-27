@@ -1,6 +1,7 @@
 import {useEffect,useRef,useState, type FormEvent} from 'react';
 import {createRoot} from 'react-dom/client';
 import {Viewer} from './Viewer';
+import {Gallery} from './Gallery';
 import {ProposalPreview} from './ProposalPreview';
 import {DesignManager} from './DesignManager';
 import {Conversation} from './Conversation';
@@ -40,7 +41,7 @@ function App(){
   const [text,setText]=useState(''),[error,setError]=useState(''),[delta,setDelta]=useState('20'),[busy,setBusy]=useState(false),[inspector,setInspector]=useState(false),[activity,setActivity]=useState(false);
   const [name,setName]=useState(()=>localStorage.getItem('sketchless-project')||'My design');
   const [notice,setNotice]=useState('');
-  const [aiConfigured,setAiConfigured]=useState(false);
+  const [aiConfigured,setAiConfigured]=useState(false),[publicMode,setPublicMode]=useState(false);
   const [selected,setSelected]=useState<string>();
   const [workflow,setWorkflow]=useState<Workflow>('auto');
   const [sceneDraft,setSceneDraft]=useState<SceneSpec>();
@@ -58,7 +59,7 @@ function App(){
   useEffect(()=>{localStorage.setItem('sketchless-project',name);},[name]);
   useEffect(()=>{let dead=false;(async()=>{
     try{
-      const config=await api('config');if(dead)return;setMode(config.mode);setAiConfigured(config.ai_configured===true);
+      const config=await api('config');if(dead)return;setMode(config.mode);setAiConfigured(config.ai_configured===true);setPublicMode(config.public_mode===true);
       let id=localStorage.getItem('sketchless-session');
       if(id){
         try{
@@ -142,12 +143,13 @@ function App(){
     concept:{title:'Build a concept assembly.',intro:'Describe the object, its components and approximate size.',label:'Describe your concept',placeholder:'A robot with a 200 mm cube body, four articulated legs and two camera eyes. Use sensible defaults for the visual joints.',send:'Send concept request',scope:'Concept assemblies: robot vacuums, walking robots, tables, stands and primitive scenes. Components are editable; mechanics are not validated.'}
   }[workflow];
   const visibleExamples=workflow==='precise'?promptExamples.filter(example=>example.kind==='precise'):workflow==='concept'?promptExamples.filter(example=>example.kind==='concept'):promptExamples;
+  if(connection==='Offline'&&!sid)return <Gallery offline/>;
   return <div className="easy-app">
-    <header className="easy-header"><a className="brand" href="/">Sketchless<span className="brand-period">.</span></a><span className="tagline">Describe it. Shape it. Build it.</span><div className="header-right"><span className="connection"><i/>{connection==='Connected'?(demo?'Demo mode':'Live AI'):connection}</span><button type="button" className="quiet-button start-over-button" disabled={!sid||running} title="Start a fresh design" onClick={startOver}>Start over</button><DesignManager sid={sid} name={name} accepted={accepted} history={history} hasDraft={!!text.trim()||(['auto','precise','concept'] as const).some(value=>!!localStorage.getItem('sketchless-prompt:'+sid+':'+value)?.trim())} running={running} dirty={!!sceneDraft||dirty||(!accepted&&JSON.stringify(spec)!==JSON.stringify(initial))} onName={setName} onOpen={openDesign} onRestore={restoreVersion} onError={setError}/><button className="quiet-button details-button" onClick={()=>setActivity(!activity)} aria-expanded={activity}>Details</button></div></header>
+    <header className="easy-header"><a className="brand" href="/">Sketchless<span className="brand-period">.</span></a><span className="tagline">Describe it. Shape it. Build it.</span><div className="header-right"><span className="connection"><i/>{connection==='Connected'?(demo?'Demo mode':'Live AI'):connection}</span><button type="button" className="quiet-button start-over-button" disabled={!sid||running} title="Start a fresh design" onClick={startOver}>Start over</button><DesignManager sid={sid} name={name} accepted={accepted} history={history} hasDraft={!!text.trim()||(['auto','precise','concept'] as const).some(value=>!!localStorage.getItem('sketchless-prompt:'+sid+':'+value)?.trim())} running={running} dirty={!!sceneDraft||dirty||(!accepted&&JSON.stringify(spec)!==JSON.stringify(initial))} onName={setName} onOpen={openDesign} onRestore={restoreVersion} onError={setError}/><a className="quiet-button sample-gallery-link" href="./gallery.html">Explore samples</a><button className="quiet-button details-button" onClick={()=>setActivity(!activity)} aria-expanded={activity}>Details</button></div></header>
     <main className="easy-workspace">
       <section className="build-panel" aria-label="Create your part">
         <div className="build-intro"><span className="eyebrow">FROM IDEA TO SOMETHING REAL</span><h1>{matchingModel?'What would you like to change?':workflowCopy.title}</h1><p>{workflowCopy.intro}</p></div>
-        <div className="build-scroll">
+        <div className="build-scroll">{publicMode&&<p className="public-demo-note">Saved designs are linked to this browser. Export a design JSON to keep a copy. AI sends your messages and design context to Gemini.</p>}
           <p className="prompt-scope">{workflowCopy.scope}</p>
           <fieldset className="workflow-options" disabled={running}><legend>How would you like to build?</legend>{([
             ['auto','Brainstorm','Explore an idea and choose a modeling approach.'],

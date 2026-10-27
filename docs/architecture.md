@@ -53,3 +53,9 @@ Successful jobs and session pointers publish atomically in SQLite. Successful ve
 - Classifier metrics measure only its three-class synthetic text task.
 - A real Gemini modeling evaluation measures this frozen application on particular prompts and predicates, subject to quota and stochastic responses.
 - Previously inspected prompts used to change the app are development/regression evidence. Repeating them is not a new held-out benchmark.
+
+## Public deployment boundary
+
+Optional public mode associates sessions with a hashed anonymous browser cookie, restricts jobs/artifacts to that owner and carries visitor context into queued SDK work. SQLite atomically reserves visitor/network/global call budgets before every SDK request, including repairs, and persists quota cooldowns. This does not train or replace the classifier or Gemini. The historical v1 implementation fingerprint intentionally differs after these infrastructure changes; its score applies to baseline `fc027bb`.
+
+The independently packaged saved-example gallery uses actual public CAD exports without API calls. It is labeled separately from live modeling. Private SQLite/artifact backups are never part of that package. See [deployment and recovery](public-deployment.md).

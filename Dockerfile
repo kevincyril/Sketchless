@@ -3,8 +3,10 @@ FROM node:22-bookworm-slim AS frontend
 WORKDIR /build
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
-COPY frontend/index.html frontend/tsconfig.json frontend/vite.config.js ./
+COPY frontend/index.html frontend/gallery.html frontend/tsconfig.json frontend/vite.config.js ./
 COPY frontend/src/ ./src/
+COPY frontend/scripts/ ./scripts/
+COPY examples/ /examples/
 COPY frontend/public/ ./public/
 RUN npm run build
 
@@ -30,5 +32,5 @@ COPY --from=frontend /build/dist/ ./frontend/dist/
 USER 10001:10001
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \
-    CMD python -c "import os,urllib.request; urllib.request.urlopen('http://127.0.0.1:'+os.getenv('PORT','8000')+'/api/config',timeout=4).close()"
+    CMD python -c "import os,urllib.request; urllib.request.urlopen('http://127.0.0.1:'+os.getenv('PORT','8000')+'/healthz',timeout=4).close()"
 CMD ["python", "deploy/start.py"]

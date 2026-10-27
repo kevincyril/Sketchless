@@ -303,3 +303,12 @@ Saved classifier independently re-evaluated without fitting: train72/validation1
 Validation: full backend suite 177 passed in136.61s; production TypeScript/Vite build passed (existing bundle advisory). Initial browser attempt found the local server stopped; restarted app and complete browser run passed20 in2.7min. After live evaluation a runner-only audit prevents accidental harness approval in clarification-only cases, tested with an extra regression: final evaluator tests11 passed in0.56s. The actual live clarification had no proposal, so that guard does not alter the recorded result; original evaluator hash is preserved.
 Made browser verification self-contained: scripts/e2e_server.py starts a separate offline loopback server/temporary data store on8001, overrides credentials with a dummy value and disables Gemini transport before importing the API. Playwright no longer depends on a manually started personal app or writes its fixture designs into personal app storage. Final isolated browser regression:20 passed in3.1min; no additional Gemini calls. The user app remains separate on8000. Added .gitattributes to preserve frozen input bytes across Git line-ending conversion.
 Public deployment remains pending Azure student access and the documented access-control/storage/quota/deployment work. No billing or cloud resources created.
+
+2026-10-26 public-readiness pass (America/Phoenix)
+- Backend: 207 passed in 263.32s, including browser ownership, persistent model budgets, quota pause, backups and fail-closed container configuration.
+- Browser: 22 passed in 4.8m with isolated offline storage and mocked Gemini transport.
+- npm run build:gallery passed; five project-owned saved CAD examples packaged independently of API/Gemini.
+- Published https://kevincyril.github.io/Sketchless/ and anonymously verified five STEP downloads, zero JavaScript errors, zero API requests and no mobile horizontal overflow.
+- Package secret scan passed. No live Gemini calls, paid resources or billing changes in this pass.
+- Historical v1 live result remains tied to fc027bb; current fingerprint intentionally differs. No new held-out score is claimed.
+- Linux Docker build, hosted CAD memory, Azure persistence and hosted live workflow remain unverified because Docker is unavailable and Azure access is pending.
