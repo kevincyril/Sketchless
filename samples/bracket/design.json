@@ -1,0 +1,14 @@
+{
+  "format": "sketchless-design",
+  "version": 1,
+  "name": "Mounting bracket",
+  "spec": {
+    "part_type": "bracket",
+    "length_mm": 60,
+    "width_mm": 40,
+    "height_mm": 50,
+    "thickness_mm": 3,
+    "hole_diameter_mm": 5,
+    "holes_per_face": 2
+  }
+}

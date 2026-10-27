@@ -1,0 +1,721 @@
+{
+  "format": "sketchless-design",
+  "version": 1,
+  "name": "Four-legged robot",
+  "spec": {
+    "part_type": "assembly",
+    "schema_version": 1,
+    "units": "mm",
+    "coordinates": "right-handed-z-up-xyz-degrees",
+    "name": "Robot concept",
+    "concept": "robot",
+    "assumptions": [
+      "Concept geometry only; joints are visual, not mechanical.",
+      "Millimeters; +Z up; front is -Y; positions are local to parent groups."
+    ],
+    "components": [
+      {
+        "id": "body",
+        "name": "Robot body",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 200,
+          "y_mm": 200,
+          "z_mm": 200,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          0,
+          0,
+          266
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": null,
+        "color": "#67908a",
+        "role": "body",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_left_leg",
+        "name": "Front left leg",
+        "primitive": "group",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -88,
+          -76,
+          166
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "front_left_leg",
+        "symmetry_group": "legs"
+      },
+      {
+        "id": "front_left_leg.hip",
+        "name": "Hip joint",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 12,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "front_left_leg",
+        "color": "#d4aa69",
+        "role": "hip",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_left_leg.upper",
+        "name": "Upper leg",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 18,
+          "y_mm": 22,
+          "z_mm": 86.28277941420667,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -16.16104903340627,
+          0,
+          -40
+        ],
+        "rotation_deg": [
+          0,
+          22,
+          0
+        ],
+        "parent_id": "front_left_leg",
+        "color": "#6d907b",
+        "role": "upper_leg",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_left_leg.knee",
+        "name": "Knee joint",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 13,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -32.32209806681254,
+          0,
+          -80
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "front_left_leg",
+        "color": "#d4aa69",
+        "role": "knee",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_left_leg.lower",
+        "name": "Lower leg",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 16,
+          "y_mm": 20,
+          "z_mm": 80,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -32.32209806681254,
+          0,
+          -120
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "front_left_leg",
+        "color": "#6d907b",
+        "role": "lower_leg",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_left_leg.foot",
+        "name": "Foot",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 40,
+          "y_mm": 36,
+          "z_mm": 12,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -32.32209806681254,
+          0,
+          -160
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "front_left_leg",
+        "color": "#3d535d",
+        "role": "foot",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_right_leg",
+        "name": "Front right leg",
+        "primitive": "group",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          88,
+          -76,
+          166
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "front_right_leg",
+        "symmetry_group": "legs"
+      },
+      {
+        "id": "front_right_leg.hip",
+        "name": "Hip joint",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 12,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "front_right_leg",
+        "color": "#d4aa69",
+        "role": "hip",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_right_leg.upper",
+        "name": "Upper leg",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 18,
+          "y_mm": 22,
+          "z_mm": 86.28277941420667,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          16.16104903340627,
+          0,
+          -40
+        ],
+        "rotation_deg": [
+          0,
+          -22,
+          0
+        ],
+        "parent_id": "front_right_leg",
+        "color": "#6d907b",
+        "role": "upper_leg",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_right_leg.knee",
+        "name": "Knee joint",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 13,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          32.32209806681254,
+          0,
+          -80
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "front_right_leg",
+        "color": "#d4aa69",
+        "role": "knee",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_right_leg.lower",
+        "name": "Lower leg",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 16,
+          "y_mm": 20,
+          "z_mm": 80,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          32.32209806681254,
+          0,
+          -120
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "front_right_leg",
+        "color": "#6d907b",
+        "role": "lower_leg",
+        "symmetry_group": ""
+      },
+      {
+        "id": "front_right_leg.foot",
+        "name": "Foot",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 40,
+          "y_mm": 36,
+          "z_mm": 12,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          32.32209806681254,
+          0,
+          -160
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "front_right_leg",
+        "color": "#3d535d",
+        "role": "foot",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_left_leg",
+        "name": "Rear left leg",
+        "primitive": "group",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -88,
+          76,
+          166
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "rear_left_leg",
+        "symmetry_group": "legs"
+      },
+      {
+        "id": "rear_left_leg.hip",
+        "name": "Hip joint",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 12,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "rear_left_leg",
+        "color": "#d4aa69",
+        "role": "hip",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_left_leg.upper",
+        "name": "Upper leg",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 18,
+          "y_mm": 22,
+          "z_mm": 86.28277941420667,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -16.16104903340627,
+          0,
+          -40
+        ],
+        "rotation_deg": [
+          0,
+          22,
+          0
+        ],
+        "parent_id": "rear_left_leg",
+        "color": "#6d907b",
+        "role": "upper_leg",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_left_leg.knee",
+        "name": "Knee joint",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 13,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -32.32209806681254,
+          0,
+          -80
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "rear_left_leg",
+        "color": "#d4aa69",
+        "role": "knee",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_left_leg.lower",
+        "name": "Lower leg",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 16,
+          "y_mm": 20,
+          "z_mm": 80,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -32.32209806681254,
+          0,
+          -120
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "rear_left_leg",
+        "color": "#6d907b",
+        "role": "lower_leg",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_left_leg.foot",
+        "name": "Foot",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 40,
+          "y_mm": 36,
+          "z_mm": 12,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -32.32209806681254,
+          0,
+          -160
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "rear_left_leg",
+        "color": "#3d535d",
+        "role": "foot",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_right_leg",
+        "name": "Rear right leg",
+        "primitive": "group",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          88,
+          76,
+          166
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "rear_right_leg",
+        "symmetry_group": "legs"
+      },
+      {
+        "id": "rear_right_leg.hip",
+        "name": "Hip joint",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 12,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          0,
+          0,
+          0
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "rear_right_leg",
+        "color": "#d4aa69",
+        "role": "hip",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_right_leg.upper",
+        "name": "Upper leg",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 18,
+          "y_mm": 22,
+          "z_mm": 86.28277941420667,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          16.16104903340627,
+          0,
+          -40
+        ],
+        "rotation_deg": [
+          0,
+          -22,
+          0
+        ],
+        "parent_id": "rear_right_leg",
+        "color": "#6d907b",
+        "role": "upper_leg",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_right_leg.knee",
+        "name": "Knee joint",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 13,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          32.32209806681254,
+          0,
+          -80
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "rear_right_leg",
+        "color": "#d4aa69",
+        "role": "knee",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_right_leg.lower",
+        "name": "Lower leg",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 16,
+          "y_mm": 20,
+          "z_mm": 80,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          32.32209806681254,
+          0,
+          -120
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "rear_right_leg",
+        "color": "#6d907b",
+        "role": "lower_leg",
+        "symmetry_group": ""
+      },
+      {
+        "id": "rear_right_leg.foot",
+        "name": "Foot",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 40,
+          "y_mm": 36,
+          "z_mm": 12,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          32.32209806681254,
+          0,
+          -160
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": "rear_right_leg",
+        "color": "#3d535d",
+        "role": "foot",
+        "symmetry_group": ""
+      },
+      {
+        "id": "eye_1",
+        "name": "Camera eye 1",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 20,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          -48,
+          -108,
+          302
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": null,
+        "color": "#243b4c",
+        "role": "eye",
+        "symmetry_group": "eyes"
+      },
+      {
+        "id": "eye_2",
+        "name": "Camera eye 2",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 20,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          48,
+          -108,
+          302
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "parent_id": null,
+        "color": "#243b4c",
+        "role": "eye",
+        "symmetry_group": "eyes"
+      }
+    ]
+  }
+}
