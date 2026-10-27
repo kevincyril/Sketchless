@@ -1,0 +1,262 @@
+{
+  "verification": "stopped",
+  "model": "gemini-3.5-flash-lite",
+  "cases": [
+    {
+      "case": "lamp",
+      "prompt": "Create a minimal desk lamp: a round weighted base, vertical stem, angled arm and cone-shaped shade pointing down. About 400 mm tall. Use sensible default dimensions for the other parts; list your assumptions.",
+      "status": "succeeded",
+      "message": "Built the concept you explicitly confirmed.",
+      "spec": {
+        "part_type": "assembly",
+        "schema_version": 1,
+        "units": "mm",
+        "coordinates": "right-handed-z-up-xyz-degrees",
+        "name": "Minimal Desk Lamp",
+        "concept": "custom",
+        "assumptions": [
+          "Round weighted base diameter 140 mm, height 20 mm",
+          "Vertical stem diameter 12 mm, height 200 mm",
+          "Angled arm length 150 mm, diameter 10 mm",
+          "Cone-shaped shade pointing down, top radius 20 mm, bottom radius 80 mm, height 100 mm",
+          "Total height approximately 400 mm",
+          "Color scheme: matte charcoal body with brass accent details"
+        ],
+        "components": [
+          {
+            "id": "base",
+            "name": "Weighted Base",
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 20.0,
+              "radius_mm": 70.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              10.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#2c2c2c",
+            "role": "base",
+            "symmetry_group": ""
+          },
+          {
+            "id": "stem",
+            "name": "Vertical Stem",
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 200.0,
+              "radius_mm": 6.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              120.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#d4af37",
+            "role": "support",
+            "symmetry_group": ""
+          },
+          {
+            "id": "arm",
+            "name": "Angled Arm",
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 150.0,
+              "radius_mm": 5.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              40.0,
+              0.0,
+              245.0
+            ],
+            "rotation_deg": [
+              0.0,
+              -35.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#d4af37",
+            "role": "arm",
+            "symmetry_group": ""
+          },
+          {
+            "id": "shade",
+            "name": "Cone Shade",
+            "primitive": "cone",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 100.0,
+              "radius_mm": 80.0,
+              "top_radius_mm": 20.0
+            },
+            "position_mm": [
+              90.0,
+              0.0,
+              290.0
+            ],
+            "rotation_deg": [
+              0.0,
+              25.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#2c2c2c",
+            "role": "head",
+            "symmetry_group": ""
+          }
+        ]
+      },
+      "inspection": {
+        "workflow": "concept",
+        "checks": {
+          "components_valid": true,
+          "component_count_match": true,
+          "positive_volume": true,
+          "finite_transforms": true,
+          "referenced_ids_valid": true,
+          "part_step_nonempty": true,
+          "part_stl_nonempty": true,
+          "part_glb_nonempty": true,
+          "scene_json_nonempty": true
+        },
+        "solid_count": 4,
+        "component_count": 4,
+        "volume_mm3": 1221922.46261375,
+        "bounding_box_mm": [
+          212.03712412905992,
+          161.0247482687202,
+          344.43116883980935
+        ],
+        "tolerance_mm": 0.02,
+        "components": [
+          {
+            "id": "base",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -70.0,
+                -70.0,
+                0.0
+              ],
+              [
+                70.0,
+                70.0,
+                20.0
+              ]
+            ],
+            "volume_mm3": 307876.08005179965
+          },
+          {
+            "id": "stem",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -6.0,
+                -6.0,
+                20.0
+              ],
+              [
+                6.0,
+                6.0,
+                220.0
+              ]
+            ],
+            "volume_mm3": 22619.46710584651
+          },
+          {
+            "id": "arm",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -7.113992947773423,
+                -5.0,
+                180.6957144965704
+              ],
+              [
+                87.11399294777343,
+                5.0,
+                309.30428550342964
+              ]
+            ],
+            "volume_mm3": 11780.97245096173
+          },
+          {
+            "id": "shade",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -3.6355360499669587,
+                -80.0,
+                210.87514970891155
+              ],
+              [
+                141.37370987589702,
+                80.0,
+                343.7677545866465
+              ]
+            ],
+            "volume_mm3": 879645.943005142
+          }
+        ],
+        "generation_seconds": 0.193,
+        "limitations": [
+          "Separate concept solids; intersections, balance, motion, strength and printability are not verified.",
+          "Summed component volume may double-count intersecting components."
+        ]
+      },
+      "requested_dimension_checks": {
+        "approximately_400_mm_tall": false
+      }
+    }
+  ],
+  "scope": "Small live smoke test, not a general design-quality benchmark. Explicit approvals below are test-harness actions only.",
+  "reason": "Requested dimensions did not match: lamp. See report for measurements.",
+  "model_requests": 1
+}

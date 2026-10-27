@@ -1,0 +1,588 @@
+{
+  "part_type": "assembly",
+  "schema_version": 1,
+  "units": "mm",
+  "coordinates": "right-handed-z-up-xyz-degrees",
+  "name": "Home cleaner - robot vacuum",
+  "concept": "cleaner",
+  "assumptions": [
+    "Interpreted home cleaner as a low round robot vacuum: 340 mm body diameter, 75 mm body height; brush and sensor may extend beyond the shell.",
+    "Two side drive wheels and one small support ball; no walking legs.",
+    "1 side brush(es); raised lidar turret; removable lid and visible controls.",
+    "Editable visual concept only: suction, airflow, dust capacity, navigation, wheel clearance, cleaning effectiveness and manufacturability are not validated."
+  ],
+  "components": [
+    {
+      "id": "body",
+      "name": "Low-profile circular body",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 75.0,
+        "radius_mm": 164.04999999999998,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        51.5
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#e5e8e2",
+      "role": "body",
+      "symmetry_group": ""
+    },
+    {
+      "id": "bumper",
+      "name": "Wraparound protective bumper",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 27.0,
+        "radius_mm": 170.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        38.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#27373b",
+      "role": "bumper",
+      "symmetry_group": ""
+    },
+    {
+      "id": "deck",
+      "name": "Upper shell",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 36.0,
+        "radius_mm": 161.5,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        71.75
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#e5e8e2",
+      "role": "shell",
+      "symmetry_group": ""
+    },
+    {
+      "id": "lid_seam",
+      "name": "Dust-bin lid seam",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 2.0,
+        "radius_mm": 129.2,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        90.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#27373b",
+      "role": "lid_seam",
+      "symmetry_group": ""
+    },
+    {
+      "id": "lid",
+      "name": "Removable dust-bin lid",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 2.0,
+        "radius_mm": 127.5,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        91.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#e5e8e2",
+      "role": "lid",
+      "symmetry_group": ""
+    },
+    {
+      "id": "wheel_left",
+      "name": "Left drive wheel",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 20.4,
+        "radius_mm": 32.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        -154.70000000000002,
+        20.0,
+        32.0
+      ],
+      "rotation_deg": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#18262b",
+      "role": "wheel",
+      "symmetry_group": ""
+    },
+    {
+      "id": "hub_left",
+      "name": "Left wheel hub",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 2.0,
+        "radius_mm": 14.4,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        -165.92,
+        20.0,
+        32.0
+      ],
+      "rotation_deg": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#60998f",
+      "role": "hub",
+      "symmetry_group": ""
+    },
+    {
+      "id": "wheel_right",
+      "name": "Right drive wheel",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 20.4,
+        "radius_mm": 32.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        154.70000000000002,
+        20.0,
+        32.0
+      ],
+      "rotation_deg": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#18262b",
+      "role": "wheel",
+      "symmetry_group": ""
+    },
+    {
+      "id": "hub_right",
+      "name": "Right wheel hub",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 2.0,
+        "radius_mm": 14.4,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        165.92,
+        20.0,
+        32.0
+      ],
+      "rotation_deg": [
+        0.0,
+        90.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#60998f",
+      "role": "hub",
+      "symmetry_group": ""
+    },
+    {
+      "id": "caster",
+      "name": "Front support ball",
+      "primitive": "sphere",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "radius_mm": 8.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        -105.4,
+        8.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#27373b",
+      "role": "caster",
+      "symmetry_group": ""
+    },
+    {
+      "id": "front_sensor",
+      "name": "Front obstacle sensor window",
+      "primitive": "box",
+      "dimensions": {
+        "x_mm": 93.50000000000001,
+        "y_mm": 9.0,
+        "z_mm": 15.75,
+        "radius_mm": null,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        -161.5,
+        65.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#18262b",
+      "role": "sensor",
+      "symmetry_group": ""
+    },
+    {
+      "id": "lidar_base",
+      "name": "Lidar turret surround",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 5.0,
+        "radius_mm": 29.749999999999996,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        49.3,
+        94.5
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#27373b",
+      "role": "sensor_mount",
+      "symmetry_group": ""
+    },
+    {
+      "id": "lidar",
+      "name": "Lidar sensor turret",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 15.0,
+        "radius_mm": 26.35,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        49.3,
+        104.5
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#60998f",
+      "role": "sensor",
+      "symmetry_group": ""
+    },
+    {
+      "id": "lidar_cap",
+      "name": "Lidar cap",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 2.0,
+        "radius_mm": 26.35,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        49.3,
+        113.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#27373b",
+      "role": "sensor_cap",
+      "symmetry_group": ""
+    },
+    {
+      "id": "power",
+      "name": "Power button",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 2.0,
+        "radius_mm": 7.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        -12.0,
+        -73.1,
+        93.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#60998f",
+      "role": "control",
+      "symmetry_group": ""
+    },
+    {
+      "id": "home",
+      "name": "Dock button",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 2.0,
+        "radius_mm": 7.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        12.0,
+        -73.1,
+        93.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#60998f",
+      "role": "control",
+      "symmetry_group": ""
+    },
+    {
+      "id": "status",
+      "name": "Status indicator",
+      "primitive": "box",
+      "dimensions": {
+        "x_mm": 22.0,
+        "y_mm": 3.0,
+        "z_mm": 1.0,
+        "radius_mm": null,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        -100.3,
+        92.5
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#60998f",
+      "role": "indicator",
+      "symmetry_group": ""
+    },
+    {
+      "id": "brush_1",
+      "name": "Side brush 1",
+      "primitive": "group",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": null,
+        "radius_mm": null,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        122.39999999999999,
+        -122.39999999999999,
+        6.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#e5e8e2",
+      "role": "brush",
+      "symmetry_group": ""
+    },
+    {
+      "id": "brush_1.hub",
+      "name": "Brush hub",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 6.0,
+        "radius_mm": 8.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": "brush_1",
+      "color": "#27373b",
+      "role": "brush_hub",
+      "symmetry_group": ""
+    },
+    {
+      "id": "brush_1.bristle_1",
+      "name": "Brush bristles",
+      "primitive": "box",
+      "dimensions": {
+        "x_mm": 34.0,
+        "y_mm": 4.0,
+        "z_mm": 2.0,
+        "radius_mm": null,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        17.0,
+        0.0,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": "brush_1",
+      "color": "#c5aa6b",
+      "role": "bristle",
+      "symmetry_group": ""
+    },
+    {
+      "id": "brush_1.bristle_2",
+      "name": "Brush bristles",
+      "primitive": "box",
+      "dimensions": {
+        "x_mm": 34.0,
+        "y_mm": 4.0,
+        "z_mm": 2.0,
+        "radius_mm": null,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        -8.499999999999996,
+        14.722431864335459,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        120.0
+      ],
+      "parent_id": "brush_1",
+      "color": "#c5aa6b",
+      "role": "bristle",
+      "symmetry_group": ""
+    },
+    {
+      "id": "brush_1.bristle_3",
+      "name": "Brush bristles",
+      "primitive": "box",
+      "dimensions": {
+        "x_mm": 34.0,
+        "y_mm": 4.0,
+        "z_mm": 2.0,
+        "radius_mm": null,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        -8.500000000000007,
+        -14.722431864335455,
+        0.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        240.0
+      ],
+      "parent_id": "brush_1",
+      "color": "#c5aa6b",
+      "role": "bristle",
+      "symmetry_group": ""
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "valid_shape": true,
+    "one_solid": true,
+    "positive_volume": true,
+    "outer_dimensions_match": true,
+    "cavity_volume_match": true,
+    "step_nonempty": true,
+    "stl_nonempty": true
+  },
+  "volume_mm3": 47568.0,
+  "bounding_box_mm": [
+    100.0,
+    60.0,
+    35.0
+  ],
+  "tolerance_mm": 0.01,
+  "generation_seconds": 0.248
+}

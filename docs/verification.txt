@@ -1,0 +1,305 @@
+Sketchless initial implementation verification (historical; redesign verification follows below)
+Date: 2026-10-24 (America/Phoenix)
+Runtime: project-local CPython 3.12.15, Node 22.20.0
+CAD: cadquery 2.8.0
+
+python -m backend.cad examples/spec.json
+PASS: all seven geometry/export checks; bounding box 100,60,35 mm; volume 47568 mm3
+STEP: 29761 bytes; STL: 1484 bytes
+
+python -m backend.cad examples/tray/spec.json
+PASS: all seven geometry/export checks; bounding box 120,80,15 mm; volume 42768 mm3
+STEP: 29774 bytes; STL: 1484 bytes
+
+python -m ml.model
+PASS: pipeline artifact, grouped dataset, validation threshold selection and evaluation outputs generated.
+Train 72 / validation 18 / test 18 synthetic samples. Each split accuracy 1.0 and macro F1 1.0.
+Label order: enclosure, bracket, tray. Held-out confusion matrix [[6,0,0],[0,6,0],[0,0,6]].
+Validation-selected threshold: 0.45. Not real-world accuracy.
+python -m ml.model --evaluate
+PASS: saved artifact re-evaluated, report written.
+
+python -m pytest -q
+9 passed in 33.04s
+
+frontend: npm run build
+PASS: TypeScript strict check and Vite production build.
+Build emitted advisory about Three.js bundle size.
+Initial sandboxed Vite build could not read ancestor paths; approved build succeeded.
+npm install: 0 vulnerabilities reported at install time.
+
+FastAPI TestClient: GET / and GET /api/config
+PASS: production frontend served as HTML alongside DEMO_MODE API.
+
+Not verified: interactive browser orbit/zoom and live OpenAI API behavior.
+No paid model calls or public deployment performed.
+Bracket CAD and fitted lids are not implemented.
+
+Workspace redesign verification — 2026-10-24
+
+Backend: python -m pytest -q
+14 passed in 35.75s.
+Added actual tray geometry verification, clarification context/routing, missing API key feedback,
+validation feedback repair, provider-error redaction. Test storage is isolated from active sessions.
+
+Frontend: npm run build
+PASS: strict TypeScript check + Vite production bundle. Three.js bundle-size advisory remains.
+
+Chrome/Playwright: actual enclosure/tray generation, relative delta 100 -> 120 mm,
+accepted-model bounds unchanged by unbuilt drafts, invalid wall rejection, persisted project/spec/history,
+STEP/STL downloads, orbit drag, zoom wheel, fit/reset/standard views, inspector collapse,
+1440x900 desktop, 1366x768 laptop, 390x844 mobile; no horizontal overflow and no desktop page overflow.
+Main workflow monitors unexpected browser console/page errors and failed network requests.
+Failure-state browser scenario uses explicitly mocked failed job and failed STL response;
+the previous real solid/downloads remain available and reloading recovers the preview.
+Live composer keyboard scenario mocks config/job responses, tests Shift+Enter and Enter,
+and makes no provider calls. Backend mock tests cover the actual agent tool loop.
+
+Screenshots: docs/screenshots/*.png (real local Chrome captures; failure screenshot uses a mocked job error).
+Desktop enclosure, laptop tray, and mobile tray screenshots were visually inspected.
+Browser JSON report: docs/browser-results.json.
+
+Remaining limitation: no live provider inference tested; requires user API key and usage authorization.
+Brackets and fitted lids remain outside the working geometry scope.
+
+Final combined browser run: 3 passed (1.3m).
+Full report saved to docs/browser-results.json.
+Local QA server stopped after verification; start the app with the README commands.
+
+Guided usability update — 2026-10-24
+
+Replaced the three-panel technical workspace with shape selection, three primary size fields,
+and a single Create/Update action beside a larger preview. Optional thickness controls and
+technical data are hidden until requested. Downloads explain STL/STEP purposes in plain language.
+Details uses a native keyboard-accessible dialog. Mobile scrolls to successful results.
+
+Backend regression suite: 14 passed in 51.67s.
+Frontend strict TypeScript + production build: passed (Three.js bundle-size advisory only).
+The app remains available on port 8000; retained preview server uses --no-access-log to avoid
+blocking on an undrained output pipe. Backend CAD/classifier/agent behavior is unchanged.
+Guided-workspace Chrome verification: 3 passed in 55.4s.
+Covered real enclosure/tray creation, relative edits, downloads, persisted dimensions,
+hidden optional fields, Details dialog and Escape dismissal, invalid-input feedback,
+camera controls, laptop page-fit and mobile width. No unexpected console errors or failed
+network requests in the real CAD scenario. Mocked failure and live-composer scenarios passed.
+Updated laptop and mobile screenshots were visually inspected.
+Primary Create/Update action moved outside the scrollable options and remains fully visible
+on laptop layouts. Final source and screenshots include this refinement.
+Final browser rerun after the fixed action placement: all three scenarios passed.
+The final laptop screenshot was visually inspected; Update my model is fully visible.
+Application HTTP readiness check: 200 at http://127.0.0.1:8000/; server left running.
+
+L-bracket family — 2026-10-24
+
+Implemented a separate strict bracket specification and deterministic two-plate CAD template.
+Default: 60 x 40 x 50 mm, 3 mm plates, two 5 mm through-holes per face (four total).
+Hole placement is automatic. Edge spacing and arm fit are validated before construction.
+Actual geometry inspection includes volume, hole surface count, circular-edge diameters,
+clear bore centers, valid shape, one solid, requested bounds, and STEP/STL export sizes.
+Zero-hole parts omit inapplicable clearance/diameter checks.
+
+python -m backend.cad examples/bracket/spec.json
+PASS: all 10 default bracket checks; volume 12604.380550980757 mm3; bounds 60/40/50 mm.
+Example STEP: 37130 bytes; STL: 102684 bytes.
+
+python -m pytest -q
+27 passed in 68.69s.
+Includes actual 0/1/2-hole-per-face geometry, STEP re-import and bore sampling, invalid
+spacing/thickness/unknown fields/count rejection, mocked live classifier-to-bracket routing,
+family switches in both directions, relative edits preserving hole settings, and failed edit retention.
+
+npm run build
+PASS: TypeScript and production frontend bundle; existing Three.js size advisory remains.
+
+The trained classifier artifact and its evaluation metrics were not changed or retrained.
+The live interpreter uses strict nested anyOf schemas for container/bracket families; no live
+provider calls were made. Arbitrary hole layouts, countersinks, slots, fillets, bend radii,
+and fitted lids are not implemented. No printability or load-rating claims are made.
+
+Final Chrome suite: 4 passed (1.3m).
+Existing box/tray workflows passed alongside bracket creation with four actual holes,
+measured hole-diameter results, relative length preservation, invalid-width feedback,
+session reload, zero-hole regeneration, STEP download, laptop fit and mobile width.
+Desktop bracket, laptop bracket, and mobile bracket screenshots were visually inspected.
+HTTP readiness: 200 at http://127.0.0.1:8000/. Server left running.
+
+Saved designs and version recovery — 2026-10-24
+
+Implemented:
+- Additive SQLite migration adds session names without replacing existing sessions.
+- Named design library (up to 100 named sessions), reopen and new-design workflows.
+- Restoration of successful same-session versions with active-job admission locking,
+  passing-inspection checks, and actual artifact presence/size checks.
+- Restoring a version only updates the accepted pointer/spec; no fake generation jobs.
+- Atomic publication of successful jobs and their accepted session specifications.
+- Portable sketchless-design version-1 JSON files, exported for the displayed build ID.
+- Frontend and streaming backend enforce a 64 KB import limit; strict typed validation
+  rejects malformed JSON, unsupported versions, unknown fields and invalid geometry specs.
+- Imports open a new draft for review; CAD only runs after explicit Create my model.
+- Native accessible My designs dialog and confirmation before replacing unbuilt size changes.
+- Start-Sketchless.ps1: checks local runtime, builds stale UI when dependencies exist,
+  reuses an existing Sketchless server, prints a local URL and keeps a new server in foreground.
+
+Verification:
+python -m pytest -q: 31 passed in 98.58s.
+Includes named design persistence, parameter-file roundtrip, fixed-build exports after restore,
+invalid/oversized imports, other-session restore rejection, active-build rejection,
+missing-artifact refusal, and relative edits starting from the restored accepted version.
+
+npm run build: PASS, strict TypeScript and Vite production build.
+Existing Three.js bundle-size advisory remains.
+
+npx playwright test: 5 passed (2.2m).
+Existing box, tray, bracket and mocked live-composer scenarios passed.
+New scenario: save/name, restore older/newer versions, persistence after reload, export,
+new design, reopen saved design, malformed-file rejection, import as draft, rebuild,
+mobile dialog layout and Escape dismissal.
+Screenshots saved-designs.png, saved-versions.png and mobile-designs.png were visually inspected.
+Machine-readable report: docs/browser-results.json.
+
+Start-Sketchless.ps1 was used to start the actual local server and tested against an already
+running server. HTTP readiness verified at http://127.0.0.1:8000/.
+The server is left running. No public deployment or paid model calls were performed.
+Live provider interpretation remains unverified without user credentials/authorized usage.
+
+Prompt-first product correction — 2026-10-24
+
+Description is now the main input. Configured live mode uses the fixed primary action for
+prompt submission and keeps manual measurements collapsed with an explicit separate action.
+Demo/unconfigured mode clearly disables AI generation and retains labeled structured examples.
+The backend exposes ai_configured (mode + key presence) without exposing credentials; it does
+not claim verified provider access. A backend .env placeholder was prepared, with DEMO_MODE=true.
+No key was found and no paid/live API call was made.
+
+Verification:
+python -m pytest -q: 35 passed in 72.29s.
+Includes four configuration combinations verifying credential presence never reveals the key.
+npm run build: PASS (existing Three.js bundle-size advisory).
+Chrome full regression suite: 5 passed (1.5m), including CAD families, versions, saved designs,
+portable files and mocked live keyboard submission. Updated prompt-first desktop screenshot inspected.
+Actual prompt-to-CAD model quality remains unverified until the user configures credentials
+and authorizes provider usage. Supported families remain enclosure, tray and bracket.
+Additional targeted browser check: 1 passed (3.7s). Verified both keyboard and primary-action
+submission send description-only payloads (no implicit specification), with manual controls
+collapsed in configured live mode. Provider responses were explicitly mocked.
+
+Conversation and SDK integration - 2026-10-24
+37 backend tests passed in 123.42 seconds. Includes real SDK serialization over an offline mock transport, real CAD subprocesses and exports, clarification, bounded repair, relative edits, restored-version context, family switches, provider-error preservation/redaction, and rejection of paid verification without explicit authorization.
+Production TypeScript/Vite build passed (existing bundle-size advisory).
+Chrome regression: 5 passed in 1.6 minutes. Includes inline conversation, description-only keyboard and primary-action submission, actual CAD families, downloads, saved designs, restore, portable files and mobile layouts.
+Visually inspected prompt-conversation-mocked.png; provider response is explicitly a browser fixture.
+Secure setup helper checked with mock strings: duplicate settings removed, unrelated settings preserved, multiline input rejected. No actual credentials changed.
+No paid API requests performed. Live language quality remains blocked on user key and usage authorization.
+
+Gemini Developer API migration - 2026-10-24
+Official docs checked: Google Gen AI Python SDK, function calling, Gemini 3.5 Flash-Lite model capabilities, pricing and billing. Default gemini-3.5-flash-lite supports function calling/structured outputs with a documented free text tier. 2.5 availability is restricted for new projects, so it is only an explicit legacy option.
+Installed official google-genai==2.33.0; removed OpenAI from project requirements. uv pip check: all installed packages compatible.
+Backend full suite: 52 passed in 77.59s. Real Google SDK + offline httpx transport + actual classifier/CAD/STEP/STL integration passed. Verified clarification, schema repair, preserved thought signatures during repair, conversational edits, restored context, family switches, quota redaction and previous-model preservation. Boundary tests verify explicit Developer API endpoint/key, no Vertex/enterprise fallback, 30-second timeout, one SDK attempt, three interpretation attempts maximum, owned-client cleanup, unknown tools/multiple calls/incomplete responses rejected, free-tier attestation and model gates before any network.
+Private PowerShell setup helper tested using mock strings only: hidden local key entry, free-project confirmation gate, removes obsolete provider settings/duplicate keys, preserves model/comments, rejects multiline keys. .env ignore rule verified; no real key present and no secrets printed.
+Frontend production build passed; existing Three.js bundle advisory only.
+Chrome full regression: 5 passed in 1.3 minutes. Follow-up targeted prompt/quota check: 1 passed in 2.9 seconds. Asserted description-only submission and clearly displayed quota errors in the conversation without automatic retry. gemini-quota-mocked.png is explicitly an offline response fixture.
+Live verification script requires --confirm-free-tier plus configured backend key/attestation. Two prompts maximum, six model requests including repairs maximum, 1500 output tokens per request; isolated temporary CAD storage. Stops on quota errors, never enables billing or falls back.
+Local HTTP readiness: 200 at http://127.0.0.1:8000/. Server left running.
+BLOCKED: user must privately configure GEMINI_API_KEY for a Google AI Studio Free Tier project with no billing linked. No real Gemini API calls have been performed. Billing tier cannot be reliably inferred from the key; local confirmation is not a provider billing guarantee. User already requested live free-quota verification once configured; no additional paid authorization is appropriate.
+Final UI refinement: Gemini quota guidance is also shown in the model result status, rather than only in the scrollable conversation. Production build passed again. Targeted browser prompt/quota and failed-edit recovery: 2 passed.
+
+Real Gemini verification - 2026-10-24
+User confirmed key configured for a Google AI Studio Free Tier project with no billing linked.
+First sandboxed attempt could not connect; no usable provider response was received. It exposed SQLite connection lifetime preventing temporary storage cleanup on Windows. Connections now explicitly close after transaction commit/rollback, including the startup connection; runner failures show a concise safe error. Successful rerun cleaned temporary storage without errors.
+User-authorized network-enabled live verification PASSED using gemini-3.5-flash-lite. Initial natural description generated a 100 x 60 x 35 mm enclosure with 3 mm walls/base and open top. Follow-up 'Make it 20 mm longer. Keep every other dimension unchanged.' generated 120 x 60 x 35 mm and preserved every other field. Actual solid validity, single solid, positive/expected cavity volume, bounding box and both STEP/STL downloads passed for both builds. Initial classifier participation verified. Volumes: 47568 and 55008.00000000004 mm3. Results recorded in docs/live-verification.json. No billing setup, quota upgrade, provider fallback or model fallback was performed.
+Restarted the local server with configured Gemini credentials. /api/config reports LIVE_AGENT and ai_configured=true, without exposing the key. Server kept running at http://127.0.0.1:8000/.
+Added pytest testpaths=tests to prevent test discovery from scanning runtime data/cache folders.
+Post-cleanup-fix final regression: 52 passed in 52.84s using a fresh project-local pytest temporary directory and no cache provider to avoid sandbox-owned Windows temp/cache directories. Earlier reruns encountered only sandbox filesystem ownership conflicts; the final run passed all tests. Separate isolated session create/close check verified the temporary SQLite folder is removed successfully. Final HTTP readiness: 200; live Gemini mode enabled. No additional live requests were made after the successful two-prompt verification.
+
+Prompt guidance and recovery - 2026-10-24
+Added editable example descriptions for enclosure, tray and bracket; contextual follow-up suggestions after successful builds. Clicking suggestions only fills/focuses the composer, never submits. Suggestions are hidden while writing or answering a clarification. Unsent prompt drafts persist in browser localStorage by session (3000-character cap), survive refresh/design switching, clear after successful submission, and are excluded from portable files. Pending clarification/error status is restored on reload only for the current accepted branch; restored models take precedence over abandoned future statuses.
+Production TypeScript/Vite build passed (existing Three.js chunk-size advisory).
+Chrome full regression: 6 passed in 1.2 minutes. Additional targeted example/clarification and cross-design draft checks: 2 passed in 16.2s, covering 7 distinct scenarios overall. Tests verify no model request on suggestion selection, draft recovery, clearing after submission, unanswered clarification after reload, description-only requests, per-design draft isolation and existing actual CAD/export/version workflows. Ordinary browser checks force offline configuration even when the running app has a live key; model-facing calls are mocked in prompt scenarios.
+Visually inspected prompt-examples.png; mobile clarification recovery screenshot saved as prompt-clarification-recovery.png and overflow checked. No Gemini calls or quota consumption in this iteration. Backend logic unchanged. Server remains in configured LIVE_AGENT mode at http://127.0.0.1:8000/.
+
+Concept assembly vertical slice - 2026-10-24
+Preserved precise enclosure/tray/bracket functionality, trained classifier and evaluation scripts. Explicit workflow routing keeps robot/table/stand/unknown concepts outside the three-category classifier. Added version-1 finite/typed primitive scenes with stable IDs, groups, local transforms, colors, semantic/symmetry roles and strict bounds/graph/count checks. CAD uses separate CadQuery solids/assemblies, not forced fusion. Preview and GLB share actual CAD tessellation; STEP, multi-body STL and editable scene JSON are available.
+Implemented validated creation, generic scene proposals, component patches, subtree removal/duplication/reflection and bounded leg/foot edits. Selected-only edits reject changes outside the selected subtree. Accepted versions are immutable, have parent IDs and monotonic counts; active pointers/specs publish transactionally. Stale/overlapping requests reject safely. Previous-version restoration follows the active branch parent; future branch prompts are excluded from edit context. Failed CAD/interpretation/quota requests preserve the last accepted model. Quota failures return the submitted prompt to the composer for correction/retry.
+Final backend regression: 88 passed in 122.84s. Includes the original 52 tests plus scene routing/invalid schemas/finite transforms/IDs, actual robot/table/stand CAD, STEP solid-count round trips, GLB structure, rotated primitive bounds, edits/scope, symmetry/removal, repairs/quota, stale/overlapping requests, worker failures, JSON persistence and branch restoration.
+Production TypeScript/Vite build passed; existing Three.js bundle-size advisory only.
+Chrome full suite: 8 passed in 2.3 minutes. Precise workflows, saved designs/versioning/files and prompt drafts remain covered. The robot scenario uses mocked interpretation with actual CAD to verify clarification, visible model, orbit/zoom, canvas/list selection and highlighting, selected-eye edit, GLB download, conversational restore, synchronized active version/download IDs, refresh, responsive layout and editable scene import/rebuild. No page errors or unexpected failed requests. Fixed immediate/polled restore state races and optimized static rendering; resize explicitly requests a redraw. Visually inspected desktop, selected-component and mobile robot screenshots. Mobile component list is contained in its own scroll region.
+Live Gemini verification: first exploratory ambiguous-robot request generated defaults too soon. Added a deterministic combined clarification gate, including use-sensible-defaults support. Successful bounded rerun used TWO real Gemini requests (creation and 30 mm leg extension), with no-call clarification and restoration. Total live requests in this expansion: THREE, no retries or fallback. User-confirmed Gemini Developer API Free Tier project, no billing linked. No billing settings were changed. All live geometry/export checks passed; body remained 200 x 200 x 200 mm, four articulated leg groups and two eyes; 23 solids, stable IDs retained. Overall height changed 366 to 396 mm. Report: docs/live-concept-verification.json. Only this scoped live path is claimed; other language examples are covered by mocked interpretation or deterministic tools.
+Actual example artifacts built for robot, table and stand under examples/. No Blender, GPU generation service, new generative model training, or public deployment added. Component intersections, balance, joint motion, stress/strength and printability are NOT verified. Exports are conceptual separate bodies; STEP does not preserve an original parametric feature history. Editable scene JSON is the authoritative parameter backup.
+Server left running in configured LIVE_AGENT mode at http://127.0.0.1:8000/; HTTP readiness 200 and workflows precise/concept confirmed without exposing credentials. .env ignore rule verified. Startup/test commands, scene conventions, limitations and tested prompts: docs/concepts.md.
+Final targeted robot/mobile/import regression after component-tree containment: 1 passed in 38.0s. Asserted the tree scrolls internally and the panel does not overflow; re-imported editable scene rebuilt actual CAD successfully. Final mobile screenshot visually inspected.
+
+Visible workflow cards and Send button - 2026-10-24: production build passed. Browser checks passed: 2 in 36.8 seconds, covering card defaults/selection/descriptions, workflow sent in description-only payloads, explicit Send button and keyboard shortcut, quota prompt preservation, plus manual CAD generation/edit/download/restore. Earlier draft/clarification browser check also passed. Visually inspected prompt-examples.png. No live Gemini calls. Prior approval-review usage-limit interruption resolved on user-requested retry.
+
+Workflow-dependent interface - 2026-10-24: selection changes heading/help, scope, description label/placeholder, visible Send wording and example families. Precise opens manual part dimensions; concept hides precise controls. Payload workflow is enforced by existing backend routing. Separate per-workflow/per-design drafts and selection persist across refresh. Current accepted geometry/details remain available while switching; stale clarification from another workflow does not override the selected composer. Production build passed. Focused browser suite 3 passed in 9.5s; actual manual CAD and cross-design drafts 2 passed in 40.8s; final workflow/reload check 1 passed in 5.7s. Mobile concept screenshot visually inspected; no overflow. No Gemini API calls were made.
+
+Start over - 2026-10-24: added visible header action that saves the previous successful design and opens a fresh session. Confirms unbuilt/draft changes, supports cancel, resets workflow/model/conversation/selection/import/edit controls, and disables during generation. Production build passed. Browser test with actual CAD passed in 18.4s: dismissed confirmation preserves draft/model; confirmed reset clears preview/input/history/downloads, persists fresh session across reload, and old saved model/draft can be reopened. No Gemini requests or destructive artifact deletion.
+
+Persistent examples and button-only submission - 2026-10-24: examples/follow-up options remain visible with populated drafts and clarification. Clicking another option replaces the complete draft and does not submit. Removed Enter submission handler and Enter-send helper text; textarea Enter/Shift+Enter insert lines normally. Only the explicit Send control submits descriptions. Updated all conversation browser scenarios to use Send. Production build passed. Focused browser checks: 3 passed in 8.2s; assert replacement (not append), persistent choices, no request on Enter/example selection, Send-only description payloads and unchanged workflow-specific controls/draft recovery. No live Gemini calls.
+
+Readable workspace layout - 2026-10-24: widened editor, larger body/composer/conversation type, shorter copy and compact side-by-side workflow cards. Composer/Send and persistent example choices come before history. Current clarification appears above input; latest conversation turn stays visible below controls with earlier recent turns expandable. Replaced nested editor/conversation scrolling with ordinary page scrolling; desktop model panel is sticky, mobile stacks naturally. Production build passed. Focused layout/Send/workflow browser checks: 3 passed in 7.6s; initial desktop Send visibility, scroll behavior, history expansion and mobile overflow asserted. Actual robot selection/edit/export/restore/import scenario passed. Actual precise CAD workflow passed in 22.8s after replacing obsolete fixed-page-height assertions with the intended ordinary-scroll check. Desktop/mobile screenshots visually inspected. No Gemini API requests. Local readiness HTTP 200.
+
+Brainstorm and cleaner modeling improvements - 2026-10-24
+Renamed automatic workflow to Brainstorm and updated UI copy/test labels. Inspected the actual user jobs: home robot cleaner was incorrectly asked about leg count; the resulting custom scene had seven simple solids and lacked cleaning hardware. Added cleaner-first routing/clarification, explicit default-settings handling with common default-word typo tolerance and negation, and a create_cleaner tool for a deliberate low-profile robot-vacuum product layout. Preserved generic scenes, trained classifier and precise CAD.
+Default cleaner: 340 mm body diameter, 75 mm body height, 22 editable nodes / 21 separate CAD solids, two drive wheels, support ball, bumper, lid, lidar/sensor window, controls/indicator and brush. Colors/diameter/height/lidar/brush count configurable. Cleaner feature review prevents substituting a walking robot or omitting identifying features; explicitly not an aesthetic or cleaning-performance score. Full scene/STEP/STL/GLB backed by actual CAD. Saved sample: Refined home cleaner. Artifacts: examples/cleaner. Screenshots cleaner-refined.png and cleaner-top.png visually inspected.
+Improved preview presentation: curved tessellation edges suppressed with 30-degree outline threshold, actual-vertex camera fitting, soft contact shadows. Existing solid geometry stays authoritative.
+Verification: cleaner + existing scene tests 53 passed in 53.08s. Full offline backend regression 105 passed in 144.46s. Production TypeScript/Vite build passed (existing bundle advisory). Browser cleaner/Brainstorm/Send/workflow/layout checks: 4 passed in 20.1s. Additional actual articulated robot and precise CAD regressions: 2 passed in 1.0m. No console errors in the cleaner preview; component selection and all exports verified.
+Live Gemini: exactly ONE model request for Create a home robot cleaner with default settings. Dedicated cleaner generated successfully; actual geometry checks, identifying-feature checks and STEP/STL/GLB/scene JSON downloads passed. Report docs/live-cleaner-verification.json. No paid billing action or provider fallback. Broad aesthetic/product-design quality remains limited; unfamiliar product forms may need clarification/custom scenes. Suction, airflow, navigation, cleaning effectiveness, wheel clearance, strength and manufacturability are not validated.
+
+Understand/propose/confirm/build - 2026-10-24
+Cooking/kitchen/chef robot descriptions now receive combined purpose/form/task/size questions before interpretation, including when default settings are requested. Countertop, fixed/stationary arm, robotic arm and humanoid/mobile forms are accepted once specified. Generic walking-character creation is rejected for cooking intent, with bounded repair. Unspecified robots ask purpose/form rather than defaulting to leg counts.
+Every AI-produced concept creation/edit now persists a typed proposed_spec and readable brief in a clarification job; no CAD/artifact folder is created until approval. Build this concept or an unambiguous typed confirmation builds exactly that proposal without another Gemini call. Corrections produce another proposal. Same-session/latest-proposal/unchanged-active-version checks reject cross-session, superseded and stale approvals. Old accepted geometry remains available. Direct structured/manual/import builds stay explicit direct construction actions.
+Fixed restored-branch history filtering to retain new proposals/questions based on the restored active version, while excluding abandoned future branch changes. Approval freshness checks use the actual latest session request, independently of model-context filtering.
+Final full offline backend regression: 114 passed in 140.76s. Additional updated cooking-form/approval tests: 9 passed in 17.19s. Includes no model/CAD for ambiguous cooking requests, no CAD before approval, proposal persistence, typed yes, stale/cross-session/superseded rejection, corrections and walking-recipe rejection. Existing classifier/precise CAD, scene edits/restore, SDK serialization and quota/error checks preserved.
+Frontend production build passed. New browser understanding/review/refresh/explicit-build check passed (13.1s final targeted run); initial version passed in 16.0s. Uses real server cooking clarification, mocked interpretation clearly labeled browser fixture, and actual CAD only after confirmation. Additional existing robot/Send/workflow/layout browser checks: 4 passed in 44.4s. Visually inspected concept-confirmation.png. Neutral request progress copy replaces premature geometry-creation claims.
+No live Gemini calls were made for this iteration. No claim of live cooking-design quality or functional appliance validation. Live verification helper scripts now explicitly approve their known test proposals in isolated storage, retaining their model-call budgets. Server restarted with final changes and left running at http://127.0.0.1:8000/.
+
+Correction-aware requirements - 2026-10-24
+Added detected user-stated purpose/form/tasks/size in a separate requirements section of the proposal review, distinct from proposed scene geometry. Canonical task/form extraction honors common negation and only/just corrections. Clarification asks only unanswered cooking questions, and preserves measurements/tasks across dimension corrections. Explicit purpose replacement drops obsolete context and can propose a replacement recipe, while same-purpose dimension edits cannot replace an entire model. Approval remains required before any CAD.
+Blocked Build this concept while an unsent message is present; user must send or clear it. Existing pending proposal persistence and stale/foreign/superseded approval checks remain intact.
+Verification: full offline backend suite 129 passed in 163.70s. Follow-up requirements/approval tests including explicit default refusals and retaining measured sizes: 28 passed in 17.50s. Production TypeScript/Vite build passed; existing bundle advisory only. Four browser checks passed in 21.0s for requirements display, unsent-correction approval protection, review persistence, actual CAD after confirmation, Send/workflow/layout regression. Screenshot concept-confirmation.png visually inspected; fixture is explicitly labeled. No real Gemini API requests or quota use in this iteration.
+Default refusal checks cover Don't use default settings, No default dimensions, Without defaults, and Do not use any default settings. These targeted additions ran after the full-suite run; no full 133-test run is claimed.
+
+Guided clarification replies - 2026-10-24
+Added persisted clarification metadata with sent requirements, missing fields, a topic and optional reply text. Cooking requests offer form, tasks and size choices in missing-field order; supplied defaults are not reasked. Basic cleaner, robot-purpose/layout and table/stand dimension questions have applicable reply suggestions. Clicking replaces/focuses the draft and highlights the matching option; it never sends, approves, invokes Gemini or builds CAD. Send remains explicit and free typing stays available. Known answers and stage survive refresh.
+Refactored requirements rendering into a shared component so clarification and proposal review show the same fields. Existing approval, draft and geometry behavior preserved.
+Verification: targeted clarification/requirements/approval backend checks 32 passed in 25.20s. Full offline backend suite 137 passed in 151.19s. Production TypeScript/Vite build passed (existing bundle advisory). Four browser checks passed in 24.1s, covering real CPU-only cooking clarification choices, replacement/no-send clicks, Enter newline, persisted answers after refresh, review/approval, and Send/workflow regression. Final selected-state guided reply check passed in 8.2s; screenshot capture subsequently normalizes page scroll for a clean full-page artifact. No real Gemini requests or quota usage.
+Backend tests prove no model calls during missing-essential-field questions, one mocked interpretation only after all answers arrive, and no CAD until explicit approval. Guided screenshot: docs/screenshots/guided-clarification.png. No functional cooking-performance claim.
+
+2026-10-25 - Release hardening: recover planning and reject conflicting actions
+My designs now saves unanswered conversations and pending proposals before a successful model exists, plus unsent drafts retained in the same browser. Start over and switching designs keep planning work discoverable. Models and conversation persist in SQLite; browser drafts are localStorage, not part of portable JSON. Unbuilt manual geometry changes still require building.
+Job requests reject empty descriptions without an explicit action, conflicting specification/confirmation/length actions, and selection-only edits without a selected component. Rejection occurs before queueing, interpretation, or CAD; zero length delta remains an explicit action.
+Production TypeScript/Vite build passed, with the existing Three.js bundle size advisory. Full offline backend suite: 143 passed in 165.03s. Two extra conflict cases added afterward; final focused action suite: 8 passed in 7.45s. Python compileall backend/scripts passed. No live Gemini requests in this hardening pass. Local health reports Sketchless LIVE_AGENT and AI configured, without exposing credentials.
+Browser first attempt was interrupted by an intentional server restart. Next full run: 14 passed; one obsolete viewport assertion still assumed the old panel layout. Updated it to scroll the page to the build button before checking visibility, consistent with the whole-page scrolling requirement; final full rerun recorded below.
+Current user walkthrough: docs/try-sketchless.md. Human acceptance of an actual desired design remains necessary; automated geometry and workflow tests do not establish general prompt/design quality.
+Final complete browser rerun: 15 passed in 3.2 minutes. Includes actual CAD component selection/edits/exports/restore, cleaner features, explicit proposal approval, guided replies, planning/draft save-reset-reopen-reload, failed-build/preview recovery, precise parts, portable files, Send-only behavior and responsive layout. Machine-readable report: docs/browser-results.json. Server left running at http://127.0.0.1:8000/.
+
+2026-10-25 - General-purpose assessment, not a cooking-robot feature request
+User clarified that cooking robot was just an example for assessing website quality. Tested custom lamp/chair generation and color edit with Gemini. Six model calls total across the initial three-request execution probe, one-request stricter failure, and two-request final lamp check including repair. No further calls; no billing/provider changes. Actual intent mismatches and failures preserved in docs/live-variety-initial.json and docs/live-variety-dimension-failure.json. Final lamp check and exports: docs/live-variety-verification.json. See docs/quality-check.md for honest scope, tolerances and remaining limitations.
+Fixed repeated generic clarification for nonwalking robots with form/size already provided. Extracted analytic scene math to backend/scene_geometry.py (no CAD dependency) and preserved CAD builder imports. Proposal review displays analytic overall dimensions and flags separated component bounding boxes. Added narrow explicit overall-size checking with bounded tool repair feedback; no guessing component/relative dimensions. Placement instructions distinguish centers, top surfaces and overall extents.
+Verification: targeted backend suites 46, 70, 49 and final focused 14 checks passed at their respective stages. Production TypeScript/Vite build passed with existing bundle advisory. Final browser custom lamp/chair import-rebuild-preview checks passed; one proposal test initially selected two hint paragraphs after adding warnings, corrected the locator to identify the unsent-message hint specifically. Final confirmation/guided-reply/planning-recovery rerun: 3 passed in 21.6s. Screenshots in docs/screenshots/custom-lamp.png and custom-chair.png. No new model requests during browser checks.
+Final full offline backend regression: 162 passed in 182.03s. Local server left running with updated code at http://127.0.0.1:8000/. No user-specific design brief required for continuing general product work.
+
+2026-10-25 - Preview proposed shapes before building CAD
+Added an optional Preview proposed design dialog beside the concept proposal. It renders the validated SceneSpec primitives locally with Three.js, including parent transforms, colors and Rz*Ry*Rx rotations. Boxes/cylinders/cones are centered consistently with the CAD contract; curved preview surfaces are approximate tessellations. It is labeled as an unbuilt shape preview. It does not approve the proposal, build CAD, call AI, fetch artifacts, replace the accepted model, or enable proposal exports. Closing or Escape returns to review and preserves unsent corrections. CAD tessellation remains the authoritative accepted-model display after approval.
+The shared viewer retains its artifact path and adds an isolated local-geometry path with normal cleanup. New frontend modules: proposalGeometry.ts and ProposalPreview.tsx. Added a fixture with nested groups and rotated boxes/cylinder/cone/sphere; rendered bounds agree with backend analytic bounds within 0.5 mm. Mobile dialog has no horizontal overflow. Found and fixed a camera menu clipping/interaction issue by placing dialog camera controls at the viewport bottom. Updated the old mocked proposal fixture to include the schema defaults actually supplied by the backend.
+Production TypeScript/Vite build passed with the existing Three.js bundle advisory. Targeted transform/browser check passed in 4.8s; full browser regression follows. No backend implementation changes in this pass; no live Gemini requests or quota usage.
+Final full browser regression: 19 passed in 4.7 minutes. Includes nested-transform preview, mobile camera interaction, zero artifact/model requests for preview, closing with existing CAD preserved, explicit confirmation builds, custom lamp/chair imports, robot edits/restore, precise part exports, failure recovery, named designs/imports and responsive workspace. Machine-readable report: docs/browser-results.json. Server remains running at http://127.0.0.1:8000/.
+
+2026-10-25 - Correct the pending proposal without losing its design
+Found that post-proposal natural-language corrections used the last accepted scene (or no scene) rather than the proposed SceneSpec, allowing interpretation to recreate or lose unbuilt details. Backend now uses the latest same-base pending proposal as the edit baseline, marks the interpreter context as provisional, and records revises_proposal_id. Built models, files and active version pointers are untouched until explicit approval. Auto routing uses the pending concept for ordinary corrections even when the last accepted model is a precise part.
+Failed corrections on the same active base can be retried against the retained proposal; failures do not automatically invoke a model again. Confirmation still requires the latest proposal, with existing same-session, active-base and superseded-proposal checks. Explicit active-component selection and Precise workflow use the accepted model instead. A later non-proposal clarification or restored/built version prevents reuse of older proposals.
+Proposal review now shows What changed, reporting component additions/removals and changes to size, position, rotation, shape, color, name and parent group. Revisions remain persisted for reload and local saving.
+Focused initial backend checks: 12 passed in 24.70s. Production TypeScript/Vite build passed with existing bundle advisory. Six browser checks passed in 49.9s: corrected proposal summary/reload/preview/explicit build, preview transforms and accepted-model preservation, approval, guided replies and planning recovery. Browser mock interpretation does not contact Gemini; backend tests use actual SDK function-call parsing with mocked responses, preserve color across later size edits and build exactly the latest approved scene. Screenshot: docs/screenshots/revised-proposal.png. No live Gemini calls in this pass.
+Full offline backend regression at initial revision change: 165 passed in 167.63s. Final retry-retention and explicit-selection additions verified with focused proposal/confirmation/agent integration suite: 16 passed in 70.59s. Server restarted with final code and left running at http://127.0.0.1:8000/.
+
+2026-10-25 - Hosting constraint: no credit card, including verification. Oracle excluded. Rechecked Render official no-payment-method behavior, ephemeral storage, and free memory limits. Actual representative 23-solid robot CAD worker Windows peak working set: 405.2 MiB; CAD build succeeded in 5.2s. API/concurrent-worker/Linux memory excluded, so 512 MB cloud fit is unverified. No hosting account created, deployment, tunnel, billing change or Gemini request. See docs/free-hosting.md.
+
+2026-10-26 America/Phoenix - Standalone portfolio scope and frozen evaluation
+Replaced hackathon framing with standalone resume/portfolio scope. No sponsor/product-track/group-chat integrations added. Rewrote root README with reproducible Windows setup, precise capability limits, no fabricated deployment URL, API-key privacy, current proposal/edit/restore workflow and links to evidence. Setup preserves the supplied classifier instead of retraining it. Added docs/architecture.md distinguishing the trained TF-IDF/logistic classifier, handwritten routing, external Gemini interpretation and deterministic CadQuery/OpenCascade geometry.
+Created evaluation/modeling_v1.json and hash lock before execution: 2 development and 6 held-out scenario groups with fixed dimensions, component scope, follow-up preservation, exports, clarification and restoration predicates. Frozen modeling files/classifier remain unchanged. No tuning, regeneration of failed live answers, model training or threshold changes occurred. The suite is synthetic and project-authored, not an independent user benchmark. Existing diagnostic failures remain in docs/quality-check.md and prior JSON reports.
+Added scripts/evaluate_modeling.py with separate scripted/live modes, isolated data, explicit live Free Tier opt-in, model-request cap, paced starts, token/API/whole-step/CAD/restore timings, environment fingerprints, exact preservation predicates and quota/access stop latch. No paid fallback or SDK automatic quota retries. JSON reports are exclusive-created and summarized readably by scripts/summarize_evaluation.py. Reports contain no configured API key; local documentation links checked.
+Scripted development: 2/2 passed, 2 scripted SDK responses, 16.672s. Scripted held-out: 6/6 passed, 11 scripted SDK responses, 49.266s. These are wiring/geometry results, not language capability. Live held-out: 6/6 passed with 11 real Gemini Developer API requests, 0 failed/blocked/skipped, 203.937s including 20-second minimum start spacing. All 10 built models passed semantic predicates, geometry/export checks; five restorations returned exact original ID/spec/export without a provider call. API median 0.938s (range 0.781-2.110s); restore median 0.156s (max 0.344s). One sample/request; narrow supported-family/recipe coverage. No general aesthetic/mechanical accuracy claim. Raw immutable live report: evaluation/results/20261027T000614584983Z-live-heldout.json (UTC timestamp; run was on Oct 26 in Phoenix).
+Saved classifier independently re-evaluated without fitting: train72/validation18/test18 accuracy and macro F1 all1.0; source groups disjoint, threshold0.45. Explicitly documented the tiny synthetic distribution and lack of independent human validation.
+Validation: full backend suite 177 passed in136.61s; production TypeScript/Vite build passed (existing bundle advisory). Initial browser attempt found the local server stopped; restarted app and complete browser run passed20 in2.7min. After live evaluation a runner-only audit prevents accidental harness approval in clarification-only cases, tested with an extra regression: final evaluator tests11 passed in0.56s. The actual live clarification had no proposal, so that guard does not alter the recorded result; original evaluator hash is preserved.
+Made browser verification self-contained: scripts/e2e_server.py starts a separate offline loopback server/temporary data store on8001, overrides credentials with a dummy value and disables Gemini transport before importing the API. Playwright no longer depends on a manually started personal app or writes its fixture designs into personal app storage. Final isolated browser regression:20 passed in3.1min; no additional Gemini calls. The user app remains separate on8000. Added .gitattributes to preserve frozen input bytes across Git line-ending conversion.
+Public deployment remains pending Azure student access and the documented access-control/storage/quota/deployment work. No billing or cloud resources created.

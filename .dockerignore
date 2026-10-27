@@ -1,0 +1,31 @@
+# Deny everything, then include only build inputs. Local keys/data never enter the context.
+**
+!Dockerfile
+!requirements.txt
+!backend/
+!backend/*.py
+!ml/
+!ml/__init__.py
+!ml/model.py
+!ml/classifier.joblib
+!ml/config.json
+!ml/dataset.json
+!frontend/
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/index.html
+!frontend/tsconfig.json
+!frontend/vite.config.js
+!frontend/src/
+!frontend/src/**
+!frontend/public/
+!frontend/public/**
+!deploy/
+!deploy/start.py
+# Keep secret-like files excluded even inside otherwise allowed directories.
+.env
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+**/__pycache__/**

@@ -1,0 +1,629 @@
+{
+  "verification": "passed",
+  "model": "gemini-3.5-flash-lite",
+  "cases": [
+    {
+      "case": "lamp",
+      "prompt": "Create a minimal desk lamp: a round weighted base, vertical stem, angled arm and cone-shaped shade pointing down. About 400 mm tall. Use sensible default dimensions for the other parts; list your assumptions.",
+      "status": "succeeded",
+      "message": "Built the concept you explicitly confirmed.",
+      "spec": {
+        "part_type": "assembly",
+        "schema_version": 1,
+        "units": "mm",
+        "coordinates": "right-handed-z-up-xyz-degrees",
+        "name": "Minimal Desk Lamp",
+        "concept": "custom",
+        "assumptions": [
+          "Minimal desk lamp form with 400 mm approximate total height",
+          "Round weighted base: radius 70 mm, height 15 mm",
+          "Vertical stem: radius 8 mm, height 200 mm",
+          "Angled arm: radius 6 mm, length 150 mm angled at 45 degrees",
+          "Cone-shaped shade: top radius 10 mm, bottom radius 70 mm, height 90 mm pointing downwards",
+          "All dimensions in millimeters, right-handed Z-up coordinate system"
+        ],
+        "components": [
+          {
+            "id": "base",
+            "name": "Weighted Base",
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 15.0,
+              "radius_mm": 70.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              7.5
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#2c3e50",
+            "role": "base",
+            "symmetry_group": ""
+          },
+          {
+            "id": "stem",
+            "name": "Vertical Stem",
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 200.0,
+              "radius_mm": 8.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              115.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#bdc3c7",
+            "role": "stem",
+            "symmetry_group": ""
+          },
+          {
+            "id": "arm",
+            "name": "Angled Arm",
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 150.0,
+              "radius_mm": 6.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              45.0,
+              260.0
+            ],
+            "rotation_deg": [
+              45.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#bdc3c7",
+            "role": "arm",
+            "symmetry_group": ""
+          },
+          {
+            "id": "shade",
+            "name": "Cone Shade",
+            "primitive": "cone",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 90.0,
+              "radius_mm": 70.0,
+              "top_radius_mm": 10.0
+            },
+            "position_mm": [
+              0.0,
+              95.0,
+              300.0
+            ],
+            "rotation_deg": [
+              180.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#e74c3c",
+            "role": "shade",
+            "symmetry_group": ""
+          }
+        ]
+      },
+      "inspection": {
+        "workflow": "concept",
+        "checks": {
+          "components_valid": true,
+          "component_count_match": true,
+          "positive_volume": true,
+          "finite_transforms": true,
+          "referenced_ids_valid": true,
+          "part_step_nonempty": true,
+          "part_stl_nonempty": true,
+          "part_glb_nonempty": true,
+          "scene_json_nonempty": true
+        },
+        "solid_count": 4,
+        "component_count": 4,
+        "volume_mm3": 825296.3900980386,
+        "bounding_box_mm": [
+          141.15427792103475,
+          235.5066537184094,
+          345.6476244026254
+        ],
+        "tolerance_mm": 0.02,
+        "components": [
+          {
+            "id": "base",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -70.0,
+                -70.0,
+                0.0
+              ],
+              [
+                70.0,
+                70.0,
+                15.0
+              ]
+            ],
+            "volume_mm3": 230907.06003884974
+          },
+          {
+            "id": "stem",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -8.0,
+                -8.0,
+                15.0
+              ],
+              [
+                8.0,
+                8.0,
+                215.0
+              ]
+            ],
+            "volume_mm3": 40212.385965949354
+          },
+          {
+            "id": "arm",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -6.0,
+                -12.275649276110352,
+                202.72435072388964
+              ],
+              [
+                6.0,
+                102.27564927611036,
+                317.2756492761103
+              ]
+            ],
+            "volume_mm3": 16964.600329384884
+          },
+          {
+            "id": "shade",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -70.0,
+                25.0,
+                255.0
+              ],
+              [
+                70.0,
+                165.0,
+                345.0
+              ]
+            ],
+            "volume_mm3": 537212.3437638546
+          }
+        ],
+        "generation_seconds": 0.221,
+        "limitations": [
+          "Separate concept solids; intersections, balance, motion, strength and printability are not verified.",
+          "Summed component volume may double-count intersecting components."
+        ]
+      },
+      "exports_verified": [
+        "STEP",
+        "STL",
+        "GLB",
+        "scene JSON",
+        "portable design JSON"
+      ]
+    },
+    {
+      "case": "lamp color edit",
+      "status": "succeeded",
+      "message": "Built the concept you explicitly confirmed.",
+      "stable_geometry_preserved": true,
+      "changed_components": [
+        "shade"
+      ]
+    },
+    {
+      "case": "chair",
+      "prompt": "Create a simple dining chair, 450 mm wide, seat 450 mm above the floor and backrest reaching 850 mm. Include four separate legs, a seat and a backrest. Use sensible defaults for depth and thickness.",
+      "status": "succeeded",
+      "message": "Built the concept you explicitly confirmed.",
+      "spec": {
+        "part_type": "assembly",
+        "schema_version": 1,
+        "units": "mm",
+        "coordinates": "right-handed-z-up-xyz-degrees",
+        "name": "Dining Chair",
+        "concept": "custom",
+        "assumptions": [
+          "Dimensions: 450 mm width, 450 mm seat height, 850 mm total height.",
+          "Depth defaults to 450 mm for seat.",
+          "Legs are separate upright square posts (30x30 mm).",
+          "Seat thickness: 40 mm.",
+          "Backrest width matches chair width, height reaches 850 mm total, thickness 30 mm.",
+          "Units: mm, coordinate system: right-handed Z-up."
+        ],
+        "components": [
+          {
+            "id": "seat",
+            "name": "Seat",
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 450.0,
+              "y_mm": 450.0,
+              "z_mm": 40.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              450.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#8B5A2B",
+            "role": "furniture_part",
+            "symmetry_group": ""
+          },
+          {
+            "id": "backrest",
+            "name": "Backrest",
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 450.0,
+              "y_mm": 30.0,
+              "z_mm": 360.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              -210.0,
+              650.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#8B5A2B",
+            "role": "furniture_part",
+            "symmetry_group": ""
+          },
+          {
+            "id": "leg_fl",
+            "name": "Front Left Leg",
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 30.0,
+              "y_mm": 30.0,
+              "z_mm": 450.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              200.0,
+              200.0,
+              225.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#5C4033",
+            "role": "furniture_part",
+            "symmetry_group": ""
+          },
+          {
+            "id": "leg_fr",
+            "name": "Front Right Leg",
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 30.0,
+              "y_mm": 30.0,
+              "z_mm": 450.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              -200.0,
+              200.0,
+              225.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#5C4033",
+            "role": "furniture_part",
+            "symmetry_group": ""
+          },
+          {
+            "id": "leg_bl",
+            "name": "Back Left Leg",
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 30.0,
+              "y_mm": 30.0,
+              "z_mm": 450.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              200.0,
+              -200.0,
+              225.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#5C4033",
+            "role": "furniture_part",
+            "symmetry_group": ""
+          },
+          {
+            "id": "leg_br",
+            "name": "Back Right Leg",
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 30.0,
+              "y_mm": 30.0,
+              "z_mm": 450.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              -200.0,
+              -200.0,
+              225.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "parent_id": null,
+            "color": "#5C4033",
+            "role": "furniture_part",
+            "symmetry_group": ""
+          }
+        ]
+      },
+      "inspection": {
+        "workflow": "concept",
+        "checks": {
+          "components_valid": true,
+          "component_count_match": true,
+          "positive_volume": true,
+          "finite_transforms": true,
+          "referenced_ids_valid": true,
+          "part_step_nonempty": true,
+          "part_stl_nonempty": true,
+          "part_glb_nonempty": true,
+          "scene_json_nonempty": true
+        },
+        "solid_count": 6,
+        "component_count": 6,
+        "volume_mm3": 14580000.0,
+        "bounding_box_mm": [
+          450.0000002,
+          450.0000002,
+          830.0000001999999
+        ],
+        "tolerance_mm": 0.02,
+        "components": [
+          {
+            "id": "seat",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -225.0,
+                -225.0,
+                430.0
+              ],
+              [
+                225.0,
+                225.0,
+                470.0
+              ]
+            ],
+            "volume_mm3": 8100000.0
+          },
+          {
+            "id": "backrest",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -225.0,
+                -225.0,
+                470.0
+              ],
+              [
+                225.0,
+                -195.0,
+                830.0
+              ]
+            ],
+            "volume_mm3": 4860000.0
+          },
+          {
+            "id": "leg_fl",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                185.0,
+                185.0,
+                0.0
+              ],
+              [
+                215.0,
+                215.0,
+                450.0
+              ]
+            ],
+            "volume_mm3": 405000.0
+          },
+          {
+            "id": "leg_fr",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -215.0,
+                185.0,
+                0.0
+              ],
+              [
+                -185.0,
+                215.0,
+                450.0
+              ]
+            ],
+            "volume_mm3": 405000.0
+          },
+          {
+            "id": "leg_bl",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                185.0,
+                -215.0,
+                0.0
+              ],
+              [
+                215.0,
+                -185.0,
+                450.0
+              ]
+            ],
+            "volume_mm3": 405000.0
+          },
+          {
+            "id": "leg_br",
+            "checks": {
+              "valid_shape": true,
+              "one_component_solid": true,
+              "positive_volume": true,
+              "volume_match": true,
+              "transformed_bounds_match": true
+            },
+            "bounds_mm": [
+              [
+                -215.0,
+                -215.0,
+                0.0
+              ],
+              [
+                -185.0,
+                -185.0,
+                450.0
+              ]
+            ],
+            "volume_mm3": 405000.0
+          }
+        ],
+        "generation_seconds": 0.279,
+        "limitations": [
+          "Separate concept solids; intersections, balance, motion, strength and printability are not verified.",
+          "Summed component volume may double-count intersecting components."
+        ]
+      },
+      "exports_verified": [
+        "STEP",
+        "STL",
+        "GLB",
+        "scene JSON",
+        "portable design JSON"
+      ]
+    }
+  ],
+  "scope": "Small live smoke test, not a general design-quality benchmark. Explicit approvals below are test-harness actions only.",
+  "model_requests": 3
+}

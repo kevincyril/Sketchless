@@ -1,0 +1,29 @@
+{
+  "checks": {
+    "valid_shape": true,
+    "one_solid": true,
+    "positive_volume": true,
+    "outer_dimensions_match": true,
+    "bracket_volume_match": true,
+    "through_holes_clear": true,
+    "hole_diameters_match": true,
+    "expected_hole_surfaces": true,
+    "step_nonempty": true,
+    "stl_nonempty": true
+  },
+  "volume_mm3": 12604.380550980757,
+  "bounding_box_mm": [
+    60.0,
+    40.0,
+    50.0
+  ],
+  "tolerance_mm": 0.01,
+  "generation_seconds": 0.364,
+  "holes": {
+    "per_face": 2,
+    "total": 4,
+    "diameter_mm": 5.0,
+    "placement": "Evenly spaced across width; centered on each exposed arm.",
+    "minimum_edge_margin_mm": 1.5
+  }
+}

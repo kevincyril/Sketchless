@@ -1,0 +1,23 @@
+﻿import {test,expect} from '@playwright/test';
+import {readFile} from 'node:fs/promises';
+test('refined cleaner is recognizable, editable and exported from actual CAD',async({page,request})=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
+ const spec=JSON.parse(await readFile('../examples/cleaner/spec.json','utf8'));
+ const sid=(await (await request.post('/api/sessions')).json()).session_id;
+ const submitted=await request.post('/api/jobs',{data:{session_id:sid,spec}});expect(submitted.status()).toBe(202);const id=(await submitted.json()).id;
+ await expect.poll(async()=>(await (await request.get('/api/jobs/'+id)).json()).status,{timeout:80000}).toBe('succeeded');
+ const job=await (await request.get('/api/jobs/'+id)).json();expect(job.inspection.solid_count).toBe(21);expect(Object.values(job.inspection.design_review.checks).every(Boolean)).toBe(true);
+ await request.post('/api/sessions/'+sid+'/name',{data:{name:'Refined home cleaner'}});
+ await page.addInitScript(id=>localStorage.setItem('sketchless-session',id),sid);await page.goto('/');
+ await expect(page.getByRole('radio',{name:'Brainstorm',exact:true})).toBeChecked();
+ await expect(page.locator('.viewport')).toHaveAttribute('data-preview-state','ready');
+ await expect(page.locator('.component-tree [data-component-id]')).toHaveCount(22);
+ await page.getByRole('button',{name:'Fit model',exact:true}).click();
+ await page.screenshot({path:'../docs/screenshots/cleaner-refined.png',fullPage:true});
+ await page.locator('[data-component-id="power"]').click();await expect(page.locator('.component-details')).toContainText('Power button');await expect(page.locator('.viewport')).toHaveAttribute('data-selected-component','power');
+ await page.getByRole('button',{name:'Whole model',exact:true}).click();
+ await page.getByText('More views',{exact:true}).click();await page.getByRole('button',{name:'Top',exact:true}).click();await page.getByText('More views',{exact:true}).click();
+ await page.screenshot({path:'../docs/screenshots/cleaner-top.png',fullPage:true});
+ for(const ext of ['step','stl','glb','scene'])expect((await request.get('/api/artifacts/'+id+'/'+ext)).status()).toBe(200);
+ expect(errors).toEqual([]);
+});

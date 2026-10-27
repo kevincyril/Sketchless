@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-24",
+  "provider": "Gemini Developer API",
+  "model": "gemini-3.5-flash-lite",
+  "verification": "passed",
+  "project_tier": "Free Tier, no billing linked (user confirmed)",
+  "prompts": [
+    "Make an open-top electronics enclosure 100 mm long, 60 mm wide, and 35 mm high, with 3 mm walls and a 3 mm base.",
+    "Make it 20 mm longer. Keep every other dimension unchanged."
+  ],
+  "initial_spec": {
+    "part_type": "enclosure",
+    "length_mm": 100,
+    "width_mm": 60,
+    "height_mm": 35,
+    "wall_thickness_mm": 3,
+    "base_thickness_mm": 3,
+    "open_top": true
+  },
+  "edited_spec": {
+    "part_type": "enclosure",
+    "length_mm": 120,
+    "width_mm": 60,
+    "height_mm": 35,
+    "wall_thickness_mm": 3,
+    "base_thickness_mm": 3,
+    "open_top": true
+  },
+  "initial_volume_mm3": 47568,
+  "edited_volume_mm3": 55008.00000000004,
+  "all_geometry_checks_passed": true,
+  "step_and_stl_downloads_verified": true,
+  "classifier_used": true,
+  "storage": "isolated temporary directory, cleaned up after verification",
+  "billing_actions_performed": false,
+  "fallback_used": false
+}

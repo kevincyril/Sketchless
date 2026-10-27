@@ -1,0 +1,9 @@
+# The frozen evaluator fingerprints exact bytes. Preserve its inputs across Git checkouts.
+backend/*.py -text
+ml/*.py -text
+ml/classifier.joblib binary
+ml/config.json -text
+ml/dataset.json -text
+requirements.txt -text
+evaluation/modeling_v1.json -text
+evaluation/modeling_v1.lock.json -text

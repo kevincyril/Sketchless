@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "frozen_date": "2026-10-26",
+  "dataset_sha256": "f7df80cf5344492fe741497ca923f0407ee5673bfefa3d7c83e97928501b4f21",
+  "implementation_sha256": {
+    "backend/agent.py": "789779083770727e4e7a025bca0df462617fc827a157b0806cf33614e0eef408",
+    "backend/app.py": "5aceb41efa08ad37d8b2d13ca7e1c889d849e1846c473243c15e90d149daa38c",
+    "backend/concepts.py": "374f16e65cfa833755f7bf0f00b0bdd41448a8175f8f3a09a9df25b84c5b1836",
+    "backend/scene_cad.py": "c968208bb12f1dab7dfbda3dc2b8d549ca048ad7b979ad67785f302bbadf5cc5",
+    "backend/scene_geometry.py": "15fba37408753c229d551593860327f1758c8d64e9db432895c7f9fffced7eb1",
+    "backend/scene_review.py": "a88d2a19ad0a85d031012fbc35caa37507dbe94157d96415ab2cb2cf8021a64e",
+    "backend/routing.py": "d5f28eb4a8e5d4c8a890d9b28488c850294917a216085b4cfd6c753c17ccd31a",
+    "backend/requirements.py": "9391610e15a21a2f1f59deb1e796475d5ee1dfa91df9a002785b400e39275284",
+    "backend/scene_schema.py": "80b25d6cbff7c2410f2ab575343d0c69d0798a96f15dacf7a48cffb8463b35e0",
+    "backend/schemas.py": "0278d2e10dc37cdff2f32b6bc6dd600335de459805b9d2120688b1e32618ac2b",
+    "backend/cad.py": "f511986745ad467333e540ded11a6a911ff0859b580c0ec316d6c80b06156817",
+    "ml/classifier.joblib": "db6070b71ee0dc0839b32f75cfec6086d094099936f146a2874fb5d4da7035a2",
+    "ml/config.json": "6282820770305b449160d32edf78381f9569ce2fb901b095e7f9c13e918c8546",
+    "ml/dataset.json": "2f24f0c9b7e9b4e2c76bee31d0d1089b5874b6a3480714db1a306d2da8120c45",
+    "ml/model.py": "c1dda2167973f91fc5409208dbca1937c6bbe4b9ae5e17ae3053d79fd6b15d00",
+    "requirements.txt": "32b3d226c6a91dd19520b218a5065d3bd605e9364448a3c008ab324c9d4ea07a"
+  },
+  "policy": "Do not modify this dataset or the frozen modeling implementation to improve this held-out score. Preserve failures. Any later development using these cases must label them development/regression data and use a new untouched suite for fresh held-out claims."
+}

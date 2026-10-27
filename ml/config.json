@@ -1,0 +1,40 @@
+{
+  "threshold": 0.45,
+  "validation_candidates": [
+    {
+      "threshold": 0.4,
+      "coverage": 1.0,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "threshold": 0.45,
+      "coverage": 1.0,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "threshold": 0.5,
+      "coverage": 0.7777777777777778,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "threshold": 0.55,
+      "coverage": 0.5555555555555556,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "threshold": 0.6,
+      "coverage": 0.5,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "threshold": 0.65,
+      "coverage": 0.5,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "threshold": 0.7,
+      "coverage": 0.5,
+      "accepted_accuracy": 1.0
+    }
+  ]
+}

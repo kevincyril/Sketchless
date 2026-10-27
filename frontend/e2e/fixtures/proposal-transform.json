@@ -1,0 +1,174 @@
+{
+  "spec": {
+    "part_type": "assembly",
+    "schema_version": 1,
+    "units": "mm",
+    "coordinates": "right-handed-z-up-xyz-degrees",
+    "name": "Transform preview fixture",
+    "concept": "custom",
+    "assumptions": [],
+    "components": [
+      {
+        "id": "parent",
+        "name": "Parent",
+        "primitive": "group",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          50.0,
+          20.0,
+          80.0
+        ],
+        "rotation_deg": [
+          20.0,
+          35.0,
+          40.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": ""
+      },
+      {
+        "id": "child",
+        "name": "Nested group",
+        "primitive": "group",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          30.0,
+          -20.0,
+          40.0
+        ],
+        "rotation_deg": [
+          -15.0,
+          25.0,
+          -30.0
+        ],
+        "parent_id": "parent",
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": ""
+      },
+      {
+        "id": "box",
+        "name": "Rotated box",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 120.0,
+          "y_mm": 70.0,
+          "z_mm": 40.0,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          10.0,
+          20.0,
+          30.0
+        ],
+        "rotation_deg": [
+          15.0,
+          30.0,
+          50.0
+        ],
+        "parent_id": "child",
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": ""
+      },
+      {
+        "id": "cylinder",
+        "name": "Cylinder",
+        "primitive": "cylinder",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": 110.0,
+          "radius_mm": 20.0,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          90.0,
+          0.0,
+          20.0
+        ],
+        "rotation_deg": [
+          90.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": "parent",
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": ""
+      },
+      {
+        "id": "cone",
+        "name": "Cone",
+        "primitive": "cone",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": 80.0,
+          "radius_mm": 35.0,
+          "top_radius_mm": 10.0
+        },
+        "position_mm": [
+          -60.0,
+          0.0,
+          50.0
+        ],
+        "rotation_deg": [
+          20.0,
+          40.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": ""
+      },
+      {
+        "id": "sphere",
+        "name": "Sphere",
+        "primitive": "sphere",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": null,
+          "radius_mm": 30.0,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          0.0,
+          80.0,
+          0.0
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": "child",
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": ""
+      }
+    ]
+  },
+  "bounds": [
+    290.53,
+    150.42,
+    162.48
+  ]
+}

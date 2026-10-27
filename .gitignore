@@ -1,0 +1,23 @@
+.venv/
+.bootstrap/
+.python/
+.uv-cache/
+node_modules/
+frontend/dist/
+__pycache__/
+.pytest_cache/
+data/
+.env
+*.pyc
+
+frontend/test-results/
+frontend/playwright-report/
+
+# Keep local credentials and private key material out of public source control.
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.log

@@ -1,0 +1,92 @@
+{
+  "part_type": "assembly",
+  "schema_version": 1,
+  "units": "mm",
+  "coordinates": "right-handed-z-up-xyz-degrees",
+  "name": "Stand concept",
+  "concept": "stand",
+  "assumptions": [
+    "Concept geometry only; joints are visual, not mechanical.",
+    "Millimeters; +Z up; front is -Y; positions are local to parent groups."
+  ],
+  "components": [
+    {
+      "id": "base",
+      "name": "Stand base",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 12.0,
+        "radius_mm": 60.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        6.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#6d907b",
+      "role": "base",
+      "symmetry_group": ""
+    },
+    {
+      "id": "post",
+      "name": "Stand post",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 160.0,
+        "radius_mm": 6.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        92.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#d4aa69",
+      "role": "post",
+      "symmetry_group": ""
+    },
+    {
+      "id": "platform",
+      "name": "Stand platform",
+      "primitive": "box",
+      "dimensions": {
+        "x_mm": 96.0,
+        "y_mm": 100.0,
+        "z_mm": 12.0,
+        "radius_mm": null,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        178.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#6d907b",
+      "role": "platform",
+      "symmetry_group": ""
+    }
+  ]
+}

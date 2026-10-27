@@ -1,0 +1,2602 @@
+{
+  "run_id": "20261027T000014751018Z",
+  "mode": "offline",
+  "split": "heldout",
+  "model": "gemini-3.5-flash-lite",
+  "provider": "Scripted SDK responses; no provider calls",
+  "fixture_sha256": "f7df80cf5344492fe741497ca923f0407ee5673bfefa3d7c83e97928501b4f21",
+  "frozen_implementation_matches": true,
+  "implementation_sha256": {
+    "backend/agent.py": "789779083770727e4e7a025bca0df462617fc827a157b0806cf33614e0eef408",
+    "backend/app.py": "5aceb41efa08ad37d8b2d13ca7e1c889d849e1846c473243c15e90d149daa38c",
+    "backend/concepts.py": "374f16e65cfa833755f7bf0f00b0bdd41448a8175f8f3a09a9df25b84c5b1836",
+    "backend/scene_cad.py": "c968208bb12f1dab7dfbda3dc2b8d549ca048ad7b979ad67785f302bbadf5cc5",
+    "backend/scene_geometry.py": "15fba37408753c229d551593860327f1758c8d64e9db432895c7f9fffced7eb1",
+    "backend/scene_review.py": "a88d2a19ad0a85d031012fbc35caa37507dbe94157d96415ab2cb2cf8021a64e",
+    "backend/routing.py": "d5f28eb4a8e5d4c8a890d9b28488c850294917a216085b4cfd6c753c17ccd31a",
+    "backend/requirements.py": "9391610e15a21a2f1f59deb1e796475d5ee1dfa91df9a002785b400e39275284",
+    "backend/scene_schema.py": "80b25d6cbff7c2410f2ab575343d0c69d0798a96f15dacf7a48cffb8463b35e0",
+    "backend/schemas.py": "0278d2e10dc37cdff2f32b6bc6dd600335de459805b9d2120688b1e32618ac2b",
+    "backend/cad.py": "f511986745ad467333e540ded11a6a911ff0859b580c0ec316d6c80b06156817",
+    "ml/classifier.joblib": "db6070b71ee0dc0839b32f75cfec6086d094099936f146a2874fb5d4da7035a2",
+    "ml/config.json": "6282820770305b449160d32edf78381f9569ce2fb901b095e7f9c13e918c8546",
+    "ml/dataset.json": "2f24f0c9b7e9b4e2c76bee31d0d1089b5874b6a3480714db1a306d2da8120c45",
+    "ml/model.py": "c1dda2167973f91fc5409208dbca1937c6bbe4b9ae5e17ae3053d79fd6b15d00",
+    "requirements.txt": "32b3d226c6a91dd19520b218a5065d3bd605e9364448a3c008ab324c9d4ea07a"
+  },
+  "environment": {
+    "python": "3.12.15",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "packages": {
+      "google-genai": "2.33.0",
+      "cadquery": "2.8.0",
+      "numpy": "2.5.4",
+      "scikit-learn": "1.9.1",
+      "fastapi": "0.162.0"
+    }
+  },
+  "provenance": "Project-authored synthetic scenarios. Held-out wording/parameters were frozen before execution, but authors know the implementation and supported recipes; not independently authored human data. No classifier retraining or prompt tuning on these held-out results.",
+  "limitations": [
+    "Small project-authored synthetic suite, not independent human evaluation.",
+    "One model sample per request, with production bounded repairs; results can vary on repeated live runs.",
+    "Semantic predicates cover stated parameters/selection preservation, not arbitrary design intent, appearance, mechanical function or printability.",
+    "Concept approvals are explicit test-harness actions; the application requires user approval.",
+    "Offline passes establish wiring/scoring/geometry only, not language-model capability.",
+    "No prompt or classifier tuning is permitted against this frozen held-out score."
+  ],
+  "cases": [
+    {
+      "id": "heldout-sensor-case",
+      "kind": "precise",
+      "status": "passed",
+      "steps": [
+        {
+          "stage": "initial",
+          "prompt": "Design an open-top enclosure for a sensor: length 84 mm, width 56 mm, height 32 mm. Both wall and base thickness are 2 mm.",
+          "interpretation_seconds": 5.5,
+          "elapsed_seconds": 5.5,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Specification validated. Shown dimensions and family-specific thickness/hole settings will be used.",
+          "geometry_checks": {
+            "valid_shape": true,
+            "one_solid": true,
+            "positive_volume": true,
+            "outer_dimensions_match": true,
+            "cavity_volume_match": true,
+            "step_nonempty": true,
+            "stl_nonempty": true
+          },
+          "cad_generation_seconds": 0.091,
+          "exports": {
+            "step": true,
+            "stl": true
+          },
+          "spec": {
+            "part_type": "enclosure",
+            "length_mm": 84.0,
+            "width_mm": 56.0,
+            "height_mm": 32.0,
+            "wall_thickness_mm": 2.0,
+            "base_thickness_mm": 2.0,
+            "open_top": true
+          },
+          "bounds_mm": [
+            84.0,
+            56.0,
+            32.0
+          ],
+          "intent_checks": {
+            "requested_spec": true
+          }
+        },
+        {
+          "stage": "edit",
+          "prompt": "Increase the enclosure length by 12 mm. Leave the width, height and thicknesses unchanged.",
+          "interpretation_seconds": 3.984,
+          "elapsed_seconds": 3.984,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Specification validated. Shown dimensions and family-specific thickness/hole settings will be used.",
+          "geometry_checks": {
+            "valid_shape": true,
+            "one_solid": true,
+            "positive_volume": true,
+            "outer_dimensions_match": true,
+            "cavity_volume_match": true,
+            "step_nonempty": true,
+            "stl_nonempty": true
+          },
+          "cad_generation_seconds": 0.053,
+          "exports": {
+            "step": true,
+            "stl": true
+          },
+          "spec": {
+            "part_type": "enclosure",
+            "length_mm": 96.0,
+            "width_mm": 56.0,
+            "height_mm": 32.0,
+            "wall_thickness_mm": 2.0,
+            "base_thickness_mm": 2.0,
+            "open_top": true
+          },
+          "bounds_mm": [
+            96.0,
+            56.0,
+            32.0
+          ],
+          "intent_checks": {
+            "exact_edit_and_preservation": true
+          }
+        },
+        {
+          "stage": "restore",
+          "elapsed_seconds": 0.14,
+          "model_requests": 0,
+          "job_status": "restored",
+          "intent_checks": {
+            "restored_original_id": true,
+            "restored_exact_spec": true,
+            "no_model_call": true,
+            "original_export_available": true
+          }
+        }
+      ],
+      "not_run_stages": []
+    },
+    {
+      "id": "heldout-organizer",
+      "kind": "precise",
+      "status": "passed",
+      "steps": [
+        {
+          "stage": "initial",
+          "prompt": "I need a shallow rectangular tray for small parts: 132 mm long, 88 mm wide and 18 mm high. Use 2 mm walls, a 3 mm base and an open top.",
+          "interpretation_seconds": 4.187,
+          "elapsed_seconds": 4.187,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Specification validated. Shown dimensions and family-specific thickness/hole settings will be used.",
+          "geometry_checks": {
+            "valid_shape": true,
+            "one_solid": true,
+            "positive_volume": true,
+            "outer_dimensions_match": true,
+            "cavity_volume_match": true,
+            "step_nonempty": true,
+            "stl_nonempty": true
+          },
+          "cad_generation_seconds": 0.057,
+          "exports": {
+            "step": true,
+            "stl": true
+          },
+          "spec": {
+            "part_type": "tray",
+            "length_mm": 132.0,
+            "width_mm": 88.0,
+            "height_mm": 18.0,
+            "wall_thickness_mm": 2.0,
+            "base_thickness_mm": 3.0,
+            "open_top": true
+          },
+          "bounds_mm": [
+            132.0,
+            88.0,
+            18.0
+          ],
+          "intent_checks": {
+            "requested_spec": true
+          }
+        },
+        {
+          "stage": "edit",
+          "prompt": "Add 12 mm to the tray width without changing any other parameter.",
+          "interpretation_seconds": 4.234,
+          "elapsed_seconds": 4.234,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Specification validated. Shown dimensions and family-specific thickness/hole settings will be used.",
+          "geometry_checks": {
+            "valid_shape": true,
+            "one_solid": true,
+            "positive_volume": true,
+            "outer_dimensions_match": true,
+            "cavity_volume_match": true,
+            "step_nonempty": true,
+            "stl_nonempty": true
+          },
+          "cad_generation_seconds": 0.058,
+          "exports": {
+            "step": true,
+            "stl": true
+          },
+          "spec": {
+            "part_type": "tray",
+            "length_mm": 132.0,
+            "width_mm": 100.0,
+            "height_mm": 18.0,
+            "wall_thickness_mm": 2.0,
+            "base_thickness_mm": 3.0,
+            "open_top": true
+          },
+          "bounds_mm": [
+            132.0,
+            100.0,
+            18.0
+          ],
+          "intent_checks": {
+            "exact_edit_and_preservation": true
+          }
+        },
+        {
+          "stage": "restore",
+          "elapsed_seconds": 0.078,
+          "model_requests": 0,
+          "job_status": "restored",
+          "intent_checks": {
+            "restored_original_id": true,
+            "restored_exact_spec": true,
+            "no_model_call": true,
+            "original_export_available": true
+          }
+        }
+      ],
+      "not_run_stages": []
+    },
+    {
+      "id": "heldout-angle-mount",
+      "kind": "precise",
+      "status": "passed",
+      "steps": [
+        {
+          "stage": "initial",
+          "prompt": "Create an L-shaped mounting bracket. The foot reaches 72 mm, width is 48 mm, upright height is 60 mm and both plates are 4 mm thick. Put one 6 mm through hole on each face using the standard placement.",
+          "interpretation_seconds": 4.406,
+          "elapsed_seconds": 4.406,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Specification validated. Shown dimensions and family-specific thickness/hole settings will be used.",
+          "geometry_checks": {
+            "valid_shape": true,
+            "one_solid": true,
+            "positive_volume": true,
+            "outer_dimensions_match": true,
+            "bracket_volume_match": true,
+            "through_holes_clear": true,
+            "hole_diameters_match": true,
+            "expected_hole_surfaces": true,
+            "step_nonempty": true,
+            "stl_nonempty": true
+          },
+          "cad_generation_seconds": 0.203,
+          "exports": {
+            "step": true,
+            "stl": true
+          },
+          "spec": {
+            "part_type": "bracket",
+            "length_mm": 72.0,
+            "width_mm": 48.0,
+            "height_mm": 60.0,
+            "thickness_mm": 4.0,
+            "hole_diameter_mm": 6.0,
+            "holes_per_face": 1
+          },
+          "bounds_mm": [
+            72.0,
+            48.0,
+            60.0
+          ],
+          "intent_checks": {
+            "requested_spec": true
+          }
+        },
+        {
+          "stage": "edit",
+          "prompt": "Extend the bracket foot reach by 8 mm; keep the upright, plate thickness and holes the same.",
+          "interpretation_seconds": 4.187,
+          "elapsed_seconds": 4.187,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Specification validated. Shown dimensions and family-specific thickness/hole settings will be used.",
+          "geometry_checks": {
+            "valid_shape": true,
+            "one_solid": true,
+            "positive_volume": true,
+            "outer_dimensions_match": true,
+            "bracket_volume_match": true,
+            "through_holes_clear": true,
+            "hole_diameters_match": true,
+            "expected_hole_surfaces": true,
+            "step_nonempty": true,
+            "stl_nonempty": true
+          },
+          "cad_generation_seconds": 0.101,
+          "exports": {
+            "step": true,
+            "stl": true
+          },
+          "spec": {
+            "part_type": "bracket",
+            "length_mm": 80.0,
+            "width_mm": 48.0,
+            "height_mm": 60.0,
+            "thickness_mm": 4.0,
+            "hole_diameter_mm": 6.0,
+            "holes_per_face": 1
+          },
+          "bounds_mm": [
+            80.0,
+            48.0,
+            60.0
+          ],
+          "intent_checks": {
+            "exact_edit_and_preservation": true
+          }
+        },
+        {
+          "stage": "restore",
+          "elapsed_seconds": 0.14,
+          "model_requests": 0,
+          "job_status": "restored",
+          "intent_checks": {
+            "restored_original_id": true,
+            "restored_exact_spec": true,
+            "no_model_call": true,
+            "original_export_available": true
+          }
+        }
+      ],
+      "not_run_stages": []
+    },
+    {
+      "id": "heldout-display-table",
+      "kind": "concept",
+      "status": "passed",
+      "steps": [
+        {
+          "stage": "initial",
+          "prompt": "Create a display table concept with a 280 mm by 180 mm tabletop that is 16 mm thick. Include four cylindrical legs, each 220 mm tall. Use sensible defaults for leg diameter and colors.",
+          "interpretation_seconds": 0.172,
+          "approval_gate_verified": true,
+          "proposal_has_no_cad": true,
+          "approval_and_build_seconds": 4.125,
+          "elapsed_seconds": 4.313,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Built the concept you explicitly confirmed.",
+          "geometry_checks": {
+            "components_valid": true,
+            "component_count_match": true,
+            "positive_volume": true,
+            "finite_transforms": true,
+            "referenced_ids_valid": true,
+            "part_step_nonempty": true,
+            "part_stl_nonempty": true,
+            "part_glb_nonempty": true,
+            "scene_json_nonempty": true
+          },
+          "cad_generation_seconds": 0.153,
+          "exports": {
+            "step": true,
+            "stl": true,
+            "glb": true,
+            "scene": true
+          },
+          "spec": {
+            "part_type": "assembly",
+            "schema_version": 1,
+            "units": "mm",
+            "coordinates": "right-handed-z-up-xyz-degrees",
+            "name": "Table concept",
+            "concept": "table",
+            "assumptions": [
+              "Concept geometry only; joints are visual, not mechanical.",
+              "Millimeters; +Z up; front is -Y; positions are local to parent groups."
+            ],
+            "components": [
+              {
+                "id": "top",
+                "name": "Tabletop",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 280.0,
+                  "y_mm": 180.0,
+                  "z_mm": 16.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  228.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "top",
+                "symmetry_group": ""
+              },
+              {
+                "id": "leg_left_front",
+                "name": "Table leg",
+                "primitive": "cylinder",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": 220.0,
+                  "radius_mm": 7.2,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -112.0,
+                  -72.0,
+                  110.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#a78256",
+                "role": "leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "leg_right_front",
+                "name": "Table leg",
+                "primitive": "cylinder",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": 220.0,
+                  "radius_mm": 7.2,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  112.0,
+                  -72.0,
+                  110.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#a78256",
+                "role": "leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "leg_left_rear",
+                "name": "Table leg",
+                "primitive": "cylinder",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": 220.0,
+                  "radius_mm": 7.2,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -112.0,
+                  72.0,
+                  110.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#a78256",
+                "role": "leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "leg_right_rear",
+                "name": "Table leg",
+                "primitive": "cylinder",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": 220.0,
+                  "radius_mm": 7.2,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  112.0,
+                  72.0,
+                  110.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#a78256",
+                "role": "leg",
+                "symmetry_group": "legs"
+              }
+            ]
+          },
+          "bounds_mm": [
+            280.0000002,
+            180.00000020000002,
+            236.00725012090254
+          ],
+          "intent_checks": {
+            "concept_matches": true,
+            "one_primary_component": true,
+            "primary_x_mm": true,
+            "primary_y_mm": true,
+            "primary_z_mm": true,
+            "count_leg": true,
+            "dimensions_leg": true
+          }
+        },
+        {
+          "stage": "edit",
+          "prompt": "For the selected tabletop only, increase its X dimension by 40 mm. Leave all legs and all other fields unchanged.",
+          "interpretation_seconds": 0.141,
+          "approval_gate_verified": true,
+          "proposal_has_no_cad": true,
+          "approval_and_build_seconds": 4.047,
+          "elapsed_seconds": 4.204,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Built the concept you explicitly confirmed.",
+          "geometry_checks": {
+            "components_valid": true,
+            "component_count_match": true,
+            "positive_volume": true,
+            "finite_transforms": true,
+            "referenced_ids_valid": true,
+            "part_step_nonempty": true,
+            "part_stl_nonempty": true,
+            "part_glb_nonempty": true,
+            "scene_json_nonempty": true
+          },
+          "cad_generation_seconds": 0.115,
+          "exports": {
+            "step": true,
+            "stl": true,
+            "glb": true,
+            "scene": true
+          },
+          "spec": {
+            "part_type": "assembly",
+            "schema_version": 1,
+            "units": "mm",
+            "coordinates": "right-handed-z-up-xyz-degrees",
+            "name": "Table concept",
+            "concept": "table",
+            "assumptions": [
+              "Concept geometry only; joints are visual, not mechanical.",
+              "Millimeters; +Z up; front is -Y; positions are local to parent groups."
+            ],
+            "components": [
+              {
+                "id": "top",
+                "name": "Tabletop",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 320.0,
+                  "y_mm": 180.0,
+                  "z_mm": 16.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  228.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "top",
+                "symmetry_group": ""
+              },
+              {
+                "id": "leg_left_front",
+                "name": "Table leg",
+                "primitive": "cylinder",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": 220.0,
+                  "radius_mm": 7.2,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -112.0,
+                  -72.0,
+                  110.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#a78256",
+                "role": "leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "leg_right_front",
+                "name": "Table leg",
+                "primitive": "cylinder",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": 220.0,
+                  "radius_mm": 7.2,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  112.0,
+                  -72.0,
+                  110.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#a78256",
+                "role": "leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "leg_left_rear",
+                "name": "Table leg",
+                "primitive": "cylinder",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": 220.0,
+                  "radius_mm": 7.2,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -112.0,
+                  72.0,
+                  110.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#a78256",
+                "role": "leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "leg_right_rear",
+                "name": "Table leg",
+                "primitive": "cylinder",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": 220.0,
+                  "radius_mm": 7.2,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  112.0,
+                  72.0,
+                  110.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#a78256",
+                "role": "leg",
+                "symmetry_group": "legs"
+              }
+            ]
+          },
+          "bounds_mm": [
+            320.0000002,
+            180.00000020000002,
+            236.00725012090254
+          ],
+          "intent_checks": {
+            "stable_component_ids": true,
+            "outside_selection_preserved": true,
+            "selected_component_exact_edit": true,
+            "scene_metadata_preserved": true
+          }
+        },
+        {
+          "stage": "restore",
+          "elapsed_seconds": 0.14,
+          "model_requests": 0,
+          "job_status": "restored",
+          "intent_checks": {
+            "restored_original_id": true,
+            "restored_exact_spec": true,
+            "no_model_call": true,
+            "original_export_available": true
+          }
+        }
+      ],
+      "not_run_stages": []
+    },
+    {
+      "id": "heldout-survey-character",
+      "kind": "concept",
+      "status": "passed",
+      "steps": [
+        {
+          "stage": "initial",
+          "prompt": "Build a walking toy robot concept: a 180 mm cube body, four straight legs 140 mm tall, and two camera eyes. Use sensible defaults for the remaining visual details.",
+          "interpretation_seconds": 0.172,
+          "approval_gate_verified": true,
+          "proposal_has_no_cad": true,
+          "approval_and_build_seconds": 4.875,
+          "elapsed_seconds": 5.063,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Built the concept you explicitly confirmed.",
+          "geometry_checks": {
+            "components_valid": true,
+            "component_count_match": true,
+            "positive_volume": true,
+            "finite_transforms": true,
+            "referenced_ids_valid": true,
+            "part_step_nonempty": true,
+            "part_stl_nonempty": true,
+            "part_glb_nonempty": true,
+            "scene_json_nonempty": true
+          },
+          "cad_generation_seconds": 0.952,
+          "exports": {
+            "step": true,
+            "stl": true,
+            "glb": true,
+            "scene": true
+          },
+          "spec": {
+            "part_type": "assembly",
+            "schema_version": 1,
+            "units": "mm",
+            "coordinates": "right-handed-z-up-xyz-degrees",
+            "name": "Robot concept",
+            "concept": "robot",
+            "assumptions": [
+              "Concept geometry only; joints are visual, not mechanical.",
+              "Millimeters; +Z up; front is -Y; positions are local to parent groups."
+            ],
+            "components": [
+              {
+                "id": "body",
+                "name": "Robot body",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 180.0,
+                  "y_mm": 180.0,
+                  "z_mm": 180.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  236.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#67908a",
+                "role": "body",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg",
+                "name": "Front left leg",
+                "primitive": "group",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -79.2,
+                  -68.4,
+                  146.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "front_left_leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "front_left_leg.hip",
+                "name": "Hip joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 12.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#d4aa69",
+                "role": "hip",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg.upper",
+                "name": "Upper leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 18.0,
+                  "y_mm": 22.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -35.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#6d907b",
+                "role": "upper_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg.knee",
+                "name": "Knee joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 13.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -70.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#d4aa69",
+                "role": "knee",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg.lower",
+                "name": "Lower leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 16.0,
+                  "y_mm": 20.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -105.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#6d907b",
+                "role": "lower_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg.foot",
+                "name": "Foot",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 40.0,
+                  "y_mm": 36.0,
+                  "z_mm": 12.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -140.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#3d535d",
+                "role": "foot",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg",
+                "name": "Front right leg",
+                "primitive": "group",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  79.2,
+                  -68.4,
+                  146.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "front_right_leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "front_right_leg.hip",
+                "name": "Hip joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 12.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#d4aa69",
+                "role": "hip",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg.upper",
+                "name": "Upper leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 18.0,
+                  "y_mm": 22.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -35.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#6d907b",
+                "role": "upper_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg.knee",
+                "name": "Knee joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 13.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -70.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#d4aa69",
+                "role": "knee",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg.lower",
+                "name": "Lower leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 16.0,
+                  "y_mm": 20.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -105.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#6d907b",
+                "role": "lower_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg.foot",
+                "name": "Foot",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 40.0,
+                  "y_mm": 36.0,
+                  "z_mm": 12.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -140.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#3d535d",
+                "role": "foot",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg",
+                "name": "Rear left leg",
+                "primitive": "group",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -79.2,
+                  68.4,
+                  146.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "rear_left_leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "rear_left_leg.hip",
+                "name": "Hip joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 12.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#d4aa69",
+                "role": "hip",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg.upper",
+                "name": "Upper leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 18.0,
+                  "y_mm": 22.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -35.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#6d907b",
+                "role": "upper_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg.knee",
+                "name": "Knee joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 13.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -70.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#d4aa69",
+                "role": "knee",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg.lower",
+                "name": "Lower leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 16.0,
+                  "y_mm": 20.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -105.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#6d907b",
+                "role": "lower_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg.foot",
+                "name": "Foot",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 40.0,
+                  "y_mm": 36.0,
+                  "z_mm": 12.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -140.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#3d535d",
+                "role": "foot",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg",
+                "name": "Rear right leg",
+                "primitive": "group",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  79.2,
+                  68.4,
+                  146.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "rear_right_leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "rear_right_leg.hip",
+                "name": "Hip joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 12.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#d4aa69",
+                "role": "hip",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg.upper",
+                "name": "Upper leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 18.0,
+                  "y_mm": 22.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -35.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#6d907b",
+                "role": "upper_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg.knee",
+                "name": "Knee joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 13.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -70.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#d4aa69",
+                "role": "knee",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg.lower",
+                "name": "Lower leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 16.0,
+                  "y_mm": 20.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -105.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#6d907b",
+                "role": "lower_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg.foot",
+                "name": "Foot",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 40.0,
+                  "y_mm": 36.0,
+                  "z_mm": 12.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -140.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#3d535d",
+                "role": "foot",
+                "symmetry_group": ""
+              },
+              {
+                "id": "eye_1",
+                "name": "Camera eye 1",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 18.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -43.199999999999996,
+                  -98.0,
+                  268.4
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#243b4c",
+                "role": "eye",
+                "symmetry_group": "eyes"
+              },
+              {
+                "id": "eye_2",
+                "name": "Camera eye 2",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 18.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  43.199999999999996,
+                  -98.0,
+                  268.4
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#243b4c",
+                "role": "eye",
+                "symmetry_group": "eyes"
+              }
+            ]
+          },
+          "bounds_mm": [
+            198.40000020000005,
+            206.1173912490592,
+            326.00000020000004
+          ],
+          "intent_checks": {
+            "concept_matches": true,
+            "one_primary_component": true,
+            "primary_x_mm": true,
+            "primary_y_mm": true,
+            "primary_z_mm": true,
+            "count_eye": true,
+            "count_foot": true,
+            "dimensions_upper_leg": true,
+            "dimensions_lower_leg": true,
+            "groups_legs": true
+          }
+        },
+        {
+          "stage": "edit",
+          "prompt": "Change only the selected body color to #c43d32. Preserve every component ID, dimension, position and other color.",
+          "interpretation_seconds": 0.141,
+          "approval_gate_verified": true,
+          "proposal_has_no_cad": true,
+          "approval_and_build_seconds": 4.906,
+          "elapsed_seconds": 5.062,
+          "model_requests": 1,
+          "job_status": "succeeded",
+          "message": "Built the concept you explicitly confirmed.",
+          "geometry_checks": {
+            "components_valid": true,
+            "component_count_match": true,
+            "positive_volume": true,
+            "finite_transforms": true,
+            "referenced_ids_valid": true,
+            "part_step_nonempty": true,
+            "part_stl_nonempty": true,
+            "part_glb_nonempty": true,
+            "scene_json_nonempty": true
+          },
+          "cad_generation_seconds": 0.897,
+          "exports": {
+            "step": true,
+            "stl": true,
+            "glb": true,
+            "scene": true
+          },
+          "spec": {
+            "part_type": "assembly",
+            "schema_version": 1,
+            "units": "mm",
+            "coordinates": "right-handed-z-up-xyz-degrees",
+            "name": "Robot concept",
+            "concept": "robot",
+            "assumptions": [
+              "Concept geometry only; joints are visual, not mechanical.",
+              "Millimeters; +Z up; front is -Y; positions are local to parent groups."
+            ],
+            "components": [
+              {
+                "id": "body",
+                "name": "Robot body",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 180.0,
+                  "y_mm": 180.0,
+                  "z_mm": 180.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  236.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#c43d32",
+                "role": "body",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg",
+                "name": "Front left leg",
+                "primitive": "group",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -79.2,
+                  -68.4,
+                  146.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "front_left_leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "front_left_leg.hip",
+                "name": "Hip joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 12.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#d4aa69",
+                "role": "hip",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg.upper",
+                "name": "Upper leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 18.0,
+                  "y_mm": 22.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -35.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#6d907b",
+                "role": "upper_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg.knee",
+                "name": "Knee joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 13.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -70.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#d4aa69",
+                "role": "knee",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg.lower",
+                "name": "Lower leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 16.0,
+                  "y_mm": 20.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -105.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#6d907b",
+                "role": "lower_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_left_leg.foot",
+                "name": "Foot",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 40.0,
+                  "y_mm": 36.0,
+                  "z_mm": 12.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -140.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_left_leg",
+                "color": "#3d535d",
+                "role": "foot",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg",
+                "name": "Front right leg",
+                "primitive": "group",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  79.2,
+                  -68.4,
+                  146.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "front_right_leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "front_right_leg.hip",
+                "name": "Hip joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 12.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#d4aa69",
+                "role": "hip",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg.upper",
+                "name": "Upper leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 18.0,
+                  "y_mm": 22.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -35.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#6d907b",
+                "role": "upper_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg.knee",
+                "name": "Knee joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 13.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -70.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#d4aa69",
+                "role": "knee",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg.lower",
+                "name": "Lower leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 16.0,
+                  "y_mm": 20.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -105.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#6d907b",
+                "role": "lower_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "front_right_leg.foot",
+                "name": "Foot",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 40.0,
+                  "y_mm": 36.0,
+                  "z_mm": 12.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -140.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "front_right_leg",
+                "color": "#3d535d",
+                "role": "foot",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg",
+                "name": "Rear left leg",
+                "primitive": "group",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -79.2,
+                  68.4,
+                  146.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "rear_left_leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "rear_left_leg.hip",
+                "name": "Hip joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 12.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#d4aa69",
+                "role": "hip",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg.upper",
+                "name": "Upper leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 18.0,
+                  "y_mm": 22.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -35.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#6d907b",
+                "role": "upper_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg.knee",
+                "name": "Knee joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 13.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -70.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#d4aa69",
+                "role": "knee",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg.lower",
+                "name": "Lower leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 16.0,
+                  "y_mm": 20.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -105.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#6d907b",
+                "role": "lower_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_left_leg.foot",
+                "name": "Foot",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 40.0,
+                  "y_mm": 36.0,
+                  "z_mm": 12.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -0.0,
+                  0.0,
+                  -140.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_left_leg",
+                "color": "#3d535d",
+                "role": "foot",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg",
+                "name": "Rear right leg",
+                "primitive": "group",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  79.2,
+                  68.4,
+                  146.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#6d907b",
+                "role": "rear_right_leg",
+                "symmetry_group": "legs"
+              },
+              {
+                "id": "rear_right_leg.hip",
+                "name": "Hip joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 12.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#d4aa69",
+                "role": "hip",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg.upper",
+                "name": "Upper leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 18.0,
+                  "y_mm": 22.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -35.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#6d907b",
+                "role": "upper_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg.knee",
+                "name": "Knee joint",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 13.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -70.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#d4aa69",
+                "role": "knee",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg.lower",
+                "name": "Lower leg",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 16.0,
+                  "y_mm": 20.0,
+                  "z_mm": 70.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -105.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#6d907b",
+                "role": "lower_leg",
+                "symmetry_group": ""
+              },
+              {
+                "id": "rear_right_leg.foot",
+                "name": "Foot",
+                "primitive": "box",
+                "dimensions": {
+                  "x_mm": 40.0,
+                  "y_mm": 36.0,
+                  "z_mm": 12.0,
+                  "radius_mm": null,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  0.0,
+                  0.0,
+                  -140.0
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": "rear_right_leg",
+                "color": "#3d535d",
+                "role": "foot",
+                "symmetry_group": ""
+              },
+              {
+                "id": "eye_1",
+                "name": "Camera eye 1",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 18.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  -43.199999999999996,
+                  -98.0,
+                  268.4
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#243b4c",
+                "role": "eye",
+                "symmetry_group": "eyes"
+              },
+              {
+                "id": "eye_2",
+                "name": "Camera eye 2",
+                "primitive": "sphere",
+                "dimensions": {
+                  "x_mm": null,
+                  "y_mm": null,
+                  "z_mm": null,
+                  "radius_mm": 18.0,
+                  "top_radius_mm": null
+                },
+                "position_mm": [
+                  43.199999999999996,
+                  -98.0,
+                  268.4
+                ],
+                "rotation_deg": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "parent_id": null,
+                "color": "#243b4c",
+                "role": "eye",
+                "symmetry_group": "eyes"
+              }
+            ]
+          },
+          "bounds_mm": [
+            198.40000020000005,
+            206.1173912490592,
+            326.00000020000004
+          ],
+          "intent_checks": {
+            "stable_component_ids": true,
+            "outside_selection_preserved": true,
+            "selected_component_exact_edit": true,
+            "scene_metadata_preserved": true
+          }
+        },
+        {
+          "stage": "restore",
+          "elapsed_seconds": 0.141,
+          "model_requests": 0,
+          "job_status": "restored",
+          "intent_checks": {
+            "restored_original_id": true,
+            "restored_exact_spec": true,
+            "no_model_call": true,
+            "original_export_available": true
+          }
+        }
+      ],
+      "not_run_stages": []
+    },
+    {
+      "id": "heldout-missing-size",
+      "kind": "clarification",
+      "status": "passed",
+      "steps": [
+        {
+          "stage": "initial",
+          "prompt": "Make an electronics enclosure for a circuit board. I have not decided its length, width or height; ask me before choosing dimensions.",
+          "interpretation_seconds": 0.156,
+          "elapsed_seconds": 0.156,
+          "model_requests": 1,
+          "job_status": "clarification",
+          "message": "What length, width and height would you like?",
+          "intent_checks": {
+            "clarifies": true,
+            "no_spec": true,
+            "message_nonempty": true,
+            "no_accepted_model": true
+          }
+        }
+      ],
+      "not_run_stages": []
+    }
+  ],
+  "classifier": {
+    "dataset_sha256": "2f24f0c9b7e9b4e2c76bee31d0d1089b5874b6a3480714db1a306d2da8120c45",
+    "model_sha256": "db6070b71ee0dc0839b32f75cfec6086d094099936f146a2874fb5d4da7035a2",
+    "threshold": 0.45,
+    "group_disjoint": true,
+    "splits": {
+      "train": {
+        "count": 72,
+        "accuracy": 1.0,
+        "macro_f1": 1.0,
+        "per_class": {
+          "enclosure": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 24.0
+          },
+          "bracket": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 24.0
+          },
+          "tray": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 24.0
+          },
+          "accuracy": 1.0,
+          "macro avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 72.0
+          },
+          "weighted avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 72.0
+          }
+        },
+        "label_order": [
+          "enclosure",
+          "bracket",
+          "tray"
+        ],
+        "confusion_matrix": [
+          [
+            24,
+            0,
+            0
+          ],
+          [
+            0,
+            24,
+            0
+          ],
+          [
+            0,
+            0,
+            24
+          ]
+        ]
+      },
+      "validation": {
+        "count": 18,
+        "accuracy": 1.0,
+        "macro_f1": 1.0,
+        "per_class": {
+          "enclosure": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 6.0
+          },
+          "bracket": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 6.0
+          },
+          "tray": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 6.0
+          },
+          "accuracy": 1.0,
+          "macro avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 18.0
+          },
+          "weighted avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 18.0
+          }
+        },
+        "label_order": [
+          "enclosure",
+          "bracket",
+          "tray"
+        ],
+        "confusion_matrix": [
+          [
+            6,
+            0,
+            0
+          ],
+          [
+            0,
+            6,
+            0
+          ],
+          [
+            0,
+            0,
+            6
+          ]
+        ]
+      },
+      "test": {
+        "count": 18,
+        "accuracy": 1.0,
+        "macro_f1": 1.0,
+        "per_class": {
+          "enclosure": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 6.0
+          },
+          "bracket": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 6.0
+          },
+          "tray": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 6.0
+          },
+          "accuracy": 1.0,
+          "macro avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 18.0
+          },
+          "weighted avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 18.0
+          }
+        },
+        "label_order": [
+          "enclosure",
+          "bracket",
+          "tray"
+        ],
+        "confusion_matrix": [
+          [
+            6,
+            0,
+            0
+          ],
+          [
+            0,
+            6,
+            0
+          ],
+          [
+            0,
+            0,
+            6
+          ]
+        ]
+      }
+    },
+    "labels": [
+      "enclosure",
+      "bracket",
+      "tray"
+    ],
+    "limitations": "108 project-authored synthetic samples from 36 seed groups; not independently collected human data. Perfect synthetic scores do not measure 3D quality, Gemini performance or real-world accuracy. This run evaluates the saved model without fitting or changing its threshold."
+  },
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "blocked": 0,
+    "not_run": 0,
+    "total_scenarios": 6,
+    "attempted_scenarios": 6,
+    "pass_fraction_all_scenarios": 1.0,
+    "step_latency_seconds": {
+      "count": 16,
+      "median": 4.187,
+      "max": 5.5
+    },
+    "note": "Pass fraction includes unavailable/skipped cases in its denominator. A blocked evaluation is not evidence of model failure or model success."
+  },
+  "model_requests": [
+    {
+      "case": "heldout-sensor-case",
+      "stage": "initial",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.016
+    },
+    {
+      "case": "heldout-sensor-case",
+      "stage": "edit",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    },
+    {
+      "case": "heldout-organizer",
+      "stage": "initial",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    },
+    {
+      "case": "heldout-organizer",
+      "stage": "edit",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    },
+    {
+      "case": "heldout-angle-mount",
+      "stage": "initial",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    },
+    {
+      "case": "heldout-angle-mount",
+      "stage": "edit",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    },
+    {
+      "case": "heldout-display-table",
+      "stage": "initial",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    },
+    {
+      "case": "heldout-display-table",
+      "stage": "edit",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    },
+    {
+      "case": "heldout-survey-character",
+      "stage": "initial",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    },
+    {
+      "case": "heldout-survey-character",
+      "stage": "edit",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    },
+    {
+      "case": "heldout-missing-size",
+      "stage": "initial",
+      "model": "gemini-3.5-flash-lite",
+      "status": "response",
+      "latency_seconds": 0.0
+    }
+  ],
+  "stop_reason": null,
+  "total_elapsed_seconds": 49.266,
+  "min_model_call_interval_seconds": 0
+}

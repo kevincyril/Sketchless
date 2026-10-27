@@ -1,0 +1,758 @@
+[
+  {
+    "text": "electronics enclosure for a sensor",
+    "label": "enclosure",
+    "group": "enclosure-0",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make electronics enclosure for a sensor",
+    "label": "enclosure",
+    "group": "enclosure-0",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need electronics enclosure for a sensor in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-0",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "protective box around a circuit board",
+    "label": "enclosure",
+    "group": "enclosure-1",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make protective box around a circuit board",
+    "label": "enclosure",
+    "group": "enclosure-1",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need protective box around a circuit board in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-1",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "open top housing for a controller",
+    "label": "enclosure",
+    "group": "enclosure-2",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make open top housing for a controller",
+    "label": "enclosure",
+    "group": "enclosure-2",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need open top housing for a controller in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-2",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "rectangular case for an Arduino",
+    "label": "enclosure",
+    "group": "enclosure-3",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make rectangular case for an Arduino",
+    "label": "enclosure",
+    "group": "enclosure-3",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need rectangular case for an Arduino in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-3",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "project enclosure with thick walls",
+    "label": "enclosure",
+    "group": "enclosure-4",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make project enclosure with thick walls",
+    "label": "enclosure",
+    "group": "enclosure-4",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need project enclosure with thick walls in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-4",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "hollow box to protect electronics",
+    "label": "enclosure",
+    "group": "enclosure-5",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make hollow box to protect electronics",
+    "label": "enclosure",
+    "group": "enclosure-5",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need hollow box to protect electronics in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-5",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "instrument housing with a solid base",
+    "label": "enclosure",
+    "group": "enclosure-6",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make instrument housing with a solid base",
+    "label": "enclosure",
+    "group": "enclosure-6",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need instrument housing with a solid base in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-6",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "PCB case without a lid",
+    "label": "enclosure",
+    "group": "enclosure-7",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make PCB case without a lid",
+    "label": "enclosure",
+    "group": "enclosure-7",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need PCB case without a lid in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-7",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "protective shell for a battery",
+    "label": "enclosure",
+    "group": "enclosure-8",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make protective shell for a battery",
+    "label": "enclosure",
+    "group": "enclosure-8",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need protective shell for a battery in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-8",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "electronics box with an open top",
+    "label": "enclosure",
+    "group": "enclosure-9",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make electronics box with an open top",
+    "label": "enclosure",
+    "group": "enclosure-9",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need electronics box with an open top in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-9",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "controller enclosure 100 mm long",
+    "label": "enclosure",
+    "group": "enclosure-10",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make controller enclosure 100 mm long",
+    "label": "enclosure",
+    "group": "enclosure-10",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need controller enclosure 100 mm long in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-10",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "a housing to surround a small device",
+    "label": "enclosure",
+    "group": "enclosure-11",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make a housing to surround a small device",
+    "label": "enclosure",
+    "group": "enclosure-11",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need a housing to surround a small device in millimeters",
+    "label": "enclosure",
+    "group": "enclosure-11",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "L shaped mounting bracket with holes",
+    "label": "bracket",
+    "group": "bracket-0",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make L shaped mounting bracket with holes",
+    "label": "bracket",
+    "group": "bracket-0",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need L shaped mounting bracket with holes in millimeters",
+    "label": "bracket",
+    "group": "bracket-0",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "right angle support for a shelf",
+    "label": "bracket",
+    "group": "bracket-1",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make right angle support for a shelf",
+    "label": "bracket",
+    "group": "bracket-1",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need right angle support for a shelf in millimeters",
+    "label": "bracket",
+    "group": "bracket-1",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "perpendicular mounting plate",
+    "label": "bracket",
+    "group": "bracket-2",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make perpendicular mounting plate",
+    "label": "bracket",
+    "group": "bracket-2",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need perpendicular mounting plate in millimeters",
+    "label": "bracket",
+    "group": "bracket-2",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "angle bracket to fasten a motor",
+    "label": "bracket",
+    "group": "bracket-3",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make angle bracket to fasten a motor",
+    "label": "bracket",
+    "group": "bracket-3",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need angle bracket to fasten a motor in millimeters",
+    "label": "bracket",
+    "group": "bracket-3",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "corner support with screw holes",
+    "label": "bracket",
+    "group": "bracket-4",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make corner support with screw holes",
+    "label": "bracket",
+    "group": "bracket-4",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need corner support with screw holes in millimeters",
+    "label": "bracket",
+    "group": "bracket-4",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "L mount for a sensor",
+    "label": "bracket",
+    "group": "bracket-5",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make L mount for a sensor",
+    "label": "bracket",
+    "group": "bracket-5",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need L mount for a sensor in millimeters",
+    "label": "bracket",
+    "group": "bracket-5",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "bent mounting bracket for a wall",
+    "label": "bracket",
+    "group": "bracket-6",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make bent mounting bracket for a wall",
+    "label": "bracket",
+    "group": "bracket-6",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need bent mounting bracket for a wall in millimeters",
+    "label": "bracket",
+    "group": "bracket-6",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "ninety degree structural support",
+    "label": "bracket",
+    "group": "bracket-7",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make ninety degree structural support",
+    "label": "bracket",
+    "group": "bracket-7",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need ninety degree structural support in millimeters",
+    "label": "bracket",
+    "group": "bracket-7",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "two perpendicular plates with bolts",
+    "label": "bracket",
+    "group": "bracket-8",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make two perpendicular plates with bolts",
+    "label": "bracket",
+    "group": "bracket-8",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need two perpendicular plates with bolts in millimeters",
+    "label": "bracket",
+    "group": "bracket-8",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "mounting angle with drilled holes",
+    "label": "bracket",
+    "group": "bracket-9",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make mounting angle with drilled holes",
+    "label": "bracket",
+    "group": "bracket-9",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need mounting angle with drilled holes in millimeters",
+    "label": "bracket",
+    "group": "bracket-9",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "L shaped bracket 60 mm wide",
+    "label": "bracket",
+    "group": "bracket-10",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make L shaped bracket 60 mm wide",
+    "label": "bracket",
+    "group": "bracket-10",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need L shaped bracket 60 mm wide in millimeters",
+    "label": "bracket",
+    "group": "bracket-10",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "right angle fastener support",
+    "label": "bracket",
+    "group": "bracket-11",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make right angle fastener support",
+    "label": "bracket",
+    "group": "bracket-11",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need right angle fastener support in millimeters",
+    "label": "bracket",
+    "group": "bracket-11",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "shallow rectangular tray for screws",
+    "label": "tray",
+    "group": "tray-0",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make shallow rectangular tray for screws",
+    "label": "tray",
+    "group": "tray-0",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need shallow rectangular tray for screws in millimeters",
+    "label": "tray",
+    "group": "tray-0",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "organizer dish for small parts",
+    "label": "tray",
+    "group": "tray-1",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make organizer dish for small parts",
+    "label": "tray",
+    "group": "tray-1",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need organizer dish for small parts in millimeters",
+    "label": "tray",
+    "group": "tray-1",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "low sided tray for tools",
+    "label": "tray",
+    "group": "tray-2",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make low sided tray for tools",
+    "label": "tray",
+    "group": "tray-2",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need low sided tray for tools in millimeters",
+    "label": "tray",
+    "group": "tray-2",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "flat sorting pan with a rim",
+    "label": "tray",
+    "group": "tray-3",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make flat sorting pan with a rim",
+    "label": "tray",
+    "group": "tray-3",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need flat sorting pan with a rim in millimeters",
+    "label": "tray",
+    "group": "tray-3",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "catch tray under a machine",
+    "label": "tray",
+    "group": "tray-4",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make catch tray under a machine",
+    "label": "tray",
+    "group": "tray-4",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need catch tray under a machine in millimeters",
+    "label": "tray",
+    "group": "tray-4",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "shallow parts holder",
+    "label": "tray",
+    "group": "tray-5",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make shallow parts holder",
+    "label": "tray",
+    "group": "tray-5",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need shallow parts holder in millimeters",
+    "label": "tray",
+    "group": "tray-5",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "rectangular serving tray",
+    "label": "tray",
+    "group": "tray-6",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make rectangular serving tray",
+    "label": "tray",
+    "group": "tray-6",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need rectangular serving tray in millimeters",
+    "label": "tray",
+    "group": "tray-6",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "low wall sorting dish",
+    "label": "tray",
+    "group": "tray-7",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make low wall sorting dish",
+    "label": "tray",
+    "group": "tray-7",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need low wall sorting dish in millimeters",
+    "label": "tray",
+    "group": "tray-7",
+    "split": "train",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "workbench collection pan",
+    "label": "tray",
+    "group": "tray-8",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make workbench collection pan",
+    "label": "tray",
+    "group": "tray-8",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need workbench collection pan in millimeters",
+    "label": "tray",
+    "group": "tray-8",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "small hardware sorting tray",
+    "label": "tray",
+    "group": "tray-9",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make small hardware sorting tray",
+    "label": "tray",
+    "group": "tray-9",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need small hardware sorting tray in millimeters",
+    "label": "tray",
+    "group": "tray-9",
+    "split": "validation",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "shallow tray 100 mm long",
+    "label": "tray",
+    "group": "tray-10",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make shallow tray 100 mm long",
+    "label": "tray",
+    "group": "tray-10",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need shallow tray 100 mm long in millimeters",
+    "label": "tray",
+    "group": "tray-10",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "flat dish with raised edges",
+    "label": "tray",
+    "group": "tray-11",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "Please make flat dish with raised edges",
+    "label": "tray",
+    "group": "tray-11",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  },
+  {
+    "text": "I need flat dish with raised edges in millimeters",
+    "label": "tray",
+    "group": "tray-11",
+    "split": "test",
+    "provenance": "synthetic starter; authored seed and mechanical variants"
+  }
+]

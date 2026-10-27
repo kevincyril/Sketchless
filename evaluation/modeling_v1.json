@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "created_date": "2026-10-26",
+  "provenance": "Project-authored synthetic scenarios. Held-out wording/parameters were frozen before execution, but authors know the implementation and supported recipes; not independently authored human data. No classifier retraining or prompt tuning on these held-out results.",
+  "approval_policy": "The evaluation harness explicitly approves concept proposals solely to exercise CAD. The product still requires user approval.",
+  "cases": [
+    {
+      "id": "dev-enclosure",
+      "split": "development",
+      "group": "dev-enclosure",
+      "workflow": "precise",
+      "kind": "precise",
+      "prompt": "Make an open-top electronics enclosure 100 mm long, 60 mm wide and 35 mm high, with 3 mm walls and base.",
+      "expected": {
+        "spec": {
+          "part_type": "enclosure",
+          "length_mm": 100,
+          "width_mm": 60,
+          "height_mm": 35,
+          "wall_thickness_mm": 3,
+          "base_thickness_mm": 3,
+          "open_top": true
+        }
+      },
+      "edit": {
+        "prompt": "Make it 20 mm longer; preserve all other measurements.",
+        "field": "length_mm",
+        "delta_mm": 20
+      },
+      "restore": true
+    },
+    {
+      "id": "dev-purpose-question",
+      "split": "development",
+      "group": "dev-purpose-question",
+      "workflow": "concept",
+      "kind": "clarification",
+      "prompt": "Create a cooking robot with default settings.",
+      "expected": {
+        "status": "clarification",
+        "required_words": [
+          "countertop",
+          "stir"
+        ]
+      }
+    },
+    {
+      "id": "heldout-sensor-case",
+      "split": "heldout",
+      "group": "heldout-sensor-case",
+      "workflow": "precise",
+      "kind": "precise",
+      "prompt": "Design an open-top enclosure for a sensor: length 84 mm, width 56 mm, height 32 mm. Both wall and base thickness are 2 mm.",
+      "expected": {
+        "spec": {
+          "part_type": "enclosure",
+          "length_mm": 84,
+          "width_mm": 56,
+          "height_mm": 32,
+          "wall_thickness_mm": 2,
+          "base_thickness_mm": 2,
+          "open_top": true
+        }
+      },
+      "edit": {
+        "prompt": "Increase the enclosure length by 12 mm. Leave the width, height and thicknesses unchanged.",
+        "field": "length_mm",
+        "delta_mm": 12
+      },
+      "restore": true
+    },
+    {
+      "id": "heldout-organizer",
+      "split": "heldout",
+      "group": "heldout-organizer",
+      "workflow": "precise",
+      "kind": "precise",
+      "prompt": "I need a shallow rectangular tray for small parts: 132 mm long, 88 mm wide and 18 mm high. Use 2 mm walls, a 3 mm base and an open top.",
+      "expected": {
+        "spec": {
+          "part_type": "tray",
+          "length_mm": 132,
+          "width_mm": 88,
+          "height_mm": 18,
+          "wall_thickness_mm": 2,
+          "base_thickness_mm": 3,
+          "open_top": true
+        }
+      },
+      "edit": {
+        "prompt": "Add 12 mm to the tray width without changing any other parameter.",
+        "field": "width_mm",
+        "delta_mm": 12
+      },
+      "restore": true
+    },
+    {
+      "id": "heldout-angle-mount",
+      "split": "heldout",
+      "group": "heldout-angle-mount",
+      "workflow": "precise",
+      "kind": "precise",
+      "prompt": "Create an L-shaped mounting bracket. The foot reaches 72 mm, width is 48 mm, upright height is 60 mm and both plates are 4 mm thick. Put one 6 mm through hole on each face using the standard placement.",
+      "expected": {
+        "spec": {
+          "part_type": "bracket",
+          "length_mm": 72,
+          "width_mm": 48,
+          "height_mm": 60,
+          "thickness_mm": 4,
+          "hole_diameter_mm": 6,
+          "holes_per_face": 1
+        }
+      },
+      "edit": {
+        "prompt": "Extend the bracket foot reach by 8 mm; keep the upright, plate thickness and holes the same.",
+        "field": "length_mm",
+        "delta_mm": 8
+      },
+      "restore": true
+    },
+    {
+      "id": "heldout-display-table",
+      "split": "heldout",
+      "group": "heldout-display-table",
+      "workflow": "concept",
+      "kind": "concept",
+      "prompt": "Create a display table concept with a 280 mm by 180 mm tabletop that is 16 mm thick. Include four cylindrical legs, each 220 mm tall. Use sensible defaults for leg diameter and colors.",
+      "expected": {
+        "concept": "table",
+        "role": "top",
+        "dimensions": {
+          "x_mm": 280,
+          "y_mm": 180,
+          "z_mm": 16
+        },
+        "role_counts": {
+          "leg": 4
+        },
+        "component_dimensions_by_role": {
+          "leg": {
+            "z_mm": 220
+          }
+        }
+      },
+      "offline_recipe": {
+        "concept": "table",
+        "body_x_mm": 280,
+        "body_y_mm": 180,
+        "body_z_mm": 16,
+        "leg_height_mm": 220
+      },
+      "edit": {
+        "prompt": "For the selected tabletop only, increase its X dimension by 40 mm. Leave all legs and all other fields unchanged.",
+        "role": "top",
+        "field": "x_mm",
+        "delta_mm": 40
+      },
+      "restore": true
+    },
+    {
+      "id": "heldout-survey-character",
+      "split": "heldout",
+      "group": "heldout-survey-character",
+      "workflow": "concept",
+      "kind": "concept",
+      "prompt": "Build a walking toy robot concept: a 180 mm cube body, four straight legs 140 mm tall, and two camera eyes. Use sensible defaults for the remaining visual details.",
+      "expected": {
+        "concept": "robot",
+        "role": "body",
+        "dimensions": {
+          "x_mm": 180,
+          "y_mm": 180,
+          "z_mm": 180
+        },
+        "role_counts": {
+          "eye": 2,
+          "foot": 4
+        },
+        "component_dimensions_by_role": {
+          "upper_leg": {
+            "z_mm": 70
+          },
+          "lower_leg": {
+            "z_mm": 70
+          }
+        },
+        "symmetry_group_counts": {
+          "legs": 4
+        }
+      },
+      "offline_recipe": {
+        "concept": "robot",
+        "body_x_mm": 180,
+        "body_y_mm": 180,
+        "body_z_mm": 180,
+        "leg_count": 4,
+        "leg_height_mm": 140,
+        "articulated": false,
+        "eye_count": 2
+      },
+      "edit": {
+        "prompt": "Change only the selected body color to #c43d32. Preserve every component ID, dimension, position and other color.",
+        "role": "body",
+        "color": "#c43d32"
+      },
+      "restore": true
+    },
+    {
+      "id": "heldout-missing-size",
+      "split": "heldout",
+      "group": "heldout-missing-size",
+      "workflow": "precise",
+      "kind": "clarification",
+      "prompt": "Make an electronics enclosure for a circuit board. I have not decided its length, width or height; ask me before choosing dimensions.",
+      "expected": {
+        "status": "clarification",
+        "required_words": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "part_type": "assembly",
+  "schema_version": 1,
+  "units": "mm",
+  "coordinates": "right-handed-z-up-xyz-degrees",
+  "name": "Table concept",
+  "concept": "table",
+  "assumptions": [
+    "Concept geometry only; joints are visual, not mechanical.",
+    "Millimeters; +Z up; front is -Y; positions are local to parent groups."
+  ],
+  "components": [
+    {
+      "id": "top",
+      "name": "Tabletop",
+      "primitive": "box",
+      "dimensions": {
+        "x_mm": 300.0,
+        "y_mm": 200.0,
+        "z_mm": 20.0,
+        "radius_mm": null,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        0.0,
+        0.0,
+        260.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#6d907b",
+      "role": "top",
+      "symmetry_group": ""
+    },
+    {
+      "id": "leg_left_front",
+      "name": "Table leg",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 250.0,
+        "radius_mm": 8.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        -120.0,
+        -80.0,
+        125.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#a78256",
+      "role": "leg",
+      "symmetry_group": "legs"
+    },
+    {
+      "id": "leg_right_front",
+      "name": "Table leg",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 250.0,
+        "radius_mm": 8.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        120.0,
+        -80.0,
+        125.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#a78256",
+      "role": "leg",
+      "symmetry_group": "legs"
+    },
+    {
+      "id": "leg_left_rear",
+      "name": "Table leg",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 250.0,
+        "radius_mm": 8.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        -120.0,
+        80.0,
+        125.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#a78256",
+      "role": "leg",
+      "symmetry_group": "legs"
+    },
+    {
+      "id": "leg_right_rear",
+      "name": "Table leg",
+      "primitive": "cylinder",
+      "dimensions": {
+        "x_mm": null,
+        "y_mm": null,
+        "z_mm": 250.0,
+        "radius_mm": 8.0,
+        "top_radius_mm": null
+      },
+      "position_mm": [
+        120.0,
+        80.0,
+        125.0
+      ],
+      "rotation_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "parent_id": null,
+      "color": "#a78256",
+      "role": "leg",
+      "symmetry_group": "legs"
+    }
+  ]
+}
