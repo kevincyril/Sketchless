@@ -88,6 +88,9 @@ def main():
         assert request('/api/sessions/' + sid)['job_id'] == original
         report['edit_seconds'] = latency
         docker('restart', name)
+        # Docker may allocate a new ephemeral host port when a container restarts.
+        port = docker('port', name, '8000/tcp').rsplit(':', 1)[1]
+        base = 'http://127.0.0.1:' + port
         ready()
         for sid, jid in sessions:
             assert request('/api/sessions/' + sid)['job_id'] == jid
