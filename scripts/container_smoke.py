@@ -59,7 +59,7 @@ def main():
                 job = request('/api/jobs/' + job['id'])
                 if job['status'] == 'succeeded':
                     return job, round(time.monotonic() - started, 3)
-                if job['status'] not in ('queued', 'running'):
+                if job['status'] not in ('queued', 'generating'):
                     raise RuntimeError('CAD job did not succeed: ' + job['status'])
                 time.sleep(.5)
             raise RuntimeError('CAD job timed out.')
