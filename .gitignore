@@ -27,3 +27,5 @@ backups/
 *.zip
 frontend/gallery-dist/
 frontend/public/samples/
+
+container-report.json

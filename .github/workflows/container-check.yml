@@ -1,0 +1,23 @@
+name: Linux container check
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [Dockerfile, .dockerignore, 'backend/**', 'deploy/**', 'requirements.txt', 'frontend/**', 'scripts/container_smoke.py', '.github/workflows/container-check.yml']
+permissions:
+  contents: read
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Linux image without private configuration
+        run: docker build -t sketchless:check .
+      - name: Check CAD, exports and persistent restart without Gemini
+        run: python scripts/container_smoke.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: linux-container-report
+          path: container-report.json
