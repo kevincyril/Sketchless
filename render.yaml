@@ -1,0 +1,46 @@
+# A separate Free service; never changes existing Render services or enables a paid plan.
+services:
+  - type: web
+    name: sketchless
+    runtime: docker
+    plan: free
+    region: ohio
+    healthCheckPath: /healthz
+    autoDeployTrigger: 'off'
+    envVars:
+      - key: SKETCHLESS_DEPLOYMENT_MODE
+        value: public
+      - key: SKETCHLESS_PUBLIC_MODE
+        value: 'true'
+      - key: SKETCHLESS_STORAGE_MODE
+        value: neon
+      - key: SKETCHLESS_FREE_HOSTING_CONFIRMED
+        sync: false
+      - key: SKETCHLESS_PUBLIC_ORIGIN
+        sync: false
+      - key: SKETCHLESS_DATABASE_URL
+        sync: false
+      - key: SKETCHLESS_STORAGE_ENDPOINT
+        sync: false
+      - key: SKETCHLESS_STORAGE_REGION
+        sync: false
+      - key: SKETCHLESS_STORAGE_BUCKET
+        sync: false
+      - key: SKETCHLESS_STORAGE_ACCESS_KEY
+        sync: false
+      - key: SKETCHLESS_STORAGE_SECRET_KEY
+        sync: false
+      - key: DEMO_MODE
+        value: 'true'
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_FREE_TIER_CONFIRMED
+        value: 'true'
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash-lite
+      - key: SKETCHLESS_MAX_DATA_MB
+        value: '256'
+      - key: SKETCHLESS_AI_DAILY_LIMIT
+        value: '20'
+      - key: SKETCHLESS_AI_VISITOR_DAILY_LIMIT
+        value: '5'

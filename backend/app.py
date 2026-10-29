@@ -15,18 +15,13 @@ from backend.scene_schema import SceneSpec, RestoreAction
 from backend.routing import route_workflow, concept_clarification
 from backend.agent import interpret, require_free_tier, FREE_MODELS, DEFAULT_MODEL
 from ml.model import classify
-from backend import public_access
+from backend import public_access, persistence, artifacts
 ROOT=Path(__file__).resolve().parents[1]
 load_dotenv(ROOT/'.env')
 DATA=Path(os.getenv('SKETCHLESS_DATA_DIR',str(ROOT/'data'))).resolve(); DATA.mkdir(parents=True,exist_ok=True)
 DB=DATA/'sketchless.sqlite3'
-with sqlite3.connect(DB) as c:
-    c.execute('CREATE TABLE IF NOT EXISTS sessions (id TEXT PRIMARY KEY, spec TEXT, job TEXT)')
-    c.execute('CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, payload TEXT)')
-    if 'name' not in {row[1] for row in c.execute('PRAGMA table_info(sessions)')}:
-        c.execute('ALTER TABLE sessions ADD COLUMN name TEXT')
-    if 'owner' not in {row[1] for row in c.execute('PRAGMA table_info(sessions)')}:
-        c.execute('ALTER TABLE sessions ADD COLUMN owner TEXT')
+with persistence.connect(DB) as c:
+    persistence.initialize_schema(c)
 c.close()
 app=FastAPI(title='Sketchless')
 public_access.install(app,lambda:DB)
@@ -36,7 +31,7 @@ lock=threading.Lock(); active=set()
 
 @contextmanager
 def db():
-    connection=sqlite3.connect(DB)
+    connection=persistence.connect(DB)
     try:
         with connection:
             yield connection
@@ -176,6 +171,8 @@ def activate_version(sid,jid):
     if target['status']!='succeeded':raise HTTPException(409,'Only successful versions can be restored.')
     spec=parse_spec(target['spec']);folder=DATA/str(jid)
     formats=['part.step','part.stl']+(['part.glb','scene.json'] if isinstance(spec,SceneSpec) else [])
+    try:artifacts.materialize(DB,str(jid),folder,formats)
+    except ValueError as exc:raise HTTPException(503,str(exc)) from None
     if not all((folder/name).is_file() and 0<(folder/name).stat().st_size<20_000_000 for name in formats):raise HTTPException(409,'This version’s files are missing. Recreate it from its specification.')
     if not target.get('inspection',{}).get('checks') or not all(target['inspection']['checks'].values()):raise HTTPException(409,'This version has no passing geometry inspection.')
     with db() as c:c.execute('UPDATE sessions SET spec=?,job=? WHERE id=?',(spec.model_dump_json(),str(jid),sid))
@@ -319,6 +316,7 @@ def run(job,req):
                     label=key.removesuffix('_mm').replace('_',' ').capitalize()
                     unit=' mm' if key.endswith('_mm') else ''
                     changes.append(f'{label}: {old:g} → {value:g}{unit}' if isinstance(old,(int,float)) and isinstance(value,(int,float)) and not isinstance(value,bool) else f'{label}: {old if old is not None else "default"} → {value}{unit}')
+        artifacts.publish(DB,job['id'],folder)
         with db() as c:version_number=1+c.execute("SELECT count(*) FROM jobs WHERE json_extract(payload,'$.session_id')=? AND json_extract(payload,'$.status')='succeeded'",(job['session_id'],)).fetchone()[0]
         job.update(status='succeeded',spec=spec.model_dump(),inspection=inspection,message=message,changes=changes,base_version_id=current['job_id'],version_number=version_number)
         # Publish the accepted specification and successful job atomically.
@@ -341,6 +339,8 @@ def artifact(jid:uuid.UUID,ext:Literal['step','stl','glb','scene']):
     job=get_job(jid)
     if job['status']!='succeeded': raise HTTPException(409,'Artifact is not accepted')
     file=DATA/str(jid)/('scene.json' if ext=='scene' else f'part.{ext}')
+    try:artifacts.materialize(DB,str(jid),file.parent,[file.name])
+    except ValueError as exc:raise HTTPException(503,str(exc)) from None
     if not file.is_file():raise HTTPException(404,'This export format is not available for this model.')
     return FileResponse(file,filename=f'sketchless-{jid}.json' if ext=='scene' else f'sketchless-{jid}.{ext}')
 # Interrupted work cannot be resumed after restart; accepted sessions stay intact.

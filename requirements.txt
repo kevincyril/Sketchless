@@ -75,3 +75,10 @@ vtk==9.6.2
 wslink==2.6.0
 yarl==1.25.1
 google-genai==2.33.0
+
+psycopg==3.3.6
+psycopg-binary==3.3.6
+boto3==1.43.122
+botocore==1.43.122
+s3transfer==0.19.3
+jmespath==1.1.0

@@ -10,6 +10,7 @@ import sqlite3
 import time
 from pathlib import Path
 from fastapi.responses import JSONResponse
+from backend import persistence
 
 COOKIE='__Host-sketchless-visitor'
 context=ContextVar('sketchless_visitor',default=None)
@@ -35,7 +36,7 @@ def limit(name,default):
 
 def consume(database,rules):
     """Reserve every budget atomically, or reserve none. Counts survive restarts."""
-    with closing(sqlite3.connect(database,timeout=10)) as db,db:
+    with closing(persistence.connect(database,timeout=10)) as db,db:
         db.execute('CREATE TABLE IF NOT EXISTS public_usage (kind TEXT, scope TEXT, bucket INTEGER, count INTEGER NOT NULL, PRIMARY KEY(kind,scope,bucket))')
         db.execute('BEGIN IMMEDIATE')
         for kind,scope,bucket,maximum,message in rules:
@@ -52,7 +53,7 @@ def before_model_request():
     visitor=context.get()
     if visitor is None:raise ValueError('Gemini public requests require a visitor context.')
     minute=int(time.time()//60);day=int(time.time()//86400)
-    with closing(sqlite3.connect(visitor.database)) as db,db:
+    with closing(persistence.connect(visitor.database)) as db,db:
         db.execute('CREATE TABLE IF NOT EXISTS public_pauses (name TEXT PRIMARY KEY, until REAL NOT NULL)')
         pause=db.execute("SELECT until FROM public_pauses WHERE name='gemini'").fetchone()
         if pause and pause[0]>time.time():raise ValueError('Gemini is temporarily paused after a quota error. Try later; samples and existing downloads remain available.')
@@ -66,7 +67,7 @@ def before_model_request():
 def pause_on_quota():
     visitor=context.get()
     if not enabled() or visitor is None:return
-    with closing(sqlite3.connect(visitor.database)) as db,db:
+    with closing(persistence.connect(visitor.database)) as db,db:
         db.execute('CREATE TABLE IF NOT EXISTS public_pauses (name TEXT PRIMARY KEY, until REAL NOT NULL)')
         db.execute("INSERT OR REPLACE INTO public_pauses VALUES ('gemini',?)",(time.time()+limit('SKETCHLESS_AI_QUOTA_COOLDOWN_SECONDS',300),))
 
@@ -77,7 +78,7 @@ def owner_for_request():
 
 
 def owns(database,sid,owner):
-    with closing(sqlite3.connect(database)) as db,db:row=db.execute('SELECT owner FROM sessions WHERE id=?',(str(sid),)).fetchone()
+    with closing(persistence.connect(database)) as db,db:row=db.execute('SELECT owner FROM sessions WHERE id=?',(str(sid),)).fetchone()
     return bool(row and row[0] is not None and secrets.compare_digest(row[0],owner))
 
 
@@ -115,7 +116,7 @@ def install(app,database):
             else:
                 match=re.match(r'^/api/(?:jobs|artifacts|designs)/([^/]+)(?:/|$)',path)
                 if match and not (path=='/api/designs/validate'):
-                    with closing(sqlite3.connect(visitor.database)) as db,db:row=db.execute('SELECT payload FROM jobs WHERE id=?',(match[1],)).fetchone()
+                    with closing(persistence.connect(visitor.database)) as db,db:row=db.execute('SELECT payload FROM jobs WHERE id=?',(match[1],)).fetchone()
                     sid=__import__('json').loads(row[0]).get('session_id') if row else ''
             if sid is not None and not owns(visitor.database,sid,owner):
                 response=JSONResponse({'detail':'Design not found in this browser.'},status_code=404)
@@ -143,5 +144,8 @@ def admit_job(database,uses_storage=True):
     consume(database,[('jobs_minute',visitor.owner,minute,limit('SKETCHLESS_VISITOR_JOB_MINUTE_LIMIT',5),'Too many design requests. Wait a minute before trying again.'),('jobs_minute',visitor.network,minute,limit('SKETCHLESS_NETWORK_JOB_MINUTE_LIMIT',15),'Too many requests from this network. Wait a minute before trying again.')])
     if not uses_storage:return
     maximum=limit('SKETCHLESS_MAX_DATA_MB',512)*1024**2
-    size=sum(p.stat().st_size for p in Path(database).parent.rglob('*') if p.is_file())
+    if persistence.remote():
+        from backend.artifacts import stored_bytes
+        size=stored_bytes(database)
+    else:size=sum(p.stat().st_size for p in Path(database).parent.rglob('*') if p.is_file())
     if size>=maximum:raise ValueError('The demo storage allowance is full. Existing designs and downloads remain available; explore the samples instead.')

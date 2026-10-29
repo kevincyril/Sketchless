@@ -20,7 +20,11 @@ def main():
         origin=urlsplit(os.getenv('SKETCHLESS_PUBLIC_ORIGIN',''))
         if origin.scheme!='https' or not origin.netloc or origin.username or origin.path not in ('','/') or origin.query or origin.fragment:
             raise SystemExit('Public deployment requires SKETCHLESS_PUBLIC_ORIGIN set to its HTTPS origin.')
-        if os.getenv('SKETCHLESS_PERSISTENT_STORAGE_CONFIRMED','false').lower()!='true':
+        if os.getenv('SKETCHLESS_STORAGE_MODE','local')=='neon':
+            sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+            from backend.persistence import validate_config
+            validate_config()
+        elif os.getenv('SKETCHLESS_PERSISTENT_STORAGE_CONFIRMED','false').lower()!='true':
             raise SystemExit('Confirm a persistent local disk/volume before public deployment: SKETCHLESS_PERSISTENT_STORAGE_CONFIRMED=true. This flag does not create storage.')
     folder=Path(os.getenv('SKETCHLESS_DATA_DIR','/app/data'))
     try:
