@@ -50,5 +50,16 @@
   "sdk_attempts_for_verification_visitor": 5,
   "bounded_repair_attempts": 1,
   "exhausted_application_allowance_blocks_without_sdk": true,
-  "quota_failure_preserves_model_and_downloads": true
+  "quota_failure_preserves_model_and_downloads": true,
+  "final_browser_checks": {
+    "actual_cad_preview": true,
+    "step_and_glb_downloads": true,
+    "mobile_horizontal_overflow": false,
+    "javascript_errors": 0,
+    "backend_secrets_in_api_bodies": false,
+    "live_gallery_link": true
+  },
+  "existing_render_service_configuration_unchanged": true,
+  "management_keys_not_installed_in_app": true,
+  "final_deployed_commit": "e76091adabe5557f107b04735dfc9826af84078b"
 }

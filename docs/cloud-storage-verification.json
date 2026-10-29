@@ -8,9 +8,9 @@
     "passed": 22
   },
   "real_postgres_integration": {
-    "passed": 17,
-    "workflow_run": "https://github.com/kevincyril/Sketchless/actions/runs/40950311290",
-    "note": "Database/object recovery checks passed. The separate CAD CPU-throttling step failed the earlier 60-second deadline; that failure remains visible in the run."
+    "passed": 18,
+    "workflow_run": "https://github.com/kevincyril/Sketchless/actions/runs/40951895902",
+    "seconds": 256.71
   },
   "live_storage_readiness": {
     "cad_builds": 2,
@@ -24,8 +24,8 @@
     "gemini_calls": 0
   },
   "limits": [
-    "Cloud readiness used a local CAD process; it is not proof of Render runtime performance.",
-    "The newest hosted-deadline profile and public deployment checks are pending.",
-    "No new held-out language-model score is claimed."
+    "These checks are development/regression evidence, not a new modeling-accuracy score.",
+    "Actual hosted Gemini and browser results are recorded separately in hosted-verification.json.",
+    "The earlier 60-second CPU-throttling failure remains visible in prior workflow logs; the Free profile uses a bounded 180-second deadline."
   ]
 }

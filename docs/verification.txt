@@ -312,3 +312,14 @@ Public deployment remains pending Azure student access and the documented access
 - Package secret scan passed. No live Gemini calls, paid resources or billing changes in this pass.
 - Historical v1 live result remains tied to fc027bb; current fingerprint intentionally differs. No new held-out score is claimed.
 - Linux Docker build, hosted CAD memory, Azure persistence and hosted live workflow remain unverified because Docker is unavailable and Azure access is pending.
+
+2026-10-29 strictly-free hosted release
+- Local full suite: 220 passed, five PostgreSQL cases deferred to Linux; subsequent bounded-deadline test passed in focused coverage. Existing browser suite: 22 passed; final gallery checks: two passed.
+- Linux Free profile: 512 MiB, 0.1 CPU, no swap, CAD timeout bounded to 180 seconds. Actual enclosure/robot/edit/export/restart checks passed; peak container memory 381284352 bytes.
+- Real PostgreSQL transaction, lease, cache-loss recovery and portable-backup suite: 18 passed in 256.71 seconds.
+- Live Free Render/Neon: four successful interpretation requests used five Gemini SDK attempts (one bounded repair), two approval-gated concept builds, two zero-model restorations, selected component scope preserved. Hosted checks completed in 193.501 seconds.
+- Exhausted verification visitor allowance rejected another request before any additional SDK attempt; accepted geometry and downloads stayed available. This was an application limit check, not a manufactured Google 429.
+- Real browser verified actual CAD preview, STEP/GLB downloads, live gallery link, mobile fit, zero JavaScript errors and absence of backend secrets in API bodies.
+- Public gallery link: https://kevincyril.github.io/Sketchless/ ; live workspace: https://sketchless-cad-7931c5be.onrender.com/ .
+- No management keys were installed in the hosted app. Source/package secret scans passed. Existing Render service configuration remained unchanged. No paid upgrade or credit-consuming Azure resource was enabled.
+- Earlier dependency/fixture failures and the 60-second low-CPU timeout remain in workflow history. No new held-out accuracy claim; frozen v1 evidence stays tied to its original baseline.

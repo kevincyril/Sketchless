@@ -1,0 +1,17 @@
+{
+  "provider_calls": 0,
+  "passed": true,
+  "peak_container_bytes": 381284352,
+  "limits": {
+    "container_memory": "512m",
+    "cpu": "0.1",
+    "swap": "disabled"
+  },
+  "enclosure_seconds": 67.902,
+  "robot_seconds": 67.505,
+  "edit_seconds": 45.197,
+  "restart_restoration": true,
+  "workflow_run": "https://github.com/kevincyril/Sketchless/actions/runs/40951895902",
+  "source_commit": "a58b3486d6dbcb569a4cdc5426c631b93089010a",
+  "scope": "Explicit development CAD on a 512 MiB/0.1 CPU Linux container, with a 180-second CAD deadline; no Gemini requests."
+}
