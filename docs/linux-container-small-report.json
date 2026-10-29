@@ -1,0 +1,17 @@
+{
+  "provider_calls": 0,
+  "passed": true,
+  "peak_container_bytes": 374681600,
+  "enclosure_seconds": 3.533,
+  "robot_seconds": 4.067,
+  "edit_seconds": 3.024,
+  "restart_restoration": true,
+  "workflow_run": "https://github.com/kevincyril/Sketchless/actions/runs/40943976148",
+  "source_commit": "8350395b2acbee61a2acbe4fce4fc9279cd4c737",
+  "limits": {
+    "container_memory": "640 MiB",
+    "swap": "disabled",
+    "cpu": 1
+  },
+  "scope": "Sequential explicit-spec CAD and persistent restart on GitHub Linux runner. Excludes host OS, image build and proxy overhead; not a live Gemini or Azure result."
+}
