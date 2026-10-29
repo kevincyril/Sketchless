@@ -189,6 +189,7 @@ def test_original_unsized_chair_defaults_must_be_self_consistent():
 def test_stale_assumption_is_regenerated_from_scene_without_altering_geometry():
     from backend.scene_review import reconcile_scene_assumptions
     scene=chair();facts=requirements_summary(INITIAL)
+    for part in scene.components[1:5]:part.role=''
     scene.assumptions=['Wooden visual concept.','Leg length 450 mm; seat surface height 450 mm; seat thickness 30 mm.']
     fixed=reconcile_scene_assumptions(scene,facts)
     assert fixed.components==scene.components and scene.assumptions!=fixed.assumptions
@@ -203,3 +204,19 @@ def test_measurement_before_its_component_does_not_belong_to_prior_leg():
     facts=requirements_summary('Leg length 420 mm to accommodate a 30 mm seat thickness.',previous=requirements_summary(INITIAL))
     dims={(d['component'],d['meaning']):d['value_mm'] for d in facts['dimensions']}
     assert dims[('seat','thickness')]==30 and dims[('leg','length')]==420
+
+
+def test_cylindrical_chair_bounds_measure_brep_after_preview_tessellation(tmp_path):
+    from backend.scene_cad import build_scene
+    from backend.scene_schema import Dimensions
+    scene=chair()
+    for part in scene.components[1:7]:
+        part.primitive='cylinder'
+        part.dimensions=Dimensions(radius_mm=18,z_mm=part.dimensions.z_mm)
+        x,y,z=part.position_mm
+        part.position_mm=(195 if x>0 else -195,195 if y>0 else -195,z)
+    report=build_scene(scene,tmp_path)
+    assert report['bounding_box_mm']==pytest.approx([450,450,850],abs=.001)
+    assert all(report['checks'].values())
+    posts=[c for c in report['components'] if c['id'].startswith('post')]
+    assert all(c['bounds_mm'][1][2]==pytest.approx(850) for c in posts)

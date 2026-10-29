@@ -4,6 +4,8 @@ from pathlib import Path
 import numpy as np
 import cadquery as cq
 from OCP.gp import gp_Trsf
+from OCP.Bnd import Bnd_Box
+from OCP.BRepBndLib import BRepBndLib
 from backend.scene_schema import SceneSpec
 from backend.scene_geometry import matrix, world_matrices, expected_bounds
 
@@ -58,7 +60,12 @@ def build_scene(spec:SceneSpec,folder:Path):
         assembly.add(shape,name=c.id,color=cq.Color(*rgb));solids.append(shape)
         reports.append({'id':c.id,'checks':checks,'bounds_mm':[actual_lo.tolist(),actual_hi.tolist()],'volume_mm3':shape.Volume()})
         if time.perf_counter()-started>45:raise ValueError('Concept geometry time limit reached.')
-    compound=cq.Compound.makeCompound(solids);bounds=compound.BoundingBox();folder.mkdir(parents=True,exist_ok=True)
+    compound=cq.Compound.makeCompound(solids)
+    # Cached preview triangulation can inflate curved-shape bounds. Inspect the B-rep itself.
+    exact_bounds=Bnd_Box();BRepBndLib.AddOptimal_s(compound.wrapped,exact_bounds,False,False)
+    xmin,ymin,zmin,xmax,ymax,zmax=exact_bounds.Get()
+    overall_bounds=[xmax-xmin,ymax-ymin,zmax-zmin]
+    folder.mkdir(parents=True,exist_ok=True)
     # Default STEP assembly export retains separate bodies and names; no fusion.
     assembly.export(str(folder/'part.step'))
     cq.exporters.export(compound,str(folder/'part.stl'))
@@ -67,7 +74,7 @@ def build_scene(spec:SceneSpec,folder:Path):
     checks={'components_valid':all(all(r['checks'].values()) for r in reports),'component_count_match':len(compound.Solids())==len(solids),'positive_volume':all(s.Volume()>0 for s in solids),'finite_transforms':True,'referenced_ids_valid':True}
     for name in ('part.step','part.stl','part.glb','scene.json'):checks[name.replace('.','_')+'_nonempty']=0<(folder/name).stat().st_size<LIMIT
     if not all(checks.values()):raise ValueError('Concept export inspection failed.')
-    result={'workflow':'concept','checks':checks,'solid_count':len(solids),'component_count':len(spec.components),'volume_mm3':sum(s.Volume() for s in solids),'bounding_box_mm':[bounds.xlen,bounds.ylen,bounds.zlen],'tolerance_mm':.02,'components':reports,'generation_seconds':round(time.perf_counter()-started,3),'limitations':['Separate concept solids; intersections, balance, motion, strength and printability are not verified.','Summed component volume may double-count intersecting components.']}
+    result={'workflow':'concept','checks':checks,'solid_count':len(solids),'component_count':len(spec.components),'volume_mm3':sum(s.Volume() for s in solids),'bounding_box_mm':overall_bounds,'tolerance_mm':.02,'components':reports,'generation_seconds':round(time.perf_counter()-started,3),'limitations':['Separate concept solids; intersections, balance, motion, strength and printability are not verified.','Summed component volume may double-count intersecting components.']}
     if spec.concept=='cleaner':
         from backend.concepts import review_cleaner
         result['design_review']=review_cleaner(spec)

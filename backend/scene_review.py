@@ -102,7 +102,7 @@ def reconcile_scene_assumptions(scene, facts):
         return any((d['component'],d['meaning']) in dimensions and abs(d['value_mm']-dimensions[(d['component'],d['meaning'])])>.1 for d in named_dimensions(text))
     if not any(stale(a) for a in scene.assumptions):return scene
     seats=[c for c in scene.components if c.role=='seat' or c.name.lower()=='seat']
-    legs=[c for c in scene.components if c.primitive!='group' and re.search(r'\bleg',c.role.lower().replace('_',' '))]
+    legs=[c for c in scene.components if c.primitive!='group' and re.search(r'\bleg(?=\b|\d)',(c.id+' '+c.name+' '+c.role).lower().replace('_',' ').replace('-',' '))]
     if len(seats)!=1 or not legs:return scene
     world=world_matrices(scene);low,high=expected_bounds(seats[0],world[seats[0].id])
     heights=[expected_bounds(c,world[c.id])[1][2]-expected_bounds(c,world[c.id])[0][2] for c in legs]
