@@ -64,7 +64,9 @@ def main():
                 if job['status'] == 'succeeded':
                     return job, round(time.monotonic() - started, 3)
                 if job['status'] not in ('queued', 'generating'):
-                    raise RuntimeError('CAD job did not succeed: ' + job['status'])
+                    # This container has no credentials and uses explicit public demo specs.
+                    report['failure'] = job.get('message', 'CAD job failed')[:1600]
+                    raise RuntimeError('CAD job did not succeed: ' + report['failure'])
                 time.sleep(.5)
             raise RuntimeError('CAD job timed out.')
 

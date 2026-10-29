@@ -27,7 +27,7 @@ app=FastAPI(title='Sketchless')
 public_access.install(app,lambda:DB)
 pool=ThreadPoolExecutor(max_workers=1 if public_access.enabled() else 2)
 slots=threading.BoundedSemaphore(4)
-lock=threading.Lock(); active=set()
+lock=threading.Lock(); active=set(); leases={}
 
 @contextmanager
 def db():
@@ -37,6 +37,13 @@ def db():
             yield connection
     finally:
         connection.close()
+def release_job(sid):
+    with lock:
+        active.discard(sid); lease=leases.pop(sid,None)
+    try:
+        if lease is not None:lease.close()
+    finally:slots.release()
+
 def save(job):
     with db() as c: c.execute('INSERT OR REPLACE INTO jobs VALUES (?,?)',(job['id'],json.dumps(job)))
 def session(sid):
@@ -163,7 +170,11 @@ def restore_design(sid:uuid.UUID,request:RestoreRequest):
     get_session(sid)
     with lock:
         if str(sid) in active:raise HTTPException(409,'Wait for the current model to finish before restoring a version.')
-        return activate_version(str(sid),str(request.job_id))
+        try:lease=persistence.acquire_session(DB,str(sid))
+        except ValueError as exc:raise HTTPException(409,str(exc)) from None
+        try:return activate_version(str(sid),str(request.job_id))
+        finally:
+            if lease is not None:lease.close()
 
 def activate_version(sid,jid):
     target=get_job(uuid.UUID(str(jid)))
@@ -189,10 +200,18 @@ def submit(req:Request):
     with lock:
         if sid in active: raise HTTPException(409,'A generation is already running for this session.')
         if not slots.acquire(False): raise HTTPException(429,'Generation queue full. Try again shortly.')
+        try:lease=persistence.acquire_session(DB,sid)
+        except ValueError as exc:
+            slots.release();raise HTTPException(409,str(exc)) from None
+        except Exception:
+            slots.release();raise
         active.add(sid)
+        if lease is not None:leases[sid]=lease
     summary=('Chat: '+req.description) if not req.spec and req.edit_length_delta_mm is None else ('Change length by '+str(req.edit_length_delta_mm)+' mm') if req.edit_length_delta_mm is not None else ('Generate '+req.spec.name+' concept') if isinstance(req.spec,SceneSpec) else ('Generate '+req.spec.part_type+' · '+str(req.spec.length_mm)+' × '+str(req.spec.width_mm)+' × '+str(req.spec.height_mm)+' mm')
     job={'id':str(uuid.uuid4()),'session_id':sid,'status':'queued','events':[], 'request_summary':summary,'description':req.description if not req.spec else ''}
-    save(job); pool.submit(contextvars.copy_context().run,run,job,req)
+    try:save(job); pool.submit(contextvars.copy_context().run,run,job,req)
+    except Exception:
+        release_job(sid);raise
     return job
 
 def run(job,req):
@@ -326,9 +345,8 @@ def run(job,req):
     except Exception as exc:
         job.update(status='failed',message=str(exc)[:2000])
     finally:
-        save(job)
-        with lock: active.discard(job['session_id'])
-        slots.release()
+        try:save(job)
+        finally:release_job(job['session_id'])
 @app.get('/api/jobs/{jid}')
 def get_job(jid:uuid.UUID):
     with db() as c: row=c.execute('SELECT payload FROM jobs WHERE id=?',(str(jid),)).fetchone()
@@ -347,6 +365,6 @@ def artifact(jid:uuid.UUID,ext:Literal['step','stl','glb','scene']):
 with db() as c:
     for jid,payload in c.execute('SELECT id,payload FROM jobs').fetchall():
         j=json.loads(payload)
-        if j['status'] in ('queued','generating'):
+        if j['status'] in ('queued','generating') and not persistence.session_busy(DB,j.get('session_id','')):
             j.update(status='failed',message='Server restarted. Please retry.'); c.execute('UPDATE jobs SET payload=? WHERE id=?',(json.dumps(j),jid))
 if (ROOT/'frontend/dist').exists(): app.mount('/',StaticFiles(directory=ROOT/'frontend/dist',html=True),name='frontend')

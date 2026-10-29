@@ -13,6 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build Linux image without private configuration
+        id: build
         run: docker build -t sketchless:check .
       - name: Check CAD, exports and persistent restart without Gemini
         env:
@@ -20,6 +21,7 @@ jobs:
           SKETCHLESS_CHECK_CPUS: '0.1'
         run: python scripts/container_smoke.py
       - name: Start isolated PostgreSQL for persistence integration
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: |
           docker run -d --name sketchless-test-postgres -e POSTGRES_PASSWORD=offline-integration-password -p 127.0.0.1:5432:5432 postgres:17
           for attempt in $(seq 1 60); do
@@ -28,6 +30,7 @@ jobs:
           done
           exit 1
       - name: Verify PostgreSQL transactions and private artifact recovery
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: |
           docker run --rm --network host --memory=512m --memory-swap=512m --cpus=0.1 \
             -e SKETCHLESS_TEST_POSTGRES=postgresql://postgres:offline-integration-password@127.0.0.1:5432/postgres \

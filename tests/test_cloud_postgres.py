@@ -70,6 +70,16 @@ def test_postgres_rollback_preserves_other_scope_counts(postgres):
         assert db.execute("SELECT count FROM public_usage WHERE scope='b'").fetchone() is None
 
 
+def test_session_lease_survives_transactions_and_releases_on_close(postgres):
+    _, path, _ = postgres
+    lease = persistence.acquire_session(path, 'same-session')
+    assert persistence.session_busy(path, 'same-session')
+    with pytest.raises(ValueError, match='already running'):
+        persistence.acquire_session(path, 'same-session')
+    lease.close()
+    assert not persistence.session_busy(path, 'same-session')
+
+
 def test_remote_api_restores_versions_after_cache_loss(postgres, monkeypatch, tmp_path):
     from fastapi.testclient import TestClient
     from backend import app as server

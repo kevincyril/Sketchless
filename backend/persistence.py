@@ -1,5 +1,6 @@
 """Local SQLite or explicitly configured Neon PostgreSQL; never an automatic fallback."""
 import os
+import hashlib
 import re
 import sqlite3
 from urllib.parse import urlsplit, parse_qs
@@ -110,3 +111,30 @@ def initialize_schema(connection):
     connection.execute('CREATE TABLE IF NOT EXISTS public_usage (kind TEXT, scope TEXT, bucket INTEGER, count INTEGER NOT NULL, PRIMARY KEY(kind,scope,bucket))')
     connection.execute('CREATE TABLE IF NOT EXISTS public_pauses (name TEXT PRIMARY KEY, until REAL NOT NULL)')
     connection.execute('CREATE TABLE IF NOT EXISTS artifact_files (job TEXT, name TEXT, bytes INTEGER NOT NULL, sha256 TEXT NOT NULL, PRIMARY KEY(job,name))')
+
+
+def acquire_session(path, sid):
+    """Keep a direct PostgreSQL lease until a job finishes, including deploy overlaps."""
+    if not remote():
+        return None
+    lease = connect(path)
+    try:
+        lock_id = int.from_bytes(hashlib.sha256(str(sid).encode()).digest()[:8], 'big', signed=True)
+        held = lease.execute('SELECT pg_try_advisory_lock(?)', (lock_id,)).fetchone()[0]
+        lease.connection.commit()
+        if not held:
+            raise ValueError('A generation is already running for this session.')
+        return lease
+    except Exception:
+        lease.close()
+        raise
+
+
+def session_busy(path, sid):
+    try:
+        lease = acquire_session(path, sid)
+    except ValueError:
+        return True
+    if lease is not None:
+        lease.close()
+    return False

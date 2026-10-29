@@ -129,3 +129,23 @@ def test_neon_config_requires_attested_free_plan_and_verified_tls(monkeypatch):
     monkeypatch.setenv('SKETCHLESS_STORAGE_ENDPOINT', 'https://example.com')
     with pytest.raises(ValueError, match='Neon object-storage'):
         persistence.validate_config()
+
+
+def test_failed_job_admission_releases_session_and_queue_slots(monkeypatch):
+    from fastapi.testclient import TestClient
+    from backend import app as server
+    from tests.test_sketchless import wait
+    monkeypatch.setenv('DEMO_MODE', 'true')
+    original = server.save
+    def unavailable(job):
+        raise sqlite3.OperationalError('test storage outage')
+    with TestClient(server.app) as browser:
+        sid = browser.post('/api/sessions').json()['session_id']
+        monkeypatch.setattr(server, 'save', unavailable)
+        for _ in range(6):
+            with pytest.raises(sqlite3.OperationalError, match='test storage outage'):
+                browser.post('/api/jobs', json={'session_id': sid, 'spec': {'length_mm': 100, 'width_mm': 60, 'height_mm': 35}})
+        monkeypatch.setattr(server, 'save', original)
+        queued = browser.post('/api/jobs', json={'session_id': sid, 'spec': {'length_mm': 100, 'width_mm': 60, 'height_mm': 35}})
+        assert queued.status_code == 202
+        assert wait(browser, queued.json()['id'])['status'] == 'succeeded'
