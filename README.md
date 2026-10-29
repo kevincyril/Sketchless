@@ -4,7 +4,7 @@ Sketchless turns a description into a reviewable 3D design, then builds CAD geom
 
 **[Explore saved CAD examples](https://kevincyril.github.io/Sketchless/)** - rotate models, select components and download real CAD files. This gallery works without Gemini; it does not generate new designs.
 
-**Status:** working local application with an independent saved-example gallery. Live AI hosting is pending Azure student access. The Linux container is prepared but has not been built or verified here.
+**Status:** working local application with an independent saved-example gallery. Live AI hosting is pending deployment. The Linux container passed CAD/export and persistent-restart checks on a GitHub runner; hosted Azure/Gemini checks remain pending.
 
 Build the service-independent gallery with `npm --prefix frontend run build:gallery`; deploy `frontend/gallery-dist/` as static files. These are saved CAD examples, not live AI output.
 
@@ -106,7 +106,7 @@ Live evaluation consumes your free quota. Quota/access failures stop further req
 
 ## Deployment and limitations
 
-A persistent recruiter-facing link is the deployment goal. See the [hosting comparison](docs/resume-hosting-comparison.md) and [container preparation/status](docs/free-hosting.md). No paid billing has been enabled. Opt-in public mode now isolates anonymous browser sessions and persists application request budgets. See [public-mode configuration, backups and release checklist](docs/public-deployment.md). Hosted storage and Linux container validation remain pending.
+A persistent recruiter-facing link is the deployment goal. See the [hosting comparison](docs/resume-hosting-comparison.md) and [container preparation/status](docs/free-hosting.md). No paid billing has been enabled. Opt-in public mode now isolates anonymous browser sessions and persists application request budgets. See [public-mode configuration, backups and release checklist](docs/public-deployment.md). Linux container validation passed; hosted storage, HTTPS and live Gemini access remain pending. See the [measured Linux report](docs/linux-container-report.json).
 
 The application uses SQLite and local artifact folders, a bounded process-local queue and one active request per session. Use one ASGI worker. A failed build or model request preserves the accepted model. Restarting interrupts in-flight work; it does not resume generation. Portable design JSON retains parameters/components, not conversation history. Back up local designs separately.
 

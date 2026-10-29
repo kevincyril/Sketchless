@@ -16,7 +16,7 @@ The user requires no credit card at all. Oracle and any card-verified signup are
 
 The root Dockerfile builds the existing frontend and installs the pinned Python/CAD stack. It copies only app code and project-owned classifier files. The deny-by-default .dockerignore excludes .env, private local designs, caches, virtual environments and unrelated attachments. The runtime runs as UID/GID 10001, uses a writable design directory, constrains math-library threads and starts one ASGI worker. PORT defaults to 8000. Health checking only verifies that the API process responds, not that CAD or Gemini is available.
 
-Docker is not installed in the current Windows environment. The container has **not** been built, Linux-tested, resource-profiled or deployed. A host/container smoke test must verify Python dependencies, actual CAD generation, exports, storage restoration and Gemini region access before publication. Do not describe this package as deployment-verified.
+Docker is not installed in the current Windows environment. The image has now been built on a GitHub Linux runner and passed actual CAD, exports, edits and persistent restart verification. [Measured report](linux-container-report.json). This does not establish Azure deployment, Gemini region access or production capacity.
 
 When Docker is available, a local-only smoke run is:
 
@@ -32,7 +32,7 @@ Live mode must receive GEMINI_API_KEY through the chosen host's private secret s
 
 ## Still required before a public deployment
 
-Browser session isolation, durable server-side Gemini budgets, storage admission and private backup/restore are now implemented and offline-tested. See [public deployment configuration](public-deployment.md). Azure eligibility, the Linux image/memory profile, hosted persistence and the complete HTTPS workflow still require verification before exposing the live service.
+Browser session isolation, durable server-side Gemini budgets, storage admission and private backup/restore are now implemented and offline-tested. See [public deployment configuration](public-deployment.md). The Linux sample check passed; Azure SKU eligibility, hosted persistence and the complete HTTPS/live Gemini workflow still require verification before exposing the live service.
 
 ## No-card follow-up
 

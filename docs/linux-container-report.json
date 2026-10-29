@@ -1,0 +1,16 @@
+{
+  "workflow_run": "https://github.com/kevincyril/Sketchless/actions/runs/40788052590",
+  "source_commit": "0789846e5d60691406e6da23743311ececf814c1",
+  "provider_calls": 0,
+  "passed": true,
+  "peak_container_bytes": 372973568,
+  "enclosure_seconds": 2.016,
+  "robot_seconds": 3.034,
+  "edit_seconds": 2.014,
+  "restart_restoration": true,
+  "limits": {
+    "container_memory": "2 GiB",
+    "cpu": 1
+  },
+  "scope": "GitHub-hosted Linux runner; explicit specs, not language interpretation. Container memory includes CAD subprocesses; excludes host OS, image build and TLS proxy. No Azure or live Gemini verification."
+}
