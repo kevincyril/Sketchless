@@ -7,6 +7,7 @@ from contextlib import closing
 from concurrent.futures import ThreadPoolExecutor
 import pytest
 from backend import persistence, public_access, artifacts
+from backend import app as server
 from tests.test_cloud_storage import Objects
 
 DSN = os.getenv('SKETCHLESS_TEST_POSTGRES', '')

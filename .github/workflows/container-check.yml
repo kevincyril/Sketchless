@@ -35,6 +35,7 @@ jobs:
           docker run --rm --network host --memory=512m --memory-swap=512m --cpus=0.1 \
             -e SKETCHLESS_TEST_POSTGRES=postgresql://postgres:offline-integration-password@127.0.0.1:5432/postgres \
             --mount type=bind,source="$PWD/tests",target=/app/tests,readonly \
+            --mount type=bind,source="$PWD/scripts",target=/app/scripts,readonly \
             sketchless:check python -m pytest tests/test_cloud_postgres.py tests/test_cloud_storage.py -q -p no:cacheprovider
       - uses: actions/upload-artifact@v4
         if: always()
