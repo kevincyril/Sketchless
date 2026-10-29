@@ -8,6 +8,9 @@ COPY frontend/src/ ./src/
 COPY frontend/scripts/ ./scripts/
 COPY examples/ /examples/
 COPY frontend/public/ ./public/
+# Public URL only: never pass backend keys into frontend build arguments.
+ARG VITE_LIVE_WORKSPACE_URL=
+ENV VITE_LIVE_WORKSPACE_URL=${VITE_LIVE_WORKSPACE_URL}
 RUN npm run build
 
 FROM python:3.12-slim-bookworm AS runtime

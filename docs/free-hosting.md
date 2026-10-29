@@ -1,5 +1,7 @@
 # Free hosting assessment
 
+Current implementation/deployment update (2026-10-29): the [strictly free Render/Neon route](strictly-free-hosting.md) is live and verified. The older findings below describe the original SQLite-only storage constraints; the remote adapter removes that particular constraint without attaching a paid Render disk.
+
 Checked against official provider documentation on 2026-10-25. No resources have been created, no billing enabled, and no app or keys published. Provider terms and free capacity can change; recheck before signup.
 
 ## Findings

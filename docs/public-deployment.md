@@ -1,5 +1,7 @@
 # Public deployment and recovery
 
+Current live workspace: **https://sketchless-cad-7931c5be.onrender.com/**. It runs on Render Free with private Neon PostgreSQL/object storage. See the [current hosting runbook](strictly-free-hosting.md) and [actual hosted checks](hosted-verification.json). The VM instructions below remain an alternative; no Azure VM, disk or public IP was provisioned.
+
 Published gallery: **https://kevincyril.github.io/Sketchless/**. It was anonymously checked for all five STEP downloads, no JavaScript errors, no API requests and a mobile layout without horizontal overflow.
 
 The saved-example gallery is independent of Python, Gemini and Azure. Build with `npm --prefix frontend run build:gallery` and publish **only `frontend/gallery-dist/`**. It contains five public example designs, actual CAD meshes and downloads. It does not generate designs. An optional build-time `VITE_LIVE_WORKSPACE_URL` can link to a separately verified HTTPS workspace. No key belongs in a Vite variable. The main workspace also offers this gallery if its API cannot be reached.
@@ -29,7 +31,7 @@ The tool snapshots SQLite and successful immutable CAD artifacts, hashes archive
 
 Restarts preserve accepted models, history, ownership and budgets when the disk persists. In-flight generation is interrupted and is not resumed automatically. `/healthz` checks the API/database only, not Gemini or CAD readiness.
 
-## Release checklist after Azure access
+## Alternative VM release checklist
 
 1. Confirm eligible free resources and account spending controls; do not silently enable paid billing.
 2. Build the Linux image, measure CAD memory and verify an actual STEP/STL/GLB build.

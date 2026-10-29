@@ -1,0 +1,54 @@
+{
+  "scope": "Hosted development checks; not a held-out modeling accuracy score.",
+  "url": "https://sketchless-cad-7931c5be.onrender.com",
+  "passed": true,
+  "sdk_attempts_reserved_today": 5,
+  "requested_interpretations": 4,
+  "approved_concept_builds": 2,
+  "zero_model_restorations": 2,
+  "component_scope_preserved": true,
+  "total_seconds": 193.501,
+  "phases": {
+    "precise_description": {
+      "status": "succeeded",
+      "seconds": 39.344
+    },
+    "precise_edit": {
+      "status": "succeeded",
+      "seconds": 36.641
+    },
+    "precise_restore": {
+      "status": "restored",
+      "seconds": 3.359
+    },
+    "concept_description": {
+      "status": "clarification",
+      "seconds": 7.235
+    },
+    "concept_approval": {
+      "status": "succeeded",
+      "seconds": 32.891
+    },
+    "selected_component_edit": {
+      "status": "clarification",
+      "seconds": 6.109
+    },
+    "component_edit_approval": {
+      "status": "succeeded",
+      "seconds": 35.422
+    },
+    "concept_restore": {
+      "status": "restored",
+      "seconds": 3.078
+    }
+  },
+  "limits": [
+    "Single sequential verification on Free hosting, not a load or availability guarantee.",
+    "Free service may sleep, cold-start or suspend when included allowances are exhausted.",
+    "Concepts are visual primitive assemblies, not validated mechanisms."
+  ],
+  "sdk_attempts_for_verification_visitor": 5,
+  "bounded_repair_attempts": 1,
+  "exhausted_application_allowance_blocks_without_sdk": true,
+  "quota_failure_preserves_model_and_downloads": true
+}

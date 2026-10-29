@@ -16,6 +16,8 @@ services:
         value: neon
       - key: SKETCHLESS_FREE_HOSTING_CONFIRMED
         sync: false
+      - key: VITE_LIVE_WORKSPACE_URL
+        sync: false
       - key: SKETCHLESS_PUBLIC_ORIGIN
         sync: false
       - key: SKETCHLESS_DATABASE_URL

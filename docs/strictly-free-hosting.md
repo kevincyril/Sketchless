@@ -2,15 +2,15 @@
 
 Requirement: no credit-consuming Azure VM, disk or public IP, no payment method and no automatic paid upgrade. The prepared Azure VM route is not being provisioned. A successful local/Linux test is not a hosted deployment.
 
-## Candidate to validate
+## Deployed route
 
 - Render Free web service: Python/Docker support, 512 MB RAM and 0.1 CPU. Sleeps after 15 minutes idle; an incoming request starts it again, typically in about one minute. Local files are lost on restart/sleep/redeploy. Without a payment method, included-usage exhaustion suspends services/builds rather than charging for extra usage. Do not use its expiring free PostgreSQL database for lasting designs.
 - Neon Free: current official pricing lists 1 GB database storage, 100 CU-hours per project/month and 5 GB object storage, with no time limit or credit card required. Private S3-compatible object storage and PostgreSQL could preserve sessions, quotas and artifacts independently of the web process.
 - GitHub Pages: retain the existing saved-example gallery as the immediate public entry point, clearly labeled separately from live generation.
 
-An explicit Neon PostgreSQL/private-object-storage adapter is now implemented; putting the local SQLite database on Render's ephemeral filesystem would still lose designs. Account eligibility, storage endpoint availability, cold starts, memory/CPU fit and all hosted generation/edit/restore workflows still require verification. Do not describe this candidate as deployment-ready. Quota exhaustion can interrupt any free service; there is no unconditional uptime guarantee.
+An explicit Neon PostgreSQL/private-object-storage adapter is now implemented; putting the local SQLite database on Render's ephemeral filesystem would still lose designs. The deployed workspace is https://sketchless-cad-7931c5be.onrender.com/. Provider keys, private storage, HTTPS and generation/edit/restore checks were verified. See the measured hosted report; free-plan availability remains an external limit. Quota exhaustion can interrupt any free service; there is no unconditional uptime guarantee.
 
-The database/artifact adapter preserves local SQLite as the default. Its real PostgreSQL integration and hosted setup must pass before enabling live generation. Keep credentials backend-only and privately configured. Never expose private storage buckets, prompts or design files publicly. Preserve owner checks, atomic quotas and successful-version restoration. A sleeping web process must reopen the same external state without overwriting it or forgetting its request budgets.
+The database/artifact adapter preserves local SQLite as the default. Its real PostgreSQL integration and hosted setup passed before the workspace was linked publicly. Keep credentials backend-only and privately configured. Never expose private storage buckets, prompts or design files publicly. Preserve owner checks, atomic quotas and successful-version restoration. A sleeping web process must reopen the same external state without overwriting it or forgetting its request budgets.
 
 The Linux check now supports explicit CPU/memory settings; the workflow probes 512 MiB and 0.1 CPU without Gemini. This tests representative sequential CAD only, not hosted capacity or broad prompt quality.
 
@@ -47,3 +47,9 @@ The exporter reads a consistent database snapshot, downloads verified immutable 
 The 0.1-CPU check exposed intermittent 60-second CAD deadlines. Hosted worker timeouts are therefore configurable with `SKETCHLESS_CAD_TIMEOUT_SECONDS`, capped at 180 seconds; local default remains 60 seconds. The Free blueprint chooses 180. Cold start plus CAD can take several minutes. This is a resource/latency limitation, not a change to modeling interpretation or its bounded repair count. Keep the saved-example gallery as the immediate portfolio entry point.
 
 [Storage verification evidence](cloud-storage-verification.json) separates local regression tests, real PostgreSQL integration and actual private-object-storage roundtrips from pending hosted-runtime checks. No account identifiers, key values, connection strings or billing balances are part of this report.
+
+## Hosted verification
+
+[Actual hosted results](hosted-verification.json): four successful interpretation requests required five SDK attempts including one bounded repair. Both concept builds required explicit harness approval; two restorations required no model call. Selected-component color edits preserved the rest of the scene. The exhausted verification visitor was denied another interpretation before any additional SDK call, while its accepted CAD and downloads remained available. These development examples are not a new held-out accuracy score. Provider 429 handling has separate mocked coverage; the observed hosted limit was the application visitor allowance.
+
+The existing Render service was not modified. Free workspace usage allowances are shared, so account-level exhaustion can suspend the demo. No keep-alive pings, paid upgrades or Azure credit-consuming resources were enabled. The app-scoped secrets were installed only after explicit owner approval. Dedicated local management keys are not part of the hosted environment or public source.
