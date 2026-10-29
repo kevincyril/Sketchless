@@ -1,0 +1,56 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {"type": "string", "defaultValue": "[resourceGroup().location]"},
+    "vmSize": {"type": "string", "allowedValues": ["Standard_B1s", "Standard_B2ats_v2"]},
+    "dnsLabel": {"type": "string", "minLength": 3, "maxLength": 63},
+    "sshPublicKey": {"type": "string"},
+    "administratorCidr": {"type": "string", "metadata": {"description": "Administrator's current public IPv4 /32; never use a wildcard."}}
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Network/networkSecurityGroups", "apiVersion": "2023-11-01",
+      "name": "sketchless-nsg", "location": "[parameters('location')]",
+      "properties": {"securityRules": [
+        {"name": "administrator-ssh", "properties": {"priority": 100, "access": "Allow", "direction": "Inbound", "protocol": "Tcp", "sourceAddressPrefix": "[parameters('administratorCidr')]", "sourcePortRange": "*", "destinationAddressPrefix": "*", "destinationPortRange": "22"}},
+        {"name": "public-https", "properties": {"priority": 110, "access": "Allow", "direction": "Inbound", "protocol": "Tcp", "sourceAddressPrefix": "Internet", "sourcePortRange": "*", "destinationAddressPrefix": "*", "destinationPortRanges": ["80", "443"]}}
+      ]}
+    },
+    {
+      "type": "Microsoft.Network/virtualNetworks", "apiVersion": "2023-11-01",
+      "name": "sketchless-vnet", "location": "[parameters('location')]",
+      "properties": {"addressSpace": {"addressPrefixes": ["10.42.0.0/16"]}, "subnets": [{"name": "app", "properties": {"addressPrefix": "10.42.0.0/24"}}]}
+    },
+    {
+      "type": "Microsoft.Network/publicIPAddresses", "apiVersion": "2023-11-01",
+      "name": "sketchless-ip", "location": "[parameters('location')]", "sku": {"name": "Standard"},
+      "properties": {"publicIPAllocationMethod": "Static", "publicIPAddressVersion": "IPv4", "dnsSettings": {"domainNameLabel": "[parameters('dnsLabel')]"}}
+    },
+    {
+      "type": "Microsoft.Network/networkInterfaces", "apiVersion": "2023-11-01",
+      "name": "sketchless-nic", "location": "[parameters('location')]",
+      "dependsOn": ["[resourceId('Microsoft.Network/virtualNetworks', 'sketchless-vnet')]", "[resourceId('Microsoft.Network/publicIPAddresses', 'sketchless-ip')]", "[resourceId('Microsoft.Network/networkSecurityGroups', 'sketchless-nsg')]"],
+      "properties": {
+        "networkSecurityGroup": {"id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'sketchless-nsg')]"},
+        "ipConfigurations": [{"name": "app", "properties": {"privateIPAllocationMethod": "Dynamic", "subnet": {"id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'sketchless-vnet', 'app')]"}, "publicIPAddress": {"id": "[resourceId('Microsoft.Network/publicIPAddresses', 'sketchless-ip')]"}}}]
+      }
+    },
+    {
+      "type": "Microsoft.Compute/virtualMachines", "apiVersion": "2024-03-01",
+      "name": "sketchless-vm", "location": "[parameters('location')]",
+      "dependsOn": ["[resourceId('Microsoft.Network/networkInterfaces', 'sketchless-nic')]"],
+      "properties": {
+        "hardwareProfile": {"vmSize": "[parameters('vmSize')]"},
+        "storageProfile": {
+          "imageReference": {"publisher": "Canonical", "offer": "ubuntu-24_04-lts", "sku": "server", "version": "latest"},
+          "osDisk": {"createOption": "FromImage", "diskSizeGB": 32, "deleteOption": "Delete", "managedDisk": {"storageAccountType": "StandardSSD_LRS"}}
+        },
+        "osProfile": {"computerName": "sketchless", "adminUsername": "sketchlessadmin", "linuxConfiguration": {"disablePasswordAuthentication": true, "ssh": {"publicKeys": [{"path": "/home/sketchlessadmin/.ssh/authorized_keys", "keyData": "[parameters('sshPublicKey')]"}]}}},
+        "networkProfile": {"networkInterfaces": [{"id": "[resourceId('Microsoft.Network/networkInterfaces', 'sketchless-nic')]", "properties": {"deleteOption": "Delete"}}]},
+        "diagnosticsProfile": {"bootDiagnostics": {"enabled": false}}
+      }
+    }
+  ],
+  "outputs": {"hostname": {"type": "string", "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', 'sketchless-ip')).dnsSettings.fqdn]"}}
+}

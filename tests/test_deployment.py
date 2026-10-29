@@ -34,3 +34,13 @@ def test_explicit_local_container_mode(config,monkeypatch):
     monkeypatch.setenv('SKETCHLESS_DEPLOYMENT_MODE','local')
     start.main()
     assert len(config)==1
+
+
+def test_public_startup_serializes_cad_workers(tmp_path):
+    import os, subprocess, sys
+    result=subprocess.run([sys.executable,'-c',
+        'from backend.app import pool; assert pool._max_workers == 1; pool.shutdown()'],
+        env=dict(os.environ,SKETCHLESS_PUBLIC_MODE='true',DEMO_MODE='true',
+                 SKETCHLESS_DATA_DIR=str(tmp_path/'public-data')),
+        capture_output=True,text=True,timeout=30)
+    assert result.returncode==0, result.stderr

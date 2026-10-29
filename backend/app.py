@@ -30,7 +30,7 @@ with sqlite3.connect(DB) as c:
 c.close()
 app=FastAPI(title='Sketchless')
 public_access.install(app,lambda:DB)
-pool=ThreadPoolExecutor(max_workers=2)
+pool=ThreadPoolExecutor(max_workers=1 if public_access.enabled() else 2)
 slots=threading.BoundedSemaphore(4)
 lock=threading.Lock(); active=set()
 

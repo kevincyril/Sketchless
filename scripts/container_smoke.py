@@ -30,7 +30,7 @@ def main():
 
     try:
         docker('volume', 'create', volume)
-        docker('run', '-d', '--name', name, '--memory=2g', '--cpus=1', '-p', '127.0.0.1::8000',
+        docker('run', '-d', '--name', name, '--memory=640m', '--memory-swap=640m', '--cpus=1', '-p', '127.0.0.1::8000',
                '--mount', 'source=' + volume + ',target=/app/data',
                '-e', 'DEMO_MODE=true', '-e', 'SKETCHLESS_DEPLOYMENT_MODE=local', 'sketchless:check')
         port = docker('port', name, '8000/tcp').rsplit(':', 1)[1]
