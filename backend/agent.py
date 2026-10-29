@@ -184,7 +184,11 @@ def _interpret_scene(client,model,description,current,emit,context,selected_id,s
                     after={c.id:c.model_dump() for c in result.components if c.id not in allowed}
                     if before!=after:raise ValueError('Selection-only edit must preserve every component outside the selected subtree. Deselect to edit the whole model.')
             if isinstance(result,SceneSpec):
-                from backend.scene_review import review_overall_dimensions,review_scene_requirements
+                from backend.scene_review import review_overall_dimensions,review_scene_requirements,reconcile_scene_assumptions
+                reconciled=reconcile_scene_assumptions(result,facts)
+                if reconciled.assumptions!=result.assumptions:
+                    emit('reconcile_assumptions',{'source':'structured_scene'}, {'before':result.assumptions,'after':reconciled.assumptions},time.perf_counter())
+                result=reconciled
                 review_overall_dimensions(result,description)
                 review_scene_requirements(result,facts)
             user_context=' '.join(m['content'] for m in context or [] if m['role']=='user')+' '+description

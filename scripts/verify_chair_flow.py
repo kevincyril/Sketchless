@@ -1,4 +1,4 @@
-"""Opt-in real HTTP/Gemini chair check. Three AI requests, two explicit CAD approvals.
+"""Opt-in real HTTP/Gemini chair check. Two or three AI requests, two explicit CAD approvals.
 No keys/cookies in reports; never retry provider failures or switch providers.
 """
 import argparse
@@ -13,6 +13,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--base-url',required=True)
     parser.add_argument('--expected-revision',required=True)
+    parser.add_argument('--skip-original',action='store_true',help='Skip the separate unsized development example; always run the exact dimensioned request.')
     parser.add_argument('--report',type=Path,default=Path('data/chair-http-verification.json'))
     args=parser.parse_args()
     if args.report.exists():raise SystemExit('Report already exists; inspect it before making more Gemini calls.')
@@ -68,16 +69,17 @@ def main():
             config=request('GET','/api/config');state['config']=config;save()
             assert config.get('build_revision')==args.expected_revision,'Website is running a different revision'
             assert config.get('modeling_contract_version')==2 and config['ai_configured'] and config['mode']=='LIVE_AGENT'
-            original_sid=request('POST','/api/sessions',{})['session_id']
-            state['interpretation_requests']+=1;save()
-            original=job('original_unsized_confirmation',original_sid,workflow='auto',description=prompts['original_description'])
-            assert original['brief']['requirements']['purpose']=='sitting'
-            original_parts=original['proposed_spec']['components']
-            original_seat=next(c for c in original_parts if c['role']=='seat' or c['name'].lower()=='seat')
-            original_legs=[c for c in original_parts if c['primitive']!='group' and re.search(r'\bleg',re.sub('[_-]',' ',c['role']+' '+c['name']).lower())]
-            assert len(original_legs)==4 and len([c for c in original_parts if 'slat' in (c['name']+' '+c['role']).lower()])==3
-            seat_bottom=original_seat['position_mm'][2]-original_seat['dimensions']['z_mm']/2
-            assert all(abs(c['position_mm'][2]+c['dimensions']['z_mm']/2-seat_bottom)<.1 for c in original_legs)
+            if not args.skip_original:
+                original_sid=request('POST','/api/sessions',{})['session_id']
+                state['interpretation_requests']+=1;save()
+                original=job('original_unsized_confirmation',original_sid,workflow='auto',description=prompts['original_description'])
+                assert original['brief']['requirements']['purpose']=='sitting'
+                original_parts=original['proposed_spec']['components']
+                original_seat=next(c for c in original_parts if c['role']=='seat' or c['name'].lower()=='seat')
+                original_legs=[c for c in original_parts if c['primitive']!='group' and re.search(r'\bleg',re.sub('[_-]',' ',c['role']+' '+c['name']).lower())]
+                assert len(original_legs)==4 and len([c for c in original_parts if 'slat' in (c['name']+' '+c['role']).lower()])==3
+                seat_bottom=original_seat['position_mm'][2]-original_seat['dimensions']['z_mm']/2
+                assert all(abs(c['position_mm'][2]+c['dimensions']['z_mm']/2-seat_bottom)<.1 for c in original_legs)
             sid=request('POST','/api/sessions',{})['session_id']
             state['interpretation_requests']+=1;save()
             first=job('initial_confirmation',sid,workflow='auto',description=prompts['description']);check(first,30,420)

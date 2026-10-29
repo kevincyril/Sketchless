@@ -37,8 +37,9 @@ def named_dimensions(text):
                 if re.search(r'[x\u00d7]\s*' + NUMBER + r'\s*[x\u00d7]\s*$', prefix):continue
                 distance = lambda m: max(m.start()-match.end(), match.start()-m.end(), 0)
                 preceding = [item for item in mentions if item[0].end() <= match.start() and distance(item[0]) <= 45]
+                following = [item for item in mentions if item[0].start() >= match.end() and not clause[match.end():item[0].start()].strip()]
                 if mentions:
-                    mention, component = min(preceding or mentions, key=lambda item: distance(item[0]))
+                    mention, component = min(following or preceding or mentions, key=lambda item: distance(item[0]))
                     if distance(mention)>45:continue
                     vicinity = clause[min(mention.start(),match.start()):max(mention.end(),match.end())]
                 elif inherited in ('overall','seat'):

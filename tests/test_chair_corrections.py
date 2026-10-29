@@ -184,3 +184,22 @@ def test_original_unsized_chair_defaults_must_be_self_consistent():
     scene=chair();review_scene_requirements(scene,facts)
     scene.components[1].dimensions.z_mm=450;scene.components[1].position_mm=(-210,-210,225)
     with pytest.raises(ValueError,match='seat underside'):review_scene_requirements(scene,facts)
+
+
+def test_stale_assumption_is_regenerated_from_scene_without_altering_geometry():
+    from backend.scene_review import reconcile_scene_assumptions
+    scene=chair();facts=requirements_summary(INITIAL)
+    scene.assumptions=['Wooden visual concept.','Leg length 450 mm; seat surface height 450 mm; seat thickness 30 mm.']
+    fixed=reconcile_scene_assumptions(scene,facts)
+    assert fixed.components==scene.components and scene.assumptions!=fixed.assumptions
+    assert 'Wooden visual concept.' in fixed.assumptions
+    assert 'leg length 420 mm' in fixed.assumptions[-1]
+    review_scene_requirements(fixed,facts)
+    scene.components[1].dimensions.z_mm=450;scene.components[1].position_mm=(-210,-210,225)
+    with pytest.raises(ValueError):review_scene_requirements(reconcile_scene_assumptions(scene,facts),facts)
+
+
+def test_measurement_before_its_component_does_not_belong_to_prior_leg():
+    facts=requirements_summary('Leg length 420 mm to accommodate a 30 mm seat thickness.',previous=requirements_summary(INITIAL))
+    dims={(d['component'],d['meaning']):d['value_mm'] for d in facts['dimensions']}
+    assert dims[('seat','thickness')]==30 and dims[('leg','length')]==420

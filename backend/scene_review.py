@@ -88,3 +88,25 @@ def review_scene_requirements(scene, facts):
             target=dimensions.get((stated['component'],stated['meaning']))
             if target is not None and abs(stated['value_mm']-target)>.1:
                 raise ValueError('Revise obsolete assumptions to match the corrected structured dimensions: '+stated['component']+' '+stated['meaning'])
+
+
+def reconcile_scene_assumptions(scene, facts):
+    """Replace stale dimensional prose from actual scene measurements; never change geometry."""
+    from backend.measurements import named_dimensions
+    from backend.requirements import negated
+    from backend.scene_geometry import world_matrices, expected_bounds
+    if facts.get('purpose')!='sitting':return scene
+    dimensions={(d['component'],d['meaning']):d['value_mm'] for d in facts.get('dimensions',[])}
+    def stale(text):
+        if any(not negated(text.lower(),m.start()) for m in re.finditer(r'\bwalking\b',text.lower())):return True
+        return any((d['component'],d['meaning']) in dimensions and abs(d['value_mm']-dimensions[(d['component'],d['meaning'])])>.1 for d in named_dimensions(text))
+    if not any(stale(a) for a in scene.assumptions):return scene
+    seats=[c for c in scene.components if c.role=='seat' or c.name.lower()=='seat']
+    legs=[c for c in scene.components if c.primitive!='group' and re.search(r'\bleg',c.role.lower().replace('_',' '))]
+    if len(seats)!=1 or not legs:return scene
+    world=world_matrices(scene);low,high=expected_bounds(seats[0],world[seats[0].id])
+    heights=[expected_bounds(c,world[c.id])[1][2]-expected_bounds(c,world[c.id])[0][2] for c in legs]
+    if max(heights)-min(heights)>.1:return scene
+    result=scene.model_copy(deep=True)
+    result.assumptions=[a for a in scene.assumptions if not stale(a)]+[f'Purpose is sitting. Seat surface height {high[2]:g} mm; seat thickness {high[2]-low[2]:g} mm; leg length {heights[0]:g} mm.']
+    return result
