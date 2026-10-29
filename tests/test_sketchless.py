@@ -1,4 +1,4 @@
-import json,time
+import json,time,os
 from pathlib import Path
 from types import SimpleNamespace as NS
 import pytest
@@ -45,7 +45,7 @@ def test_mock_relative_edit():
     assert result.model_dump()==proposed
 
 def wait(client,jid):
-    deadline=time.monotonic()+90
+    deadline=time.monotonic()+int(os.getenv('SKETCHLESS_TEST_JOB_TIMEOUT','90'))
     while time.monotonic()<deadline:
         j=client.get('/api/jobs/'+jid).json()
         if j['status'] not in ('queued','generating'): return j

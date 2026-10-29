@@ -149,3 +149,24 @@ def test_failed_job_admission_releases_session_and_queue_slots(monkeypatch):
         queued = browser.post('/api/jobs', json={'session_id': sid, 'spec': {'length_mm': 100, 'width_mm': 60, 'height_mm': 35}})
         assert queued.status_code == 202
         assert wait(browser, queued.json()['id'])['status'] == 'succeeded'
+
+
+def test_hosted_deadline_is_bounded_and_timeout_keeps_accepted_model(monkeypatch):
+    import subprocess
+    from fastapi.testclient import TestClient
+    from backend import app as server
+    from tests.test_sketchless import wait
+    monkeypatch.setenv('DEMO_MODE', 'true')
+    with TestClient(server.app) as browser:
+        sid = browser.post('/api/sessions').json()['session_id']
+        first = wait(browser, browser.post('/api/jobs', json={'session_id': sid, 'spec': {'length_mm': 100, 'width_mm': 60, 'height_mm': 35}}).json()['id'])
+        assert first['status'] == 'succeeded'
+        deadlines = []
+        def timed_out(command, **options):
+            deadlines.append(options['timeout'])
+            raise subprocess.TimeoutExpired(command, options['timeout'])
+        monkeypatch.setenv('SKETCHLESS_CAD_TIMEOUT_SECONDS', '999999')
+        monkeypatch.setattr(server.subprocess, 'run', timed_out)
+        failed = wait(browser, browser.post('/api/jobs', json={'session_id': sid, 'edit_length_delta_mm': 12}).json()['id'])
+        assert failed['status'] == 'failed' and deadlines == [180]
+        assert browser.get('/api/sessions/' + sid).json()['job_id'] == first['id']

@@ -319,7 +319,7 @@ def run(job,req):
         start=time.perf_counter(); spec=parse_spec(spec.model_dump()); emit('validate_scene' if isinstance(spec,SceneSpec) else 'validate_spec',spec.model_dump(),'passed',start)
         folder=DATA/job['id']; folder.mkdir(); (folder/'spec.json').write_text(spec.model_dump_json(),encoding='utf-8')
         start=time.perf_counter()
-        process=subprocess.run([sys.executable,'-m','backend.cad',str(folder/'spec.json')],cwd=ROOT,capture_output=True,text=True,timeout=60)
+        process=subprocess.run([sys.executable,'-m','backend.cad',str(folder/'spec.json')],cwd=ROOT,capture_output=True,text=True,timeout=min(180,public_access.limit('SKETCHLESS_CAD_TIMEOUT_SECONDS',60)))
         if process.returncode: raise ValueError('CAD worker failed: '+process.stderr[-1200:])
         emit('build_scene' if isinstance(spec,SceneSpec) else 'build_part',{'components':len(spec.components)} if isinstance(spec,SceneSpec) else spec.model_dump(),'STEP, STL, GLB and CAD tessellation generated' if isinstance(spec,SceneSpec) else 'STEP and STL generated',start)
         start=time.perf_counter(); inspection=json.loads((folder/'inspection.json').read_text(encoding='utf-8')); emit('inspect_artifact',{'job_id':job['id']},inspection,start)

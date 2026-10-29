@@ -36,7 +36,7 @@ def main():
         docker('volume', 'create', volume)
         docker('run', '-d', '--name', name, '--memory=' + memory, '--memory-swap=' + memory, '--cpus=' + cpus, '-p', '127.0.0.1::8000',
                '--mount', 'source=' + volume + ',target=/app/data',
-               '-e', 'DEMO_MODE=true', '-e', 'SKETCHLESS_DEPLOYMENT_MODE=local', 'sketchless:check')
+               '-e', 'DEMO_MODE=true', '-e', 'SKETCHLESS_CAD_TIMEOUT_SECONDS=180', '-e', 'SKETCHLESS_DEPLOYMENT_MODE=local', 'sketchless:check')
         port = docker('port', name, '8000/tcp').rsplit(':', 1)[1]
         base = 'http://127.0.0.1:' + port
 
@@ -59,7 +59,7 @@ def main():
         def build(sid, **action):
             started = time.monotonic()
             job = request('/api/jobs', {'session_id': sid, **action})
-            while time.monotonic() - started < 180:
+            while time.monotonic() - started < 210:
                 job = request('/api/jobs/' + job['id'])
                 if job['status'] == 'succeeded':
                     return job, round(time.monotonic() - started, 3)

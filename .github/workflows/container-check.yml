@@ -33,6 +33,7 @@ jobs:
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: |
           docker run --rm --network host --memory=512m --memory-swap=512m --cpus=0.1 \
+            -e SKETCHLESS_CAD_TIMEOUT_SECONDS=180 -e SKETCHLESS_TEST_JOB_TIMEOUT=210 \
             -e SKETCHLESS_TEST_POSTGRES=postgresql://postgres:offline-integration-password@127.0.0.1:5432/postgres \
             --mount type=bind,source="$PWD/tests",target=/app/tests,readonly \
             --mount type=bind,source="$PWD/scripts",target=/app/scripts,readonly \
