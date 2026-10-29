@@ -15,6 +15,9 @@ jobs:
       - name: Build Linux image without private configuration
         run: docker build -t sketchless:check .
       - name: Check CAD, exports and persistent restart without Gemini
+        env:
+          SKETCHLESS_CHECK_MEMORY: 512m
+          SKETCHLESS_CHECK_CPUS: '0.1'
         run: python scripts/container_smoke.py
       - uses: actions/upload-artifact@v4
         if: always()

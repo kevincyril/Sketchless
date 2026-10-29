@@ -1,5 +1,6 @@
 """Disposable Linux Docker verification; never reads keys or personal storage."""
 import json
+import os
 from pathlib import Path
 import subprocess
 import threading
@@ -13,7 +14,10 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     name = 'sketchless-check-' + uuid.uuid4().hex[:10]
     volume = name + '-data'
-    report = {'provider_calls': 0, 'passed': False, 'peak_container_bytes': 0}
+    memory = os.getenv('SKETCHLESS_CHECK_MEMORY', '640m')
+    cpus = os.getenv('SKETCHLESS_CHECK_CPUS', '1')
+    report = {'provider_calls': 0, 'passed': False, 'peak_container_bytes': 0,
+              'limits': {'container_memory': memory, 'cpu': cpus, 'swap': 'disabled'}}
     stop = threading.Event()
 
     def docker(*args):
@@ -30,7 +34,7 @@ def main():
 
     try:
         docker('volume', 'create', volume)
-        docker('run', '-d', '--name', name, '--memory=640m', '--memory-swap=640m', '--cpus=1', '-p', '127.0.0.1::8000',
+        docker('run', '-d', '--name', name, '--memory=' + memory, '--memory-swap=' + memory, '--cpus=' + cpus, '-p', '127.0.0.1::8000',
                '--mount', 'source=' + volume + ',target=/app/data',
                '-e', 'DEMO_MODE=true', '-e', 'SKETCHLESS_DEPLOYMENT_MODE=local', 'sketchless:check')
         port = docker('port', name, '8000/tcp').rsplit(':', 1)[1]
