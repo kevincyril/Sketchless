@@ -62,9 +62,10 @@ def test_upsert_keeps_version_order_and_json_filters(postgres):
 
 def test_postgres_rollback_preserves_other_scope_counts(postgres):
     connect, path, _ = postgres
-    public_access.consume(path, [('test_day', 'a', 1, 1, 'used')])
+    day = int(time.time() // 86400)
+    public_access.consume(path, [('test_day', 'a', day, 1, 'used')])
     with pytest.raises(ValueError):
-        public_access.consume(path, [('test_day', 'b', 1, 10, 'used'), ('test_day', 'a', 1, 1, 'used')])
+        public_access.consume(path, [('test_day', 'b', day, 10, 'used'), ('test_day', 'a', day, 1, 'used')])
     with closing(connect(None)) as db, db:
         assert db.execute("SELECT count FROM public_usage WHERE scope='b'").fetchone() is None
 
