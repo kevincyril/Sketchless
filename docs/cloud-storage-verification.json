@@ -1,0 +1,31 @@
+{
+  "scope": "Storage-adapter verification using explicit development specs; not a new modeling-accuracy score.",
+  "local_backend_suite": {
+    "passed": 220,
+    "postgres_tests_skipped_locally": 5
+  },
+  "browser_suite": {
+    "passed": 22
+  },
+  "real_postgres_integration": {
+    "passed": 17,
+    "workflow_run": "https://github.com/kevincyril/Sketchless/actions/runs/40950311290",
+    "note": "Database/object recovery checks passed. The separate CAD CPU-throttling step failed the earlier 60-second deadline; that failure remains visible in the run."
+  },
+  "live_storage_readiness": {
+    "cad_builds": 2,
+    "dimension_edit": true,
+    "version_restoration": true,
+    "empty_cache_recovery": true,
+    "cross_user_access_denied": true,
+    "unsigned_object_access_status": 403,
+    "backup_to_local_roundtrip": true,
+    "configuration_secrets_excluded_from_backup": true,
+    "gemini_calls": 0
+  },
+  "limits": [
+    "Cloud readiness used a local CAD process; it is not proof of Render runtime performance.",
+    "The newest hosted-deadline profile and public deployment checks are pending.",
+    "No new held-out language-model score is claimed."
+  ]
+}
