@@ -1,0 +1,882 @@
+{
+  "date": "2026-10-29",
+  "scenario": "User-reported chair regression; development verification, not held-out evaluation",
+  "base_url": "https://sketchless-cad-7931c5be.onrender.com",
+  "tested_revision": "4d90e63bbd960cffc235bf18a0821a505a4e9ac1",
+  "modeling_contract_version": 2,
+  "modeling_source_digest": "4746943796550d83",
+  "provider": "Real Gemini Developer API; backend key; Free-tier attestation and existing limits retained",
+  "browser_transport": "Actual Chrome Send message and Build this concept buttons; no route interception or mocked responses",
+  "interpretation_requests": 2,
+  "modeling_tool_attempts": 3,
+  "prompts": {
+    "initial": "Create a simple wooden chair for sitting. Overall dimensions: 450 mm wide, 450 mm deep, and 850 mm tall. The seat is 450 \u00c3\u2014 450 \u00c3\u2014 30 mm, with its top surface 450 mm above the ground. Include four straight legs, two backrest posts, and three evenly spaced horizontal backrest slats. Legs must meet the underside of the seat. Use millimeters and Z-up coordinates. Show your proposed design before building.",
+    "follow_up": "Change the seat thickness to 40 mm, keeping the seat top surface at 450 mm and the overall dimensions 450 x 450 x 850 mm. Shorten all four legs to 410 mm so they meet the underside. Keep all three backrest slats and all other components unchanged."
+  },
+  "passed": true,
+  "phases": {
+    "chair-live-confirmation": {
+      "status": "clarification",
+      "seconds": 10.316,
+      "purpose": "sitting",
+      "confirmation_message": "Before I build, please check my understanding. User-stated requirements: purpose: sitting; size: overall width: 450 mm; overall depth: 450 mm; overall height: 850 mm; seat width: 450 mm; seat depth: 450 mm; seat thickness: 30 mm; seat surface height: 450 mm; leg length: 420 mm. I propose Wooden Chair. Main parts: Seat, Front Left Leg, Front Right Leg, Rear Left Leg, Rear Right Leg, Left Backrest Post, Right Backrest Post, Lower Backrest Slat, Middle Backrest Slat, Upper Backrest Slat. Overall size (X \u00c3\u2014 Y \u00c3\u2014 Z): 450 \u00c3\u2014 450 \u00c3\u2014 850 mm. Seat: x 450 mm, y 450 mm, z 30 mm. Assumptions: Wooden chair with overall dimensions 450x450x850 mm. Seat 450x450x30 mm with top surface at z=450 mm. Four straight vertical legs meeting the underside of the seat (length 420 mm). Two backrest posts extending up to 850 mm total height. Three evenly spaced horizontal backrest slats. Units in mm, Z-up coordinate system. This is a visual concept, not a working mechanism. Is this the design you want? Select Build this concept, or send corrections first.",
+      "overall_dimensions_mm": [
+        450,
+        450,
+        850
+      ],
+      "parts": [
+        {
+          "id": "seat",
+          "name": "Seat",
+          "primitive": "box",
+          "dimensions_mm": {
+            "x_mm": 450,
+            "y_mm": 450,
+            "z_mm": 30
+          },
+          "position_mm": [
+            0,
+            0,
+            435
+          ]
+        },
+        {
+          "id": "leg_fl",
+          "name": "Front Left Leg",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 420,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            -200,
+            -200,
+            210
+          ]
+        },
+        {
+          "id": "leg_fr",
+          "name": "Front Right Leg",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 420,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            200,
+            -200,
+            210
+          ]
+        },
+        {
+          "id": "leg_rl",
+          "name": "Rear Left Leg",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 420,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            -200,
+            200,
+            210
+          ]
+        },
+        {
+          "id": "leg_rr",
+          "name": "Rear Right Leg",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 420,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            200,
+            200,
+            210
+          ]
+        },
+        {
+          "id": "post_left",
+          "name": "Left Backrest Post",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 400,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            -200,
+            200,
+            650
+          ]
+        },
+        {
+          "id": "post_right",
+          "name": "Right Backrest Post",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 400,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            200,
+            200,
+            650
+          ]
+        },
+        {
+          "id": "slat_1",
+          "name": "Lower Backrest Slat",
+          "primitive": "box",
+          "dimensions_mm": {
+            "x_mm": 366,
+            "y_mm": 25,
+            "z_mm": 50
+          },
+          "position_mm": [
+            0,
+            200,
+            535
+          ]
+        },
+        {
+          "id": "slat_2",
+          "name": "Middle Backrest Slat",
+          "primitive": "box",
+          "dimensions_mm": {
+            "x_mm": 366,
+            "y_mm": 25,
+            "z_mm": 50
+          },
+          "position_mm": [
+            0,
+            200,
+            635
+          ]
+        },
+        {
+          "id": "slat_3",
+          "name": "Upper Backrest Slat",
+          "primitive": "box",
+          "dimensions_mm": {
+            "x_mm": 366,
+            "y_mm": 25,
+            "z_mm": 50
+          },
+          "position_mm": [
+            0,
+            200,
+            735
+          ]
+        }
+      ],
+      "browser_confirmation_verified": true
+    },
+    "initial_build": {
+      "status": "succeeded",
+      "seconds": 39.883,
+      "overall_dimensions_mm": [
+        450,
+        450,
+        850
+      ],
+      "cad_worker_components_match_approved_proposal": true,
+      "actual_cad_preview_verified": true,
+      "geometry_checks": {
+        "components_valid": true,
+        "component_count_match": true,
+        "positive_volume": true,
+        "finite_transforms": true,
+        "referenced_ids_valid": true,
+        "part_step_nonempty": true,
+        "part_stl_nonempty": true,
+        "part_glb_nonempty": true,
+        "scene_json_nonempty": true
+      },
+      "component_bounds": [
+        {
+          "id": "seat",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -225,
+              -225,
+              420
+            ],
+            [
+              225,
+              225,
+              450
+            ]
+          ],
+          "volume_mm3": 6075000
+        },
+        {
+          "id": "leg_fl",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -217,
+              -217,
+              0
+            ],
+            [
+              -183,
+              -183,
+              420
+            ]
+          ],
+          "volume_mm3": 381326.5162927292
+        },
+        {
+          "id": "leg_fr",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              183,
+              -217,
+              0
+            ],
+            [
+              217,
+              -183,
+              420
+            ]
+          ],
+          "volume_mm3": 381326.5162927292
+        },
+        {
+          "id": "leg_rl",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -217,
+              183,
+              0
+            ],
+            [
+              -183,
+              217,
+              420
+            ]
+          ],
+          "volume_mm3": 381326.5162927292
+        },
+        {
+          "id": "leg_rr",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              183,
+              183,
+              0
+            ],
+            [
+              217,
+              217,
+              420
+            ]
+          ],
+          "volume_mm3": 381326.5162927292
+        },
+        {
+          "id": "post_left",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -217,
+              183,
+              450
+            ],
+            [
+              -183,
+              217,
+              850
+            ]
+          ],
+          "volume_mm3": 363168.1107549801
+        },
+        {
+          "id": "post_right",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              183,
+              183,
+              450
+            ],
+            [
+              217,
+              217,
+              850
+            ]
+          ],
+          "volume_mm3": 363168.1107549801
+        },
+        {
+          "id": "slat_1",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -183,
+              187.5,
+              510
+            ],
+            [
+              183,
+              212.5,
+              560
+            ]
+          ],
+          "volume_mm3": 457500
+        },
+        {
+          "id": "slat_2",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -183,
+              187.5,
+              610
+            ],
+            [
+              183,
+              212.5,
+              660
+            ]
+          ],
+          "volume_mm3": 457500
+        },
+        {
+          "id": "slat_3",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -183,
+              187.5,
+              710
+            ],
+            [
+              183,
+              212.5,
+              760
+            ]
+          ],
+          "volume_mm3": 457500
+        }
+      ]
+    },
+    "chair-live-correction": {
+      "status": "clarification",
+      "seconds": 6.477,
+      "purpose": "sitting",
+      "confirmation_message": "Before I build, please check my understanding. User-stated requirements: purpose: sitting; size: overall width: 450 mm; overall depth: 450 mm; overall height: 850 mm; seat width: 450 mm; seat depth: 450 mm; seat thickness: 40 mm; seat surface height: 450 mm; leg length: 410 mm. I propose Wooden Chair. Main parts: Seat, Front Left Leg, Front Right Leg, Rear Left Leg, Rear Right Leg, Left Backrest Post, Right Backrest Post, Lower Backrest Slat, Middle Backrest Slat, Upper Backrest Slat. Overall size (X \u00c3\u2014 Y \u00c3\u2014 Z): 450 \u00c3\u2014 450 \u00c3\u2014 850 mm. Seat: x 450 mm, y 450 mm, z 40 mm. Assumptions: Wooden chair with overall dimensions 450x450x850 mm. Seat 450x450x40 mm with top surface at z=450 mm. Four straight vertical legs meeting the underside of the seat (length 410 mm). Two backrest posts extending up to 850 mm total height. Three evenly spaced horizontal backrest slats. Units in mm, Z-up coordinate system. This is a visual concept, not a working mechanism. Is this the design you want? Select Build this concept, or send corrections first.",
+      "overall_dimensions_mm": [
+        450,
+        450,
+        850
+      ],
+      "parts": [
+        {
+          "id": "seat",
+          "name": "Seat",
+          "primitive": "box",
+          "dimensions_mm": {
+            "x_mm": 450,
+            "y_mm": 450,
+            "z_mm": 40
+          },
+          "position_mm": [
+            0,
+            0,
+            430
+          ]
+        },
+        {
+          "id": "leg_fl",
+          "name": "Front Left Leg",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 410,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            -200,
+            -200,
+            205
+          ]
+        },
+        {
+          "id": "leg_fr",
+          "name": "Front Right Leg",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 410,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            200,
+            -200,
+            205
+          ]
+        },
+        {
+          "id": "leg_rl",
+          "name": "Rear Left Leg",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 410,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            -200,
+            200,
+            205
+          ]
+        },
+        {
+          "id": "leg_rr",
+          "name": "Rear Right Leg",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 410,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            200,
+            200,
+            205
+          ]
+        },
+        {
+          "id": "post_left",
+          "name": "Left Backrest Post",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 400,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            -200,
+            200,
+            650
+          ]
+        },
+        {
+          "id": "post_right",
+          "name": "Right Backrest Post",
+          "primitive": "cylinder",
+          "dimensions_mm": {
+            "z_mm": 400,
+            "radius_mm": 17
+          },
+          "position_mm": [
+            200,
+            200,
+            650
+          ]
+        },
+        {
+          "id": "slat_1",
+          "name": "Lower Backrest Slat",
+          "primitive": "box",
+          "dimensions_mm": {
+            "x_mm": 366,
+            "y_mm": 25,
+            "z_mm": 50
+          },
+          "position_mm": [
+            0,
+            200,
+            535
+          ]
+        },
+        {
+          "id": "slat_2",
+          "name": "Middle Backrest Slat",
+          "primitive": "box",
+          "dimensions_mm": {
+            "x_mm": 366,
+            "y_mm": 25,
+            "z_mm": 50
+          },
+          "position_mm": [
+            0,
+            200,
+            635
+          ]
+        },
+        {
+          "id": "slat_3",
+          "name": "Upper Backrest Slat",
+          "primitive": "box",
+          "dimensions_mm": {
+            "x_mm": 366,
+            "y_mm": 25,
+            "z_mm": 50
+          },
+          "position_mm": [
+            0,
+            200,
+            735
+          ]
+        }
+      ],
+      "browser_confirmation_verified": true
+    },
+    "followup_build": {
+      "status": "succeeded",
+      "seconds": 38.228,
+      "overall_dimensions_mm": [
+        450,
+        450,
+        850
+      ],
+      "cad_worker_components_match_approved_proposal": true,
+      "actual_cad_preview_verified": true,
+      "geometry_checks": {
+        "components_valid": true,
+        "component_count_match": true,
+        "positive_volume": true,
+        "finite_transforms": true,
+        "referenced_ids_valid": true,
+        "part_step_nonempty": true,
+        "part_stl_nonempty": true,
+        "part_glb_nonempty": true,
+        "scene_json_nonempty": true
+      },
+      "component_bounds": [
+        {
+          "id": "seat",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -225,
+              -225,
+              410
+            ],
+            [
+              225,
+              225,
+              450
+            ]
+          ],
+          "volume_mm3": 8100000
+        },
+        {
+          "id": "leg_fl",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -217,
+              -217,
+              0
+            ],
+            [
+              -183,
+              -183,
+              410
+            ]
+          ],
+          "volume_mm3": 372247.31352385454
+        },
+        {
+          "id": "leg_fr",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              183,
+              -217,
+              0
+            ],
+            [
+              217,
+              -183,
+              410
+            ]
+          ],
+          "volume_mm3": 372247.31352385454
+        },
+        {
+          "id": "leg_rl",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -217,
+              183,
+              0
+            ],
+            [
+              -183,
+              217,
+              410
+            ]
+          ],
+          "volume_mm3": 372247.31352385454
+        },
+        {
+          "id": "leg_rr",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              183,
+              183,
+              0
+            ],
+            [
+              217,
+              217,
+              410
+            ]
+          ],
+          "volume_mm3": 372247.31352385454
+        },
+        {
+          "id": "post_left",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -217,
+              183,
+              450
+            ],
+            [
+              -183,
+              217,
+              850
+            ]
+          ],
+          "volume_mm3": 363168.1107549801
+        },
+        {
+          "id": "post_right",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              183,
+              183,
+              450
+            ],
+            [
+              217,
+              217,
+              850
+            ]
+          ],
+          "volume_mm3": 363168.1107549801
+        },
+        {
+          "id": "slat_1",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -183,
+              187.5,
+              510
+            ],
+            [
+              183,
+              212.5,
+              560
+            ]
+          ],
+          "volume_mm3": 457500
+        },
+        {
+          "id": "slat_2",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -183,
+              187.5,
+              610
+            ],
+            [
+              183,
+              212.5,
+              660
+            ]
+          ],
+          "volume_mm3": 457500
+        },
+        {
+          "id": "slat_3",
+          "checks": {
+            "valid_shape": true,
+            "one_component_solid": true,
+            "positive_volume": true,
+            "volume_match": true,
+            "transformed_bounds_match": true
+          },
+          "bounds_mm": [
+            [
+              -183,
+              187.5,
+              710
+            ],
+            [
+              183,
+              212.5,
+              760
+            ]
+          ],
+          "volume_mm3": 457500
+        }
+      ]
+    }
+  },
+  "earlier_development_checks": [
+    {
+      "revision": "1a78a5f",
+      "outcome": "failed",
+      "reason": "After repairing overall height, dimensional assumption validation rejected the scene; component association and reconciliation needed further work."
+    },
+    {
+      "revision": "eca062c",
+      "outcome": "confirmation and CAD succeeded; verification failed",
+      "reason": "Post-tessellation compound bounds reported 850.036 mm although exact component bounds ended at 850 mm. Replaced cached-triangle bounds with analytic B-rep bounds."
+    }
+  ],
+  "validation": {
+    "live_browser": {
+      "passed": true,
+      "javascript_errors": [],
+      "interpretation_requests": 2,
+      "cad_builds": 2
+    },
+    "linux_container_ci": {
+      "status": "success",
+      "url": "https://github.com/kevincyril/Sketchless/actions/runs/40969507243"
+    },
+    "local_backend_full_suite": {
+      "passed": 236,
+      "skipped": 5,
+      "failed": 1,
+      "failure": "Public startup child process exceeded its 30-second test timeout during concurrent checks."
+    },
+    "isolated_startup_rerun": {
+      "passed": true,
+      "seconds": 4.4
+    },
+    "native_cylindrical_chair_bounds_regression": {
+      "passed": true,
+      "absolute_tolerance_mm": 0.001
+    },
+    "hosting_plan": "Render Free; no plan, billing, or quota changes"
+  }
+}

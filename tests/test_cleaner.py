@@ -60,7 +60,8 @@ def test_actual_cleaner_cad_and_visual_exports(tmp_path):
  scene=cleaner_scene(CleanerRequest());report=build(scene,tmp_path)
  assert report['solid_count']==21
  assert all(report['checks'].values()) and all(report['design_review']['checks'].values())
- assert report['bounding_box_mm'][0]==pytest.approx(340.3423575759531,abs=.1)
+ # The 340 mm analytic body must not include a cached preview-mesh margin.
+ assert report['bounding_box_mm'][0]==pytest.approx(340,abs=.01)
  assert report['bounding_box_mm'][2]<120
  assert len(cq.importers.importStep(str(tmp_path/'part.step')).solids().vals())==21
  assert (tmp_path/'part.glb').read_bytes()[:4]==b'glTF'

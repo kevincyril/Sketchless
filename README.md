@@ -64,6 +64,8 @@ See [architecture and ML boundaries](docs/architecture.md).
 
 ## Reproduce verification
 
+[Chair correction investigation and real browser/CAD results](docs/chair-flow-verification.md) records the exact reported prompt, corrected confirmations, actual builder output, failed development checks, and reproduction commands.
+
 Ordinary tests are offline and never use your local Gemini key:
 
 ```powershell
