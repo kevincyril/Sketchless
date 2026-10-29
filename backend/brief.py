@@ -16,13 +16,14 @@ def proposal_changes(previous,current):
     return changes or ['No component changes.']
 
 
-def concept_brief(spec:SceneSpec,description="",context=None,previous_spec=None):
+def concept_brief(spec:SceneSpec,description="",context=None,previous_spec=None,requirements=None):
     from backend.requirements import requirements_summary
     parts=[c for c in spec.components if c.primitive!='group']
     primary=next((c for c in parts if c.role in ('body','top','base')),parts[0])
     measurements=', '.join(k.removesuffix('_mm').replace('_',' ')+f' {v:g} mm' for k,v in primary.dimensions.model_dump().items() if v is not None)
-    names=list(dict.fromkeys(c.name for c in parts))
-    return {'requirements':requirements_summary(description,context),'name':spec.name,'changes':proposal_changes(previous_spec,spec),'overall_dimensions_mm':scene_dimensions(spec),'layout_warnings':layout_warnings(spec),'primary_component':primary.name,'primary_dimensions':measurements,'components':names,'assumptions':spec.assumptions,'solid_components':len(parts)}
+    names=[c.name for c in parts]
+    details=[{'id':c.id,'name':c.name,'primitive':c.primitive,'dimensions_mm':c.dimensions.model_dump(exclude_none=True),'position_mm':list(c.position_mm)} for c in parts]
+    return {'requirements':requirements if requirements is not None else requirements_summary(description,context),'name':spec.name,'changes':proposal_changes(previous_spec,spec),'overall_dimensions_mm':scene_dimensions(spec),'layout_warnings':layout_warnings(spec),'primary_component':primary.name,'primary_dimensions':measurements,'components':names,'component_details':details,'assumptions':spec.assumptions,'solid_components':len(parts)}
 
 def brief_message(brief):
     facts=brief.get('requirements',{});agreed=[]
@@ -30,4 +31,4 @@ def brief_message(brief):
         if facts.get(key):agreed.append(key+': '+facts[key])
     if facts.get('tasks'):agreed.append('tasks: '+', '.join(facts['tasks']))
     understanding=('User-stated requirements: '+'; '.join(agreed)+'. ') if agreed else ''
-    return ('Before I build, please check my understanding. '+understanding+'I propose '+brief['name']+'. Main parts: '+', '.join(brief['components'][:8])+'. '+('Overall size (X × Y × Z): '+' × '.join(f'{v:g}' for v in brief['overall_dimensions_mm'])+' mm. ' if brief.get('overall_dimensions_mm') else '')+brief['primary_component']+': '+brief['primary_dimensions']+'. '+('Assumptions: '+' '.join(brief['assumptions'])+' ' if brief['assumptions'] else '')+'This is a visual concept, not a working mechanism. Is this the design you want? Select Build this concept, or send corrections first.')
+    return ('Before I build, please check my understanding. '+understanding+'I propose '+brief['name']+'. Main parts: '+', '.join(brief['components'])+'. '+('Overall size (X × Y × Z): '+' × '.join(f'{v:g}' for v in brief['overall_dimensions_mm'])+' mm. ' if brief.get('overall_dimensions_mm') else '')+brief['primary_component']+': '+brief['primary_dimensions']+'. '+('Assumptions: '+' '.join(brief['assumptions'])+' ' if brief['assumptions'] else '')+'This is a visual concept, not a working mechanism. Is this the design you want? Select Build this concept, or send corrections first.')

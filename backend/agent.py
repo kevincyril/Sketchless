@@ -34,13 +34,13 @@ def create_client():
             api_version='v1beta', timeout=30000,
             retry_options=types.HttpRetryOptions(attempts=1)))
 
-def interpret(description,current,classification,emit,client=None,context=None,scene=False,selected_id=None,selection_only=False,versions=None,provisional=False):
+def interpret(description,current,classification,emit,client=None,context=None,scene=False,selected_id=None,selection_only=False,versions=None,provisional=False,requirements=None):
     model = require_free_tier()
     owned = client is None
     try:
         client = client or create_client()
         if scene:
-            return _interpret_scene(client,model,description,current,emit,context,selected_id,selection_only,versions,provisional)
+            return _interpret_scene(client,model,description,current,emit,context,selected_id,selection_only,versions,provisional,requirements)
         return _interpret(client, model, description, current, classification, emit, context)
     except errors.APIError as exc:
         if exc.code == 429:
@@ -107,14 +107,15 @@ def _interpret(client,model,description,current,classification,emit,context):
     raise ValueError('Specification repair limit reached (two retries). Please provide dimensions that leave space for walls or bracket holes.')
 
 
-def _interpret_scene(client,model,description,current,emit,context,selected_id,selection_only,versions,provisional=False):
+def _interpret_scene(client,model,description,current,emit,context,selected_id,selection_only,versions,provisional=False,requirements=None):
     from backend.scene_schema import SceneSpec, ConceptRequest, SceneChanges, RestoreAction, Strict, CleanerRequest
     from backend.concepts import concept_scene, edit_scene, cleaner_scene, review_cleaner
     from backend.routing import is_cleaner_request
     from backend.requirements import effective_context,requirements_summary
     context=effective_context(description,context)
     from backend.requirements import purpose
-    requested_purpose=requirements_summary(description,context)['purpose']
+    facts=requirements if requirements is not None else requirements_summary(description,context)
+    requested_purpose=facts['purpose']
     active_purpose=({'robot':'walking'}.get((current or {}).get('concept'),(current or {}).get('concept')) if (current or {}).get('concept')!='custom' else purpose((current or {}).get('name','')))
     replacing_intent=bool(current and current.get('part_type')=='assembly' and not selection_only and requested_purpose and requested_purpose!=active_purpose and re.search(r'\b(actually|instead|forget|start over|different idea|change to|switch to)\b',description.lower()))
     class Proposal(Strict):
@@ -134,11 +135,12 @@ def _interpret_scene(client,model,description,current,emit,context,selected_id,s
         'For an ambiguous robot ask ONE concise combined question about its purpose, form and size. Only after a walking form is requested ask about leg count and straight/articulated legs. Ask about eyes only if relevant. Remember answers; generate without further questions once enough is known. If user says use sensible defaults, use/disclose defaults and proceed. '
         'For a detailed four articulated legs, 200 mm cube body, two camera eyes request call create_concept with explicit dimensions and assumptions: 160 mm leg height, 3D visual joints, millimeters; do not ask unnecessary further questions. '
         'For tables/stands clarify essential size if absent, unless defaults authorized; table defaults 300x200x20 mm top/250 mm legs; stand 120x100x12 mm platform/160 mm post. '
+        'Explicit user corrections override older requirements and assumptions. Apply corrections to the structured scene, including missing components, component heights and center positions. Use update_components assumptions to REPLACE obsolete assumptions. A 450 mm seat TOP with a 30 mm seat thickness needs 420 mm vertical legs meeting the underside, not 450 mm legs. Keep each measurement associated with its component and meaning. '
         'Use the supplied current scene as the authoritative edit baseline. For edits ONLY update_components, preserve stable IDs, all unrelated dimensions/colors/components. Selected component scope is enforced. Ask which components/amount when ambiguous; do not guess which leg. For make legs longer without an amount, ask how much unless sensible defaults are authorized. '
         'Scene conventions: mm, right-handed +Z up, front=-Y, boxes/cylinders/cones centered at local origin, cylinders/cones axis Z, sphere origin at center. Local XYZ Euler degrees applied Rx then Ry then Rz, then translation; parent transforms compose. Only groups are parents, max64 nodes, max8 levels, dimensions .1..1000 mm, positions +/-2000 mm, bounds +/-4000 mm. '
         'Use groups for repeated articulated legs, each with separate segments and joints. No boolean operations. Partial dimension patches require only changed dimensions. '
         'Report concise assumptions/units in clarification or create_concept assumptions; never claim tests that have not run. Do not reveal thoughts. '
-        'CURRENT SCENE IS AN UNBUILT PROPOSAL: '+str(provisional)+'. If true, revise this proposal rather than recreating it; it has not replaced the accepted CAD model. Approval is still required after every correction. EXPLICIT REPLACEMENT OF PRODUCT PURPOSE: '+str(replacing_intent)+'. When true you may propose a new recipe/custom scene; old geometry stays active until user approval. Otherwise preserve IDs and edit through update_components. USER-STATED REQUIREMENTS (honor latest corrections and negations): '+json.dumps(requirements_summary(description,context))+' CURRENT MODEL: '+json.dumps(current)+' SELECTED ID: '+str(selected_id)+' SELECTION ONLY: '+str(selection_only)+' AVAILABLE VERSIONS: '+json.dumps(versions or []))
+        'CURRENT SCENE IS AN UNBUILT PROPOSAL: '+str(provisional)+'. If true, revise this proposal rather than recreating it; it has not replaced the accepted CAD model. Approval is still required after every correction. EXPLICIT REPLACEMENT OF PRODUCT PURPOSE: '+str(replacing_intent)+'. When true you may propose a new recipe/custom scene; old geometry stays active until user approval. Otherwise preserve IDs and edit through update_components. USER-STATED REQUIREMENTS (honor latest corrections and negations): '+json.dumps(facts)+' CURRENT MODEL: '+json.dumps(current)+' SELECTED ID: '+str(selected_id)+' SELECTION ONLY: '+str(selection_only)+' AVAILABLE VERSIONS: '+json.dumps(versions or []))
     history=[types.Content(role='model' if m['role']=='assistant' else 'user',parts=[types.Part.from_text(text=m['content'])]) for m in (context or [])]
     history.append(types.Content(role='user',parts=[types.Part.from_text(text=description)]))
     config=types.GenerateContentConfig(system_instruction=system,tools=[types.Tool(function_declarations=tools)],automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),tool_config=types.ToolConfig(function_calling_config=types.FunctionCallingConfig(mode='VALIDATED' if model==DEFAULT_MODEL else 'AUTO')),candidate_count=1,max_output_tokens=6000)
@@ -164,7 +166,7 @@ def _interpret_scene(client,model,description,current,emit,context,selected_id,s
             elif call.name=='create_concept':
                 if current and current.get('part_type')=='assembly' and not replacing_intent:raise ValueError('Edit the current scene with update_components; do not replace its stable IDs. Start a new design for a new concept.')
                 intent=' '.join(m['content'] for m in context or [] if m['role']=='user')+' '+description
-                if args.concept=='robot' and requirements_summary(description,context)['purpose']=='cooking':raise ValueError('A generic walking robot does not meet a cooking-robot request. Clarify the purpose/form or propose a custom scene matching the agreed kitchen tasks.')
+                if args.concept=='robot' and facts['purpose']=='cooking':raise ValueError('A generic walking robot does not meet a cooking-robot request. Clarify the purpose/form or propose a custom scene matching the agreed kitchen tasks.')
                 result=concept_scene(args)
             elif call.name=='propose_scene':
                 if current and current.get('part_type')=='assembly' and not replacing_intent:raise ValueError('Use update_components for the existing scene, preserving IDs.')
@@ -182,10 +184,11 @@ def _interpret_scene(client,model,description,current,emit,context,selected_id,s
                     after={c.id:c.model_dump() for c in result.components if c.id not in allowed}
                     if before!=after:raise ValueError('Selection-only edit must preserve every component outside the selected subtree. Deselect to edit the whole model.')
             if isinstance(result,SceneSpec):
-                from backend.scene_review import review_overall_dimensions
+                from backend.scene_review import review_overall_dimensions,review_scene_requirements
                 review_overall_dimensions(result,description)
+                review_scene_requirements(result,facts)
             user_context=' '.join(m['content'] for m in context or [] if m['role']=='user')+' '+description
-            cleaner_intent=requirements_summary(description,context)['purpose']=='cleaner' and not any(word in user_context.lower() for word in ('upright','handheld','stick vacuum','carpet washer'))
+            cleaner_intent=facts['purpose']=='cleaner' and not any(word in user_context.lower() for word in ('upright','handheld','stick vacuum','carpet washer'))
             if isinstance(result,SceneSpec) and (((not current or replacing_intent) and cleaner_intent) or result.concept=='cleaner'):
                 review=review_cleaner(result)
                 emit('review_concept',{'family':'robot vacuum'},review,start)

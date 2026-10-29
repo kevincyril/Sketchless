@@ -97,6 +97,7 @@ class Copy(Strict):
     mirror_axis:Literal['x','y','z']|None=None
 
 class SceneChanges(Strict):
+    assumptions:list[str]|None=Field(default=None,max_length=8)
     updates:list[Patch]=Field(default_factory=list,max_length=32)
     additions:list[Component]=Field(default_factory=list,max_length=32)
     remove_ids:list[ID]=Field(default_factory=list,max_length=32)

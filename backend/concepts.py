@@ -39,6 +39,7 @@ def concept_scene(request:ConceptRequest):
 
 def edit_scene(scene:SceneSpec,changes:SceneChanges,selected_id=None):
     data=scene.model_dump(mode="json");nodes={n['id']:n for n in data['components']}
+    if changes.assumptions is not None:data['assumptions']=changes.assumptions
     if selected_id and selected_id not in nodes:raise ValueError('Selected component no longer exists.')
     # A selected-only request is expressed as a patch to that stable ID, not a rebuilt scene.
     if changes.lengthen_legs_mm is not None:

@@ -31,3 +31,60 @@ def review_overall_dimensions(scene,description):
         if abs(actual[index]-target)>tolerance:
             axis=('width','depth','height')[index]
             raise ValueError(f'Requested overall {axis} {target:g} mm (tolerance {tolerance:g} mm), but transformed scene measures {actual[index]:g} mm. Adjust the component dimensions/positions to meet this extent; preserve the intended design. Positions are centers, not top surfaces.')
+
+
+def review_scene_requirements(scene, facts):
+    """Reject misleading confirmations; feedback goes through the existing bounded repair loop."""
+    from backend.measurements import named_dimensions
+    from backend.requirements import negated
+    from backend.scene_geometry import world_matrices, expected_bounds
+    dimensions={(d['component'],d['meaning']):d['value_mm'] for d in facts.get('dimensions',[])}
+    # Model-selected defaults must also agree with geometry; they never override the user.
+    if facts.get('purpose')=='sitting':
+        for assumption in scene.assumptions:
+            for d in named_dimensions(assumption):
+                if d['component']=='seat':dimensions.setdefault((d['component'],d['meaning']),d['value_mm'])
+    actual=scene_dimensions(scene)
+    for axis,name in enumerate(('width','depth','height')):
+        target=dimensions.get(('overall',name))
+        if target is not None and abs(actual[axis]-target)>.1:
+            raise ValueError(f'Correct the overall {name}: required {target:g} mm, proposed {actual[axis]:g} mm. Preserve the other requirements.')
+    def label(c):return re.sub(r'([a-z])([A-Z])',r'\1 \2',c.id+' '+c.name+' '+c.role).lower().replace('_',' ').replace('-',' ')
+    parts=[c for c in scene.components if c.primitive!='group']
+    for count in facts.get('component_counts',[]):
+        pattern={'backrest_slat':r'\bslat(?=\b|\d)','leg':r'\bleg(?=\b|\d)'}[count['component']]
+        matched=[c for c in (scene.components if count['component']=='leg' else parts) if re.search(pattern,label(c))]
+        matched_ids={c.id for c in matched};nodes={c.id:c for c in scene.components}
+        def nested(c):
+            parent=c.parent_id
+            while parent:
+                if parent in matched_ids:return True
+                parent=nodes[parent].parent_id
+            return False
+        matched=[c for c in matched if not nested(c)]
+        if len(matched)!=count['count']:
+            raise ValueError(f"Include {count['count']} separate {count['component'].replace('_',' ')} components; proposed scene has {len(matched)}. Each must appear in the actual model, not just its description.")
+    if facts.get('purpose')=='sitting' or ('seat','surface_height') in dimensions or ('seat','thickness') in dimensions:
+        seats=[c for c in parts if c.role=='seat'] or [c for c in parts if re.search(r'\bseat\b',label(c)) and not re.search(r'\b(leg|support)\b',label(c))]
+        if len(seats)!=1:raise ValueError('Identify one seat component to verify seat surface height and thickness.')
+        world=world_matrices(scene);low,high=expected_bounds(seats[0],world[seats[0].id])
+        for meaning,value in [('surface_height',high[2]),('thickness',high[2]-low[2])]:
+            target=dimensions.get(('seat',meaning))
+            if target is not None and abs(value-target)>.1:raise ValueError(f'Seat {meaning.replace("_"," ")} must be {target:g} mm; proposed {value:g} mm. Height means its top surface, not its center.')
+        if facts.get('purpose')=='sitting' or facts.get('seat_leg_connection')=='underside':
+            legs=[c for c in parts if re.search(r'\bleg(?=\b|\d)',label(c))]
+            if not legs:raise ValueError('The seat requires supporting legs beneath its underside.')
+            for leg in legs:
+                bottom,top=expected_bounds(leg,world[leg.id])
+                target=dimensions.get(('leg','length'))
+                if target is not None and abs(top[2]-bottom[2]-target)>.1:
+                    raise ValueError(f'{leg.name} length must match the latest explicit requirement: {target:g} mm. Resolve conflicting seat/leg constraints before confirmation.')
+                if abs(bottom[2])>.1 or abs(top[2]-low[2])>.1:
+                    raise ValueError(f'{leg.name} must run from ground to the seat underside at {low[2]:g} mm. For a {high[2]:g} mm seat surface and {high[2]-low[2]:g} mm seat thickness, use {low[2]:g} mm vertical legs, not {top[2]-bottom[2]:g} mm.')
+    for assumption in scene.assumptions:
+        if facts.get('purpose')=='sitting' and any(not negated(assumption.lower(),m.start()) for m in re.finditer(r'\bwalking\b',assumption.lower())):
+            raise ValueError('Replace the obsolete walking assumption: the corrected purpose is sitting.')
+        for stated in named_dimensions(assumption):
+            target=dimensions.get((stated['component'],stated['meaning']))
+            if target is not None and abs(stated['value_mm']-target)>.1:
+                raise ValueError('Revise obsolete assumptions to match the corrected structured dimensions: '+stated['component']+' '+stated['meaning'])

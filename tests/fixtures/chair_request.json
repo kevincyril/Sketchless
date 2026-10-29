@@ -1,0 +1,5 @@
+{
+  "description": "Create a simple wooden chair for sitting. Overall dimensions: 450 mm wide, 450 mm deep, and 850 mm tall. The seat is 450 \u00d7 450 \u00d7 30 mm, with its top surface 450 mm above the ground. Include four straight legs, two backrest posts, and three evenly spaced horizontal backrest slats. Legs must meet the underside of the seat. Use millimeters and Z-up coordinates. Show your proposed design before building.",
+  "follow_up": "Change the seat thickness to 40 mm, keeping the seat top surface at 450 mm and the overall dimensions 450 x 450 x 850 mm. Shorten all four legs to 410 mm so they meet the underside. Keep all three backrest slats and all other components unchanged.",
+  "original_description": "Create a simple wooden chair with a flat rectangular seat, four straight legs, and a vertical backrest with three evenly spaced horizontal slats. Make the legs equal in length and ensure all parts are connected properly. Use realistic proportions and keep the model suitable for 3D printing"
+}

@@ -1,7 +1,8 @@
 """User-stated requirements only. These labels do not establish mechanical capability."""
 import re
+from copy import deepcopy
 
-PURPOSES=[('cooking',r'\b(cooking|kitchen|chef|culinary)\b'),('cleaner',r'\b(vacuum|c+leaner|cleaning robot|robot mop)\b'),('walking',r'\b(walking|legged|legs|cube-shaped|toy robot)\b'),('table',r'\btable\b'),('stand',r'\bstand\b'),('enclosure',r'\b(enclosure|housing|electronics box)\b'),('tray',r'\btray\b'),('bracket',r'\bbracket\b')]
+PURPOSES=[('cooking',r'\b(cooking|kitchen|chef|culinary)\b'),('cleaner',r'\b(vacuum|c+leaner|cleaning robot|robot mop)\b'),('walking',r'\b(walking|legged|cube-shaped|toy robot)\b'),('table',r'\btable\b'),('stand',r'\bstand\b'),('enclosure',r'\b(enclosure|housing|electronics box)\b'),('tray',r'\btray\b'),('bracket',r'\bbracket\b')]
 FORMS=[('Countertop appliance',r'\b(countertop|worktop)\b'),('Fixed robotic arm',r'\b((fixed|stationary|robotic|robot) arm)\b'),('Humanoid assistant',r'\b(humanoid|human-shaped|biped|dual-arm)\b'),('Mobile assistant',r'\b(mobile kitchen|wheeled|on wheels)\b')]
 TASKS=[('stir',r'\bstir(?:ring)?\b'),('chop',r'\bchop(?:ping)?\b'),('mix',r'\bmix(?:ing)?\b'),('heat',r'\bheat(?:ing)?\b'),('fry',r'\bfr(?:y|ying)\b'),('serve',r'\bserv(?:e|ing)\b'),('prepare',r'\bprepar(?:e|ing)\b'),('dispense',r'\bdispens(?:e|ing)\b')]
 
@@ -10,6 +11,8 @@ def negated(text,start):
     return bool(re.search(r"\b(?:not|no|without|don't|do not|never|instead of)\b",prefix))
 
 def purpose(text):
+    if any(not negated(text.lower(),m.start()) for m in re.finditer(r'\b(chair|sitting|seating)\b',text.lower())):
+        return 'sitting'
     matches=[(m.start(),kind) for kind,pattern in PURPOSES for m in re.finditer(pattern,text.lower()) if not negated(text.lower(),m.start())]
     if not matches:return None
     # A product's function takes precedence over its robot locomotion description.
@@ -24,14 +27,17 @@ def effective_context(description,context=None):
     if latest and old and latest!=old and correction:return []
     return entries
 
-def requirements_summary(description,context=None):
+def requirements_summary(description,context=None,previous=None):
     entries=effective_context(description,context)
-    texts=[m['content'].lower() for m in entries if m['role']=='user']+[description.lower()]
-    result={'purpose':None,'form':None,'tasks':[],'size':None}
+    texts=([m['content'].lower() for m in entries if m['role']=='user'] if previous is None else [])+[description.lower()]
+    replacing=previous and purpose(description) and purpose(description)!=previous.get('purpose') and re.search(r'\b(forget|start over|different idea|change to|switch to)\b',description.lower())
+    result=deepcopy(previous) if previous and not replacing else {'purpose':None,'form':None,'tasks':[],'size':None}
+    from backend.measurements import merge_constraints,dimension_summary
     from backend.routing import wants_defaults,rejects_defaults
     for text in texts:
         kind=purpose(text)
         if kind:result['purpose']=kind
+        merge_constraints(result,text)
         form_matches=sorted((m.start(),label,negated(text,m.start())) for label,pattern in FORMS for m in re.finditer(pattern,text))
         for _,label,is_negative in form_matches:
             if is_negative:
@@ -43,7 +49,9 @@ def requirements_summary(description,context=None):
                 if negated(text,m.start()):result['tasks']=[t for t in result['tasks'] if t!=label]
                 elif label not in result['tasks']:result['tasks'].append(label)
         measures=re.findall(r'\b\d+(?:\.\d+)?\s*(?:mm|cm|inch(?:es)?|millimeters?|centimeters?)\b',text)
-        if measures:result['size']=', '.join(measures)
+        if result.get('dimensions'):result['size']=dimension_summary(result['dimensions'])
+        elif len(measures)==1:result['size']=measures[0]
+        elif measures:result['size']='; '.join(clause.strip() for clause in re.split(r'[;\n]',text) if re.search(r'\d',clause))
         elif wants_defaults(text):result['size']='Suggested default dimensions'
         elif rejects_defaults(text) and result['size']=='Suggested default dimensions':result['size']=None
     return result

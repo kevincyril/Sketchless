@@ -16,6 +16,7 @@ from backend.routing import route_workflow, concept_clarification
 from backend.agent import interpret, require_free_tier, FREE_MODELS, DEFAULT_MODEL
 from ml.model import classify
 from backend import public_access, persistence, artifacts
+from backend.runtime import MODELING_CONTRACT_VERSION, MODELING_SOURCE_DIGEST, BUILD_REVISION
 ROOT=Path(__file__).resolve().parents[1]
 load_dotenv(ROOT/'.env')
 DATA=Path(os.getenv('SKETCHLESS_DATA_DIR',str(ROOT/'data'))).resolve(); DATA.mkdir(parents=True,exist_ok=True)
@@ -24,6 +25,14 @@ with persistence.connect(DB) as c:
     persistence.initialize_schema(c)
 c.close()
 app=FastAPI(title='Sketchless')
+
+@app.middleware('http')
+async def fresh_entrypoints(request,call_next):
+    response=await call_next(request)
+    if request.url.path in ('/','/index.html','/api/config'):
+        response.headers['Cache-Control']='no-store'
+    return response
+
 public_access.install(app,lambda:DB)
 pool=ThreadPoolExecutor(max_workers=1 if public_access.enabled() else 2)
 slots=threading.BoundedSemaphore(4)
@@ -89,7 +98,7 @@ def health():
 
 @app.get('/api/config')
 def config():
-    return {'name':'Sketchless','mode':'DEMO_MODE' if os.getenv('DEMO_MODE','true').lower()=='true' else 'LIVE_AGENT','defaults':{'wall_thickness_mm':3,'base_thickness_mm':3,'open_top':True,'bracket':{'thickness_mm':3,'hole_diameter_mm':5,'holes_per_face':2}},'families':['enclosure','tray','bracket'],'workflows':['precise','concept'],'concept_examples':['cleaner','robot','table','stand'],'public_mode':public_access.enabled(),'ai_configured':os.getenv('DEMO_MODE','true').lower()!='true' and bool(os.getenv('GEMINI_API_KEY', '').strip()) and os.getenv('GEMINI_FREE_TIER_CONFIRMED','').lower()=='true' and os.getenv('GEMINI_MODEL',DEFAULT_MODEL).strip() in FREE_MODELS}
+    return {'build_revision':BUILD_REVISION,'modeling_source_digest':MODELING_SOURCE_DIGEST,'modeling_contract_version':MODELING_CONTRACT_VERSION,'name':'Sketchless','mode':'DEMO_MODE' if os.getenv('DEMO_MODE','true').lower()=='true' else 'LIVE_AGENT','defaults':{'wall_thickness_mm':3,'base_thickness_mm':3,'open_top':True,'bracket':{'thickness_mm':3,'hole_diameter_mm':5,'holes_per_face':2}},'families':['enclosure','tray','bracket'],'workflows':['precise','concept'],'concept_examples':['cleaner','robot','table','stand'],'public_mode':public_access.enabled(),'ai_configured':os.getenv('DEMO_MODE','true').lower()!='true' and bool(os.getenv('GEMINI_API_KEY', '').strip()) and os.getenv('GEMINI_FREE_TIER_CONFIRMED','').lower()=='true' and os.getenv('GEMINI_MODEL',DEFAULT_MODEL).strip() in FREE_MODELS}
 @app.post('/api/sessions')
 def create_session():
     sid=str(uuid.uuid4())
@@ -254,6 +263,10 @@ def run(job,req):
             and candidate.get('base_version_id')==current['job_id'] and not req.selected_component_id
             and req.workflow!='precise') else None
         working_spec=pending['proposed_spec'] if pending else current['spec']
+        from backend.requirements import requirements_summary
+        seed=pending.get('requirements') if pending else (get_job(uuid.UUID(current['job_id'])).get('requirements') if current['job_id'] else None)
+        facts=requirements_summary(req.description,context,previous=seed)
+        job['requirements']=facts
         workflow='concept' if req.confirm_job_id or isinstance(req.spec,SceneSpec) else 'precise' if req.spec else route_workflow(req.description,working_spec,context,req.workflow)
         job['workflow']=workflow
         emit('route_workflow',{'requested':req.workflow},{'workflow':workflow,'classifier_scope':'enclosure, tray, bracket only'},time.perf_counter())
@@ -289,7 +302,12 @@ def run(job,req):
             if proposal.get('base_version_id')!=current['job_id']:raise ValueError('The model changed after this proposal. Request a new proposal before building.')
             if latest.get('id')!=proposal['id']:raise ValueError('That proposal has been superseded. Review the latest requirements before building.')
             if not proposal.get('proposed_spec') or proposal['status']!='clarification':raise ValueError('There is no pending concept proposal to confirm.')
+            if proposal.get('modeling_contract_version',0)<MODELING_CONTRACT_VERSION:
+                raise ValueError('This saved proposal predates the current design checks. Send a message to review it again before building; your saved design is unchanged.')
             spec=parse_spec(proposal['proposed_spec']);job['workflow']='concept';job['confirmed_proposal_id']=proposal['id']
+            job['requirements']=proposal.get('requirements',facts)
+            from backend.scene_review import review_scene_requirements
+            review_scene_requirements(spec,job['requirements'])
             message='Built the concept you explicitly confirmed.'
         elif config()['mode']=='DEMO_MODE':
             job.update(status='clarification',message='DEMO_MODE does not interpret chat. Use the dimension form or explicit length delta.'); return
@@ -303,7 +321,7 @@ def run(job,req):
             require_free_tier()
             if workflow=='concept':
                 versions=[{'id':v['id'],'name':v.get('spec',{}).get('name',v.get('spec',{}).get('part_type'))} for v in session_jobs(job['session_id']) if v['status']=='succeeded']
-                spec,message=interpret(req.description,working_spec,routing,emit,context=context,scene=True,selected_id=req.selected_component_id,selection_only=req.selection_only,versions=versions,provisional=bool(pending))
+                spec,message=interpret(req.description,working_spec,routing,emit,context=context,scene=True,selected_id=req.selected_component_id,selection_only=req.selection_only,versions=versions,provisional=bool(pending),requirements=facts)
             else:spec,message=interpret(req.description,current['spec'],routing,emit,context=context)
             if isinstance(spec,RestoreAction):
                 target=activate_version(job['session_id'],spec.version_id)
@@ -312,8 +330,10 @@ def run(job,req):
             if spec is None: job.update(status='clarification',message=message); return
             if isinstance(spec,SceneSpec):
                 from backend.brief import concept_brief,brief_message
-                brief=concept_brief(spec,req.description,context,previous_spec=working_spec);emit('propose_concept',{'components':len(spec.components)},brief,time.perf_counter())
-                job.update(status='clarification',message=brief_message(brief),proposed_spec=spec.model_dump(),brief=brief)
+                from backend.scene_review import review_scene_requirements
+                review_scene_requirements(spec,facts)
+                brief=concept_brief(spec,req.description,context,previous_spec=working_spec,requirements=facts);emit('propose_concept',{'components':len(spec.components)},brief,time.perf_counter())
+                job.update(status='clarification',message=brief_message(brief),proposed_spec=spec.model_dump(),brief=brief,modeling_contract_version=MODELING_CONTRACT_VERSION,build_revision=BUILD_REVISION,modeling_source_digest=MODELING_SOURCE_DIGEST)
                 if pending:job['revises_proposal_id']=pending['id']
                 return
         start=time.perf_counter(); spec=parse_spec(spec.model_dump()); emit('validate_scene' if isinstance(spec,SceneSpec) else 'validate_spec',spec.model_dump(),'passed',start)
