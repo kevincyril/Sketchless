@@ -45,6 +45,13 @@ jobs:
             --mount type=bind,source="$PWD/tests",target=/app/tests,readonly \
             --mount type=bind,source="$PWD/scripts",target=/app/scripts,readonly \
             sketchless:check python -m pytest tests/test_cloud_postgres.py tests/test_cloud_storage.py -q -p no:cacheprovider
+      - name: Verify setup diagnostics, secret redaction and queue admission from fresh dependencies
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: |
+          docker run --rm --memory=512m --memory-swap=512m --cpus=1 \
+            --mount type=bind,source="$PWD/tests",target=/app/tests,readonly \
+            --mount type=bind,source="$PWD/scripts",target=/app/scripts,readonly \
+            sketchless:check python -m pytest tests/test_drive_setup.py tests/test_drive_backups.py tests/test_service_check.py tests/test_queue_burst.py -q -p no:cacheprovider
       - uses: actions/upload-artifact@v4
         if: always()
         with:
