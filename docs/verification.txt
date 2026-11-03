@@ -323,3 +323,14 @@ Public deployment remains pending Azure student access and the documented access
 - Public gallery link: https://kevincyril.github.io/Sketchless/ ; live workspace: https://sketchless-cad-7931c5be.onrender.com/ .
 - No management keys were installed in the hosted app. Source/package secret scans passed. Existing Render service configuration remained unchanged. No paid upgrade or credit-consuming Azure resource was enabled.
 - Earlier dependency/fixture failures and the 60-second low-CPU timeout remain in workflow history. No new held-out accuracy claim; frozen v1 evidence stays tied to its original baseline.
+
+
+2026-11-03 bounded features and unattended private backups completed
+- Deployed code cfb72bec78b22a67c860d2d7f8ce43d6bf14306c; exact public revision confirmed after correcting stale provider metadata via normal latest-commit deployment. Existing Free configuration and billing unchanged.
+- Local regression 302 passed / 5 PostgreSQL cases skipped; additional queue test passed separately. Browser 23 existing plus one feature scenario passed; frontend build passed.
+- Final Linux CI 41717345463 passed: 16 feature, 18 PostgreSQL/storage and 30 fresh-image setup/redaction/queue tests; CAD/export/restart smoke passed at 512 MiB / 0.1 CPU / no swap. Peak 387457024 bytes.
+- Final offline user acceptance 10/10; first live run 9/10, focused tray correction passed live. Twelve real model requests total. No fresh final-version live 10/10 claim.
+- Hosted final-revision enclosure/tray/edit checks passed: actual STEP/STL/GLB, geometric predicates, preview matching, reopening and zero-model restoration.
+- Private Google Drive backup verified in Actions run41715726331; both weekly safety gates enabled, Sunday03:17 Phoenix, retain eight verified archives. Google app In production confirmed by owner.
+- Dedicated Neon SELECT-only database reader and storage:read download key; no backups/secrets in public source or artifacts. Current free allowance checks and hard-stop evidence recorded; no billing changes.
+- Remaining intentional scope limits: mechanisms/motion, verified fits and strength/printability; conflicting or underspecified requests ask for clarification.

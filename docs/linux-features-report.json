@@ -1,0 +1,34 @@
+{
+  "provider_calls": 0,
+  "passed": true,
+  "peak_container_bytes": 387457024,
+  "limits": {
+    "container_memory": "512m",
+    "cpu": "0.1",
+    "swap": "disabled"
+  },
+  "enclosure_seconds": 69.504,
+  "robot_seconds": 68.409,
+  "posted_enclosure_seconds": 53.603,
+  "slotted_tray_seconds": 50.798,
+  "edit_seconds": 45.702,
+  "restart_restoration": true,
+  "workflow_run": "https://github.com/kevincyril/Sketchless/actions/runs/41717345463",
+  "source_commit": "cfb72bec78b22a67c860d2d7f8ce43d6bf14306c",
+  "pytest_summaries": {
+    "0_container.txt": [
+      "16 passed in 75.80s",
+      "18 passed in 286.10s",
+      "30 passed in 3.08s"
+    ],
+    "6_Verify bounded cut features and parametric edit preservation.txt": [
+      "16 passed in 75.80s"
+    ],
+    "7_Verify PostgreSQL transactions and private artifact recovery.txt": [
+      "18 passed in 286.10s"
+    ],
+    "8_Verify setup diagnostics, secret redaction and queue admission from fresh dependencies.txt": [
+      "30 passed in 3.08s"
+    ]
+  }
+}

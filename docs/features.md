@@ -32,6 +32,9 @@ The user-authored [ten-request suite](../evaluation/user_acceptance_v2.json) is 
 - [First real Gemini run](../evaluation/results/20261103T202552156918Z-features-v3-live.json): 9/10 cases, eight real Free Tier requests. Tray stock resized but its cavity and slots did not follow; valid CAD alone missed this intent failure.
 - [Focused diagnostic run](../evaluation/results/20261103T202810499077Z-features-v3-live.json): the same tray failure reproduced with two real requests. The actual accepted and edited scene specs are retained in the report.
 - [Corrected parameterized tray run](../evaluation/results/20261103T203224321237Z-features-v3-live.json): 1/1 focused case passed with two real requests, including preserved floor slots, 45 mm height, 5 mm outside/2 mm inside corner radii, actual exports, reopening and zero-model restoration.
+- [Final offline feature run](../evaluation/results/20261103T203509162524Z-features-v3-offline.json): all ten acceptance cases passed after the linked-edit correction.
+- [Hosted geometry verification](hosted-features-verification.json): posted enclosure, tray, edited tray, exports, reopening and restoration; explicit synthetic specs and zero Gemini requests.
+- [Linux constrained-container evidence](linux-features-report.json): actual CAD and restart persistence under 512 MiB / 0.1 CPU.
 
 These live attempts used twelve requests in total. The final full suite is rerun offline; the other nine scenarios were not re-executed live after the parameter-preservation correction. Do not describe the focused repair as a fresh final-version 10/10 live score. Each report preserves its implementation fingerprint. No paid provider, model fallback or billing changes were used.
 

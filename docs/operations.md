@@ -23,3 +23,8 @@ The service uses one worker and a bounded queue. Existing sequential Linux repor
 Release verification requires the full backend suite, frontend build, browser suite, Linux container CI, and a fresh one-shot hosted readiness check after deployment. Keep frozen v1 benchmark evidence tied to its original implementation. The user acceptance v2 assessment reports capability gaps separately from completed geometry.
 
 The offline admission-burst regression sends sixteen requests concurrently: four are admitted, twelve receive queue-full responses, a same-session duplicate is refused, and capacity recovers after simulated CAD failures. It uses no model calls or public-service load and does not establish production throughput.
+
+
+### Release metadata verification
+
+After a Render deploy reports live, compare `/api/config.build_revision` with the tested Git commit before running hosted checks. On November 3, a specific-commit API deployment reported live while `RENDER_GIT_COMMIT` still named the previous release. A normal latest-commit deployment, after verifying the branch head was the exact CI-passed commit, corrected the public revision without environment, plan or billing changes. Provider live status alone is not sufficient evidence of the app-reported revision.

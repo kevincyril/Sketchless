@@ -5,7 +5,8 @@
     "passed": 302,
     "skipped": 5,
     "seconds": 121.67,
-    "note": "Full local offline regression; PostgreSQL cases require isolated CI database."
+    "note": "Full local offline regression; PostgreSQL cases require isolated CI database.",
+    "additional_queue_test": "1 passed separately"
   },
   "browser": {
     "passed": 24,
@@ -22,9 +23,29 @@
   },
   "live_readiness": {
     "passed": true,
-    "build_revision": "4d90e63bbd960cffc235bf18a0821a505a4e9ac1",
-    "cold_health_seconds": 62.406,
-    "scope": "health, public config, gallery only"
+    "checks": [
+      {
+        "path": "/healthz",
+        "status": 200,
+        "seconds": 0.406
+      },
+      {
+        "path": "/api/config",
+        "status": 200,
+        "seconds": 0.125,
+        "build_revision": "cfb72bec78b22a67c860d2d7f8ce43d6bf14306c",
+        "modeling_contract_version": 3,
+        "public_mode": true,
+        "ai_configured": true
+      },
+      {
+        "path": "/gallery.html",
+        "status": 200,
+        "seconds": 0.109
+      }
+    ],
+    "scope": "HTTP/database readiness only; no CAD, Gemini or load guarantee.",
+    "build_revision": "cfb72bec78b22a67c860d2d7f8ce43d6bf14306c"
   },
   "cloud_backup": {
     "successful_versions": 9,
@@ -32,9 +53,7 @@
     "isolated_restore": "passed",
     "private_archive_in_git": false
   },
-  "pending": [
-    "Release Linux CI and hosted deployment verification are in progress."
-  ],
+  "pending": [],
   "backup_runner": {
     "repository": "https://github.com/kevincyril/sketchless-private-backups",
     "private": true,
@@ -51,6 +70,23 @@
     "first_cloud_successful_versions": 9,
     "first_cloud_job_seconds": 30,
     "free_allowance_preflight": "passed",
-    "weekly_gate_enabled": true
+    "weekly_gate_enabled": true,
+    "latest_manual_verification": "https://github.com/kevincyril/sketchless-private-backups/actions/runs/41715726331",
+    "google_publishing_status": "In production; confirmed by owner"
+  },
+  "linux_ci": {
+    "passed": true,
+    "source_commit": "cfb72bec78b22a67c860d2d7f8ce43d6bf14306c",
+    "run": "https://github.com/kevincyril/Sketchless/actions/runs/41717345463",
+    "feature_tests_passed": 16,
+    "postgres_storage_tests_passed": 18,
+    "fresh_image_diagnostics_queue_tests_passed": 30,
+    "limits": "512 MiB, 0.1 CPU, no swap; diagnostics used 1 CPU",
+    "report": "linux-features-report.json"
+  },
+  "hosted_geometry": {
+    "passed": true,
+    "report": "hosted-features-verification.json",
+    "provider_calls": 0
   }
 }

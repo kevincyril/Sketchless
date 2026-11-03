@@ -37,5 +37,6 @@
   "no_neon_archive_storage_added": true,
   "weekly_gate_enabled": false,
   "billing_changes": false,
-  "preflight_passed": true
+  "preflight_passed": true,
+  "scope": "Historical pre-first-run allowance check; weekly_gate_enabled records the gate at preflight time. Current enabled status is in completion-review.json and cloud-backup-setup.md."
 }

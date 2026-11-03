@@ -1,6 +1,6 @@
-# Proposed off-device backups — not configured
+# Off-device backup proposal ? implemented
 
-The owner approved a private GitHub runner and Google Drive on November 2, 2026, with no billing changes. The private repository and dedicated read-only Neon secret are now prepared; execution remains disabled pending Google browser authorization and a view-only check of free allowances. See cloud-backup-setup.md for current status and secure setup instructions.
+Historical design proposal. The approved GitHub Actions / Google Drive setup is now configured, verified and enabled weekly. Google publishing is In production, and the free-allowance checks passed. See [current setup and status](cloud-backup-setup.md). The access requirements and estimates below describe the original proposal.
 
 Recommended design: a separate private GitHub repository runs a standard Linux GitHub Actions job weekly, independently of the owner's PC. It exports the private Neon database and CAD objects, validates the archive by restoring into temporary local SQLite/artifact storage, uploads the verified archive to an owner-private Google Drive folder, and retains the latest eight successful archives. No backup is uploaded as a GitHub artifact or committed to Git. The schedule should be Sunday 10:17 UTC (Sunday 03:17 in Phoenix), with manual dispatch and a 15-minute job timeout. Scheduled runs can be delayed and are not an exact-time guarantee.
 

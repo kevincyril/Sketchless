@@ -1,0 +1,48 @@
+{
+  "commit": "cfb72bec78b22a67c860d2d7f8ce43d6bf14306c",
+  "provider_calls": 0,
+  "scope": "Explicit synthetic JSON/CAD, not hosted Gemini interpretation or a load guarantee.",
+  "checks": {
+    "enclosure": {
+      "downloads_open": true,
+      "valid_connected_solid": true,
+      "requested_overall_dimensions": true,
+      "hollow_with_floor": true,
+      "four_bored_connected_posts": true,
+      "stl_parses": true,
+      "stl_matches_step": true,
+      "glb_parses_and_matches_step": true,
+      "preview_matches_exports": true,
+      "reopened_spec_preserved": true
+    },
+    "slotted_tray": {
+      "downloads_open": true,
+      "valid_connected_solid": true,
+      "requested_overall_dimensions": true,
+      "two_real_floor_slots": true,
+      "floor_walls_and_corner_radii": true,
+      "stl_parses": true,
+      "stl_matches_step": true,
+      "glb_parses_and_matches_step": true,
+      "preview_matches_exports": true,
+      "reopened_spec_preserved": true,
+      "edit_downloads_open": true,
+      "edit_valid_connected_solid": true,
+      "edit_requested_overall_dimensions": true,
+      "edit_two_real_floor_slots": true,
+      "edit_floor_walls_and_corner_radii": true,
+      "edit_stl_parses": true,
+      "edit_stl_matches_step": true,
+      "edit_glb_parses_and_matches_step": true,
+      "edit_preview_matches_exports": true,
+      "restore_exact_spec": true,
+      "restore_original_export": true
+    }
+  },
+  "latencies_seconds": {
+    "enclosure": 35.578,
+    "slotted_tray": 30.188,
+    "tray_edited": 30.547
+  },
+  "passed": true
+}
