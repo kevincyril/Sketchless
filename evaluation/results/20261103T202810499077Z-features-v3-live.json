@@ -1,0 +1,309 @@
+{
+  "scope": "User-authored development acceptance, not an untouched held-out benchmark or manufacturing guarantee. Offline uses scripted SDK responses with real API/CAD; live uses bounded real Gemini requests.",
+  "mode": "live",
+  "implementation_digest": "203d20103346f826",
+  "suite_sha256": "939fe89c5af145278f55ec47faecf44ff7f439528fc9280d798f322d4c035727",
+  "model_requests": 2,
+  "passed": 0,
+  "cases": [
+    {
+      "id": "tray-edit-preservation",
+      "status": "failed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "two_real_floor_slots": true,
+        "floor_walls_and_corner_radii": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true,
+        "edit_downloads_open": true,
+        "edit_valid_connected_solid": true,
+        "edit_requested_overall_dimensions": true,
+        "edit_two_real_floor_slots": false,
+        "edit_floor_walls_and_corner_radii": false,
+        "edit_stl_parses": true,
+        "edit_stl_matches_step": true,
+        "edit_glb_parses_and_matches_step": true,
+        "edit_preview_matches_exports": true,
+        "exact_zero_model_restore": true
+      },
+      "evidence": {
+        "accepted_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "Slotted tray",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+            "Slot X/Y centers are measured from the same outside corner; corner radii preserve the straight-wall thickness."
+          ],
+          "components": [
+            {
+              "id": "body",
+              "name": "Slotted Tray",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 160.0,
+                "y_mm": 100.0,
+                "z_mm": 30.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                80.0,
+                50.0,
+                15.0
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 154.0,
+                    "y_mm": 94.0,
+                    "z_mm": 28.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 20.0,
+                    "y_mm": 8.0,
+                    "z_mm": 5.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -40.0,
+                    0.0,
+                    -13.5
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 20.0,
+                    "y_mm": 8.0,
+                    "z_mm": 5.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    40.0,
+                    0.0,
+                    -13.5
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            }
+          ],
+          "fuse_solids": false
+        },
+        "edited_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "Slotted tray",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+            "Slot X/Y centers are measured from the same outside corner; corner radii preserve the straight-wall thickness."
+          ],
+          "components": [
+            {
+              "id": "body",
+              "name": "Slotted Tray",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 160.0,
+                "y_mm": 100.0,
+                "z_mm": 45.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                80.0,
+                50.0,
+                22.5
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 154.0,
+                    "y_mm": 94.0,
+                    "z_mm": 28.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 20.0,
+                    "y_mm": 8.0,
+                    "z_mm": 5.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -40.0,
+                    0.0,
+                    -13.5
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 20.0,
+                    "y_mm": 8.0,
+                    "z_mm": 5.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    40.0,
+                    0.0,
+                    -13.5
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 5.0
+            }
+          ],
+          "fuse_solids": false
+        },
+        "edited_inspection": {
+          "workflow": "concept",
+          "checks": {
+            "components_valid": true,
+            "component_count_match": true,
+            "positive_volume": true,
+            "finite_transforms": true,
+            "referenced_ids_valid": true,
+            "part_step_nonempty": true,
+            "part_stl_nonempty": true,
+            "part_glb_nonempty": true,
+            "scene_json_nonempty": true
+          },
+          "solid_count": 1,
+          "component_count": 1,
+          "volume_mm3": 312426.2917352886,
+          "bounding_box_mm": [
+            160.0,
+            100.0,
+            45.0
+          ],
+          "tolerance_mm": 0.02,
+          "components": [
+            {
+              "id": "body",
+              "checks": {
+                "valid_shape": true,
+                "one_component_solid": true,
+                "positive_volume": true,
+                "volume_match": true,
+                "transformed_bounds_match": true
+              },
+              "bounds_mm": [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  160.0,
+                  100.0,
+                  45.0
+                ]
+              ],
+              "volume_mm3": 312426.2917352886
+            }
+          ],
+          "generation_seconds": 0.113,
+          "limitations": [
+            "Separate concept solids; intersections, balance, motion, strength and printability are not verified.",
+            "Summed component volume may double-count intersecting components."
+          ]
+        }
+      },
+      "model_requests": 2,
+      "seconds": 24.015
+    }
+  ]
+}

@@ -5,6 +5,8 @@ from difflib import SequenceMatcher
 def route_workflow(description,current=None,context=None,requested='auto'):
     if requested!='auto':return requested
     text=description.lower()
+    if re.search(r'\b(fillets?|screw posts?|compartments?|dividers?|slots?|cutouts?|transverse|stepped.*shaft|mounting plate|one[ -]piece|cable opening)\b',text) or (re.search(r'\bbracket\b',text) and re.search(r'\b(positioned|corner|offsets?)\b',text)):
+        return 'concept'
     from backend.requirements import purpose
     intent=purpose(description)
     if intent in ('enclosure','tray','bracket'):return 'precise'

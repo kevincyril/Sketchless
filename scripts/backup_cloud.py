@@ -46,8 +46,8 @@ def main():
     parser.add_argument('--runtime-env', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
-    load_dotenv(args.runtime_env, override=True)
     try:
+        load_dotenv(args.runtime_env, override=True)
         persistence.validate_config()
         result = export_cloud(args.output)
     except Exception:

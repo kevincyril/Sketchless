@@ -1,0 +1,56 @@
+{
+  "date_local": "2026-11-03",
+  "timezone": "America/Phoenix",
+  "backend": {
+    "passed": 302,
+    "skipped": 5,
+    "seconds": 121.67,
+    "note": "Full local offline regression; PostgreSQL cases require isolated CI database."
+  },
+  "browser": {
+    "passed": 24,
+    "note": "23 existing browser scenarios plus the new cut-feature approval/reopen/mobile scenario."
+  },
+  "frontend_build": "passed; existing large Three.js bundle advisory",
+  "acceptance_v2": {
+    "offline_cases_passed": 10,
+    "real_model_requests_total": 12,
+    "live_initial_passed": 9,
+    "live_initial_total": 10,
+    "corrected_live_tray_passed": true,
+    "note": "Final full suite passed offline; corrected tray rerun live. No new held-out accuracy claim."
+  },
+  "live_readiness": {
+    "passed": true,
+    "build_revision": "4d90e63bbd960cffc235bf18a0821a505a4e9ac1",
+    "cold_health_seconds": 62.406,
+    "scope": "health, public config, gallery only"
+  },
+  "cloud_backup": {
+    "successful_versions": 9,
+    "bytes": 283413,
+    "isolated_restore": "passed",
+    "private_archive_in_git": false
+  },
+  "pending": [
+    "Release Linux CI and hosted deployment verification are in progress."
+  ],
+  "backup_runner": {
+    "repository": "https://github.com/kevincyril/sketchless-private-backups",
+    "private": true,
+    "execution_enabled": true,
+    "dedicated_database_reader": true,
+    "dedicated_storage_scope": "storage:read",
+    "read_only_backup_restore_versions": 9,
+    "neon_secret_uploaded_encrypted": true,
+    "google_authorization": "completed",
+    "backup_related_tests_passed": 26,
+    "billing_changes": false,
+    "first_cloud_verification": "passed",
+    "first_cloud_archive_bytes": 283180,
+    "first_cloud_successful_versions": 9,
+    "first_cloud_job_seconds": 30,
+    "free_allowance_preflight": "passed",
+    "weekly_gate_enabled": true
+  }
+}

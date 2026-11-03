@@ -1,0 +1,31 @@
+name: Verified private Drive backup
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 10 * * 0'
+permissions:
+  contents: read
+concurrency:
+  group: private-backup
+  cancel-in-progress: false
+jobs:
+  backup:
+    if: ${{ github.event.repository.private == true && vars.BACKUP_FREE_PLANS_CONFIRMED == 'true' && (github.event_name == 'workflow_dispatch' || vars.BACKUP_ENABLED == 'true') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install backup-only dependencies
+        run: python -m pip install --disable-pip-version-check -r backup-requirements.txt
+      - name: Export, restore, upload and verify private archive
+        env:
+          BACKUP_FREE_PLANS_CONFIRMED: 'true'
+          SKETCHLESS_BACKUP_ENV: ${{ secrets.SKETCHLESS_BACKUP_ENV }}
+          GOOGLE_DRIVE_OAUTH_JSON: ${{ secrets.GOOGLE_DRIVE_OAUTH_JSON }}
+          GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
+        run: python -m scripts.backup_to_drive

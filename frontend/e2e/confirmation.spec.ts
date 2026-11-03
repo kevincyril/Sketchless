@@ -1,17 +1,18 @@
-﻿import {test,expect} from '@playwright/test';
+import {test,expect} from '@playwright/test';
 test('cooking intent is clarified and a reviewed proposal builds only after confirmation',async({page,request})=>{
  const proposed={part_type:'assembly',schema_version:1,units:'mm',coordinates:'right-handed-z-up-xyz-degrees',concept:'custom',name:'Fixed kitchen arm - browser fixture',assumptions:['Mock interpretation for workflow verification; visual components only.'],components:[
   {id:'base',name:'Countertop base',primitive:'box',dimensions:{x_mm:400,y_mm:300,z_mm:35},position_mm:[0,0,17.5],role:'base'},
   {id:'post',name:'Fixed support',primitive:'box',dimensions:{x_mm:45,y_mm:45,z_mm:250},position_mm:[-140,0,160],role:'support'},
   {id:'arm',name:'Stirring arm',primitive:'box',dimensions:{x_mm:250,y_mm:35,z_mm:35},position_mm:[-30,0,285],role:'arm'},
   {id:'head',name:'Stirring head',primitive:'cylinder',dimensions:{radius_mm:8,z_mm:160},position_mm:[80,0,190],role:'tool'}].map(c=>({rotation_deg:[0,0,0],color:'#6d907b',parent_id:null,...c}))};
+ const config=await (await request.get('/api/config')).json();
  let question:Record<string,unknown>|undefined,pending:Record<string,unknown>|undefined;const sent:Record<string,unknown>[]=[];
  await page.route('**/api/sessions/*/jobs',async route=>{const response=await request.get(route.request().url());const jobs=await response.json();return route.fulfill({json:[...jobs,...(pending?[pending]:[])]});});
  await page.route('**/api/jobs',async route=>{
   const payload=route.request().postDataJSON();sent.push(payload);
   if(sent.length===1){const response=await request.post('/api/jobs',{data:payload});question=await response.json();return route.fulfill({json:question});}
   if(payload.confirm_job_id){expect(payload.confirm_job_id).toBe('mock-reviewed-proposal');const response=await request.post('/api/jobs',{data:{session_id:payload.session_id,spec:proposed}});return route.fulfill({json:await response.json()});}
-  pending={id:'mock-reviewed-proposal',workflow:'concept',status:'clarification',message:'Please review the fixed countertop stirring assistant before I build.',request_summary:'Chat: '+payload.description,proposed_spec:proposed,brief:{requirements:{purpose:'cooking',form:'Fixed robotic arm',tasks:['stir'],size:'400 mm'},name:proposed.name,primary_component:'Countertop base',primary_dimensions:'400 x 300 x 35 mm',overall_dimensions_mm:[400,300,302.5],layout_warnings:['Some components may float apart. Check placement.'],solid_components:4,components:['Countertop base','Fixed support','Stirring arm','Stirring head'],assumptions:proposed.assumptions},events:[]};return route.fulfill({json:pending});
+  pending={modeling_contract_version:config.modeling_contract_version,id:'mock-reviewed-proposal',workflow:'concept',status:'clarification',message:'Please review the fixed countertop stirring assistant before I build.',request_summary:'Chat: '+payload.description,proposed_spec:proposed,brief:{requirements:{purpose:'cooking',form:'Fixed robotic arm',tasks:['stir'],size:'400 mm'},name:proposed.name,primary_component:'Countertop base',primary_dimensions:'400 x 300 x 35 mm',overall_dimensions_mm:[400,300,302.5],layout_warnings:['Some components may float apart. Check placement.'],solid_components:4,components:['Countertop base','Fixed support','Stirring arm','Stirring head'],assumptions:proposed.assumptions},events:[]};return route.fulfill({json:pending});
  });
  await page.goto('/');const composer=page.getByRole('textbox',{name:'Description or follow-up edit'}),send=page.getByRole('button',{name:'Send message',exact:true});
  await composer.fill('Create a cooking robot with default settings');await send.click();

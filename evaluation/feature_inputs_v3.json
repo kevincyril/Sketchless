@@ -1,0 +1,97 @@
+{
+  "scope": "Scripted development SDK inputs; not a language accuracy benchmark",
+  "designs": {
+    "enclosure": {
+      "kind": "enclosure",
+      "length_mm": 120,
+      "width_mm": 80,
+      "height_mm": 45,
+      "wall_mm": 3,
+      "floor_mm": 3,
+      "post_diameter_mm": 8,
+      "post_hole_mm": 3,
+      "post_inset_mm": 10
+    },
+    "bracket": {
+      "kind": "bracket",
+      "length_mm": 70,
+      "width_mm": 50,
+      "height_mm": 80,
+      "thickness_mm": 5,
+      "hole_diameter_mm": 6,
+      "hole_positions_mm": [
+        20,
+        45
+      ]
+    },
+    "phone_stand": {
+      "kind": "phone_stand",
+      "base_width_mm": 90,
+      "base_depth_mm": 100,
+      "base_thickness_mm": 6,
+      "support_width_mm": 80,
+      "support_length_mm": 110,
+      "support_thickness_mm": 6,
+      "angle_deg": 65,
+      "lip_height_mm": 12,
+      "cable_width_mm": 14
+    },
+    "shaft": {
+      "kind": "shaft",
+      "sections": [
+        {
+          "length_mm": 30,
+          "diameter_mm": 20
+        },
+        {
+          "length_mm": 40,
+          "diameter_mm": 14
+        },
+        {
+          "length_mm": 30,
+          "diameter_mm": 10
+        }
+      ],
+      "cross_hole_diameter_mm": 4
+    },
+    "organizer": {
+      "kind": "organizer",
+      "length_mm": 180,
+      "width_mm": 120,
+      "height_mm": 35,
+      "wall_mm": 3,
+      "floor_mm": 3,
+      "divider_mm": 2,
+      "columns": 3,
+      "rows": 2
+    },
+    "plate": {
+      "kind": "plate",
+      "length_mm": 152.4,
+      "width_mm": 101.6,
+      "thickness_mm": 5,
+      "hole_diameter_mm": 6,
+      "hole_edge_inset_mm": 12.7
+    },
+    "slotted_tray": {
+      "kind": "slotted_tray",
+      "length_mm": 160,
+      "width_mm": 100,
+      "height_mm": 30,
+      "wall_mm": 3,
+      "floor_mm": 3,
+      "slot_length_mm": 20,
+      "slot_width_mm": 8,
+      "slot_centers_mm": [
+        [
+          40,
+          50
+        ],
+        [
+          120,
+          50
+        ]
+      ]
+    }
+  }
+}

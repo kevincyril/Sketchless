@@ -1,0 +1,23 @@
+{
+  "run_url": "https://github.com/kevincyril/sketchless-private-backups/actions/runs/41709463936",
+  "run_id": 41709463936,
+  "commit": "1cd949d7a612196f8b73ce574ab486d4033997fb",
+  "conclusion": "success",
+  "archive_verification": {
+    "successful_versions": 9,
+    "uploaded_and_download_verified": true,
+    "bytes": 283180,
+    "retention": 8
+  },
+  "weekly_gate_enabled": false,
+  "free_plan_attestation": true,
+  "billing_changes": false,
+  "note": "Only allowlisted numeric/boolean summary values extracted; no raw logs, secrets, filenames or Drive IDs printed.",
+  "jobs": [
+    {
+      "name": "backup",
+      "conclusion": "success",
+      "seconds": 30.0
+    }
+  ]
+}

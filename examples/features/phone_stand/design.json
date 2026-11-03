@@ -1,0 +1,160 @@
+{
+  "format": "sketchless-design",
+  "version": 1,
+  "name": "Phone Stand",
+  "spec": {
+    "part_type": "assembly",
+    "schema_version": 1,
+    "units": "mm",
+    "coordinates": "right-handed-z-up-xyz-degrees",
+    "name": "One-piece sloped phone stand",
+    "concept": "custom",
+    "assumptions": [
+      "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+      "Support angle is relative to the horizontal base. Lip rises above the base; its cable notch leaves a top bridge. Lip Y center 8 mm; support lower centerline Y 25 mm."
+    ],
+    "components": [
+      {
+        "id": "base",
+        "name": "Base",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 90.0,
+          "y_mm": 100.0,
+          "z_mm": 6.0,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          0.0,
+          50.0,
+          3.0
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "body",
+        "symmetry_group": "",
+        "cutouts": [
+          {
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 14.0,
+              "y_mm": 20.0,
+              "z_mm": 8.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              -42.0,
+              0.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          }
+        ],
+        "vertical_fillet_mm": 0.0
+      },
+      {
+        "id": "support",
+        "name": "Sloped support",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 80.0,
+          "y_mm": 110.0,
+          "z_mm": 6.0,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          0.0,
+          48.24400439573847,
+          55.84692828701575
+        ],
+        "rotation_deg": [
+          65.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "body",
+        "symmetry_group": "",
+        "cutouts": [],
+        "vertical_fillet_mm": 0.0
+      },
+      {
+        "id": "lip",
+        "name": "Retaining lip",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 80.0,
+          "y_mm": 6.0,
+          "z_mm": 12.0,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          0.0,
+          8.0,
+          12.0
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "body",
+        "symmetry_group": "",
+        "cutouts": [
+          {
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 14.0,
+              "y_mm": 8.0,
+              "z_mm": 8.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              -2.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          }
+        ],
+        "vertical_fillet_mm": 0.0
+      }
+    ],
+    "fuse_solids": true,
+    "feature_design": {
+      "kind": "phone_stand",
+      "base_width_mm": 90.0,
+      "base_depth_mm": 100.0,
+      "base_thickness_mm": 6.0,
+      "support_width_mm": 80.0,
+      "support_length_mm": 110.0,
+      "support_thickness_mm": 6.0,
+      "angle_deg": 65.0,
+      "lip_height_mm": 12.0,
+      "cable_width_mm": 14.0
+    }
+  }
+}

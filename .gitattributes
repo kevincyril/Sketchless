@@ -7,3 +7,5 @@ ml/dataset.json -text
 requirements.txt -text
 evaluation/modeling_v1.json -text
 evaluation/modeling_v1.lock.json -text
+evaluation/user_acceptance_v2.json -text
+evaluation/feature_inputs_v3.json -text

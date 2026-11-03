@@ -1,0 +1,371 @@
+{
+  "format": "sketchless-design",
+  "version": 1,
+  "name": "Enclosure",
+  "spec": {
+    "part_type": "assembly",
+    "schema_version": 1,
+    "units": "mm",
+    "coordinates": "right-handed-z-up-xyz-degrees",
+    "name": "Posted electronics enclosure",
+    "concept": "custom",
+    "assumptions": [
+      "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified."
+    ],
+    "components": [
+      {
+        "id": "body",
+        "name": "Enclosure",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 120.0,
+          "y_mm": 80.0,
+          "z_mm": 45.0,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          60.0,
+          40.0,
+          22.5
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "body",
+        "symmetry_group": "",
+        "cutouts": [
+          {
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 114.0,
+              "y_mm": 74.0,
+              "z_mm": 43.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              2.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          },
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 5.0,
+              "radius_mm": 1.5,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              -50.0,
+              -30.0,
+              -21.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          },
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 5.0,
+              "radius_mm": 1.5,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              50.0,
+              -30.0,
+              -21.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          },
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 5.0,
+              "radius_mm": 1.5,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              -50.0,
+              30.0,
+              -21.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          },
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 5.0,
+              "radius_mm": 1.5,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              50.0,
+              30.0,
+              -21.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          }
+        ],
+        "vertical_fillet_mm": 0.0
+      },
+      {
+        "id": "post1",
+        "name": "Screw post 1",
+        "primitive": "cylinder",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": 42.0,
+          "radius_mm": 4.0,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          10.0,
+          10.0,
+          24.0
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": "",
+        "cutouts": [
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 44.0,
+              "radius_mm": 1.5,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          }
+        ],
+        "vertical_fillet_mm": 0.0
+      },
+      {
+        "id": "post2",
+        "name": "Screw post 2",
+        "primitive": "cylinder",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": 42.0,
+          "radius_mm": 4.0,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          110.0,
+          10.0,
+          24.0
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": "",
+        "cutouts": [
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 44.0,
+              "radius_mm": 1.5,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          }
+        ],
+        "vertical_fillet_mm": 0.0
+      },
+      {
+        "id": "post3",
+        "name": "Screw post 3",
+        "primitive": "cylinder",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": 42.0,
+          "radius_mm": 4.0,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          10.0,
+          70.0,
+          24.0
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": "",
+        "cutouts": [
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 44.0,
+              "radius_mm": 1.5,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          }
+        ],
+        "vertical_fillet_mm": 0.0
+      },
+      {
+        "id": "post4",
+        "name": "Screw post 4",
+        "primitive": "cylinder",
+        "dimensions": {
+          "x_mm": null,
+          "y_mm": null,
+          "z_mm": 42.0,
+          "radius_mm": 4.0,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          110.0,
+          70.0,
+          24.0
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "",
+        "symmetry_group": "",
+        "cutouts": [
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 44.0,
+              "radius_mm": 1.5,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          }
+        ],
+        "vertical_fillet_mm": 0.0
+      }
+    ],
+    "fuse_solids": true,
+    "feature_design": {
+      "kind": "enclosure",
+      "length_mm": 120.0,
+      "width_mm": 80.0,
+      "height_mm": 45.0,
+      "wall_mm": 3.0,
+      "floor_mm": 3.0,
+      "post_diameter_mm": 8.0,
+      "post_hole_mm": 3.0,
+      "post_inset_mm": 10.0,
+      "columns": 1,
+      "rows": 1,
+      "divider_mm": 2.0,
+      "slot_length_mm": null,
+      "slot_width_mm": null,
+      "slot_centers_mm": [],
+      "corner_radius_mm": 0.0
+    }
+  }
+}

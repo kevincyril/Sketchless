@@ -10,7 +10,7 @@ def proposal_changes(previous,current):
     for key,c in after.items():
         if key not in before:changes.append('Added '+c['name'])
         else:
-            fields=[label for field,label in [('name','name'),('primitive','shape'),('dimensions','size'),('position_mm','position'),('rotation_deg','rotation'),('color','color'),('parent_id','group')] if before[key].get(field)!=c.get(field)]
+            fields=[label for field,label in [('name','name'),('primitive','shape'),('dimensions','size'),('position_mm','position'),('rotation_deg','rotation'),('color','color'),('parent_id','group'),('cutouts','openings'),('vertical_fillet_mm','corner radius')] if before[key].get(field)!=c.get(field) and not (field in ('cutouts','vertical_fillet_mm') and not before[key].get(field) and not c.get(field))]
             if fields:changes.append('Updated '+c['name']+': '+', '.join(fields))
     changes.extend('Removed '+c['name'] for key,c in before.items() if key not in after)
     return changes or ['No component changes.']
@@ -22,7 +22,7 @@ def concept_brief(spec:SceneSpec,description="",context=None,previous_spec=None,
     primary=next((c for c in parts if c.role in ('body','top','base')),parts[0])
     measurements=', '.join(k.removesuffix('_mm').replace('_',' ')+f' {v:g} mm' for k,v in primary.dimensions.model_dump().items() if v is not None)
     names=[c.name for c in parts]
-    details=[{'id':c.id,'name':c.name,'primitive':c.primitive,'dimensions_mm':c.dimensions.model_dump(exclude_none=True),'position_mm':list(c.position_mm)} for c in parts]
+    details=[{'id':c.id,'name':c.name,'primitive':c.primitive,'dimensions_mm':c.dimensions.model_dump(exclude_none=True),'position_mm':list(c.position_mm),'features':([f'Outside vertical corner radius {c.vertical_fillet_mm:g} mm'] if c.vertical_fillet_mm else [])+[f'{cut.primitive} opening: '+', '.join(f'{k} {v:g} mm' for k,v in cut.dimensions.model_dump(exclude_none=True).items())+f'; local center {cut.position_mm}' for cut in c.cutouts]} for c in parts]
     return {'requirements':requirements if requirements is not None else requirements_summary(description,context),'name':spec.name,'changes':proposal_changes(previous_spec,spec),'overall_dimensions_mm':scene_dimensions(spec),'layout_warnings':layout_warnings(spec),'primary_component':primary.name,'primary_dimensions':measurements,'components':names,'component_details':details,'assumptions':spec.assumptions,'solid_components':len(parts)}
 
 def brief_message(brief):

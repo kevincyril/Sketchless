@@ -1,0 +1,161 @@
+{
+  "scope": "Offline development preflight checks only. No geometry acceptance or model accuracy claim.",
+  "suite_sha256": "939fe89c5af145278f55ec47faecf44ff7f439528fc9280d798f322d4c035727",
+  "provider_calls": 0,
+  "completed_models": 0,
+  "preflight_checks_passed": true,
+  "cases": [
+    {
+      "id": "enclosure-posts",
+      "workflow": "precise",
+      "action": "clarification",
+      "message": "This request needs features the current CAD tools cannot faithfully build: hollow screw posts with bores; custom through-holes outside the precise bracket tool. Your existing model is preserved. Would you like to simplify the request to a supported open-top box/tray, a bracket with fixed hole placement, or a visual primitive assembly? No requested feature will be silently omitted.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": null
+    },
+    {
+      "id": "bracket-offset-holes",
+      "workflow": "precise",
+      "action": "clarification",
+      "message": "This request needs features the current CAD tools cannot faithfully build: custom bracket hole positions (the tool only spaces holes across width at fixed arm centers). Your existing model is preserved. Would you like to simplify the request to a supported open-top box/tray, a bracket with fixed hole placement, or a visual primitive assembly? No requested feature will be silently omitted.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": null
+    },
+    {
+      "id": "sloped-phone-stand",
+      "workflow": "concept",
+      "action": "clarification",
+      "message": "This request needs features the current CAD tools cannot faithfully build: custom subtractive openings; a guaranteed fused one-piece concept. Your existing model is preserved. Would you like to simplify the request to a supported open-top box/tray, a bracket with fixed hole placement, or a visual primitive assembly? No requested feature will be silently omitted.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": null
+    },
+    {
+      "id": "stepped-shaft",
+      "workflow": "concept",
+      "action": "clarification",
+      "message": "This request needs features the current CAD tools cannot faithfully build: custom subtractive openings; custom through-holes outside the precise bracket tool. Your existing model is preserved. Would you like to simplify the request to a supported open-top box/tray, a bracket with fixed hole placement, or a visual primitive assembly? No requested feature will be silently omitted.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": null
+    },
+    {
+      "id": "six-compartments",
+      "workflow": "concept",
+      "action": "clarification",
+      "message": "This request needs features the current CAD tools cannot faithfully build: a fused compartment organizer. Your existing model is preserved. Would you like to simplify the request to a supported open-top box/tray, a bracket with fixed hole placement, or a visual primitive assembly? No requested feature will be silently omitted.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": null
+    },
+    {
+      "id": "conflicting-cap-fit",
+      "workflow": "concept",
+      "action": "clarification",
+      "message": "The body opening is 54 mm, but the plug diameter is 54.6 mm. That does not provide clearance for a slip fit. What corrected plug diameter and clearance would you like? No geometry has been built; the current tools also cannot verify mating fits.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true,
+        "explicit_fit_conflict": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": null
+    },
+    {
+      "id": "hinged-box",
+      "workflow": "concept",
+      "action": "clarification",
+      "message": "This request needs features the current CAD tools cannot faithfully build: hinge bores, knuckles and verified articulation. Your existing model is preserved. Would you like to simplify the request to a supported open-top box/tray, a bracket with fixed hole placement, or a visual primitive assembly? No requested feature will be silently omitted.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": null
+    },
+    {
+      "id": "mixed-unit-plate",
+      "workflow": "concept",
+      "action": "clarification",
+      "message": "This request needs features the current CAD tools cannot faithfully build: custom through-holes outside the precise bracket tool. Your existing model is preserved. Would you like to simplify the request to a supported open-top box/tray, a bracket with fixed hole placement, or a visual primitive assembly? No requested feature will be silently omitted.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": null
+    },
+    {
+      "id": "scanner-clarification",
+      "workflow": "concept",
+      "action": "clarification",
+      "message": "Before designing a fitted holder, please provide the device dimensions or a dimensioned reference, the desired orientation, charging-cable clearance, and mounting method. A concept preview cannot establish a secure fit.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true,
+        "asks_essential_questions": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": null
+    },
+    {
+      "id": "tray-edit-preservation",
+      "workflow": "precise",
+      "action": "clarification",
+      "message": "This request needs features the current CAD tools cannot faithfully build: custom subtractive openings. Your existing model is preserved. Would you like to simplify the request to a supported open-top box/tray, a bracket with fixed hole placement, or a visual primitive assembly? No requested feature will be silently omitted.",
+      "checks": {
+        "honest_preflight": true,
+        "api_clarification_without_build": true,
+        "reopened_conversation_preserved": true,
+        "no_false_accepted_geometry": true
+      },
+      "cad_built": false,
+      "geometry_exports_persistence": "not run: no accepted build",
+      "follow_up": "not run: initial request unsupported"
+    }
+  ]
+}

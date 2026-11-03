@@ -1,0 +1,1679 @@
+{
+  "scope": "User-authored development acceptance, not an untouched held-out benchmark or manufacturing guarantee. Offline uses scripted SDK responses with real API/CAD; live uses bounded real Gemini requests.",
+  "mode": "offline",
+  "implementation_digest": "23b9ce4c77ed5eb3",
+  "suite_sha256": "939fe89c5af145278f55ec47faecf44ff7f439528fc9280d798f322d4c035727",
+  "model_requests": 8,
+  "passed": 10,
+  "cases": [
+    {
+      "id": "enclosure-posts",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "hollow_with_floor": true,
+        "four_bored_connected_posts": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "evidence": {
+        "accepted_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "Posted electronics enclosure",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified."
+          ],
+          "components": [
+            {
+              "id": "body",
+              "name": "Enclosure",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 120.0,
+                "y_mm": 80.0,
+                "z_mm": 45.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                60.0,
+                40.0,
+                22.5
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 114.0,
+                    "y_mm": 74.0,
+                    "z_mm": 43.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 5.0,
+                    "radius_mm": 1.5,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -50.0,
+                    -30.0,
+                    -21.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 5.0,
+                    "radius_mm": 1.5,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    50.0,
+                    -30.0,
+                    -21.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 5.0,
+                    "radius_mm": 1.5,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -50.0,
+                    30.0,
+                    -21.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 5.0,
+                    "radius_mm": 1.5,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    50.0,
+                    30.0,
+                    -21.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            },
+            {
+              "id": "post1",
+              "name": "Screw post 1",
+              "primitive": "cylinder",
+              "dimensions": {
+                "x_mm": null,
+                "y_mm": null,
+                "z_mm": 42.0,
+                "radius_mm": 4.0,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                10.0,
+                10.0,
+                24.0
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 44.0,
+                    "radius_mm": 1.5,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            },
+            {
+              "id": "post2",
+              "name": "Screw post 2",
+              "primitive": "cylinder",
+              "dimensions": {
+                "x_mm": null,
+                "y_mm": null,
+                "z_mm": 42.0,
+                "radius_mm": 4.0,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                110.0,
+                10.0,
+                24.0
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 44.0,
+                    "radius_mm": 1.5,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            },
+            {
+              "id": "post3",
+              "name": "Screw post 3",
+              "primitive": "cylinder",
+              "dimensions": {
+                "x_mm": null,
+                "y_mm": null,
+                "z_mm": 42.0,
+                "radius_mm": 4.0,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                10.0,
+                70.0,
+                24.0
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 44.0,
+                    "radius_mm": 1.5,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            },
+            {
+              "id": "post4",
+              "name": "Screw post 4",
+              "primitive": "cylinder",
+              "dimensions": {
+                "x_mm": null,
+                "y_mm": null,
+                "z_mm": 42.0,
+                "radius_mm": 4.0,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                110.0,
+                70.0,
+                24.0
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 44.0,
+                    "radius_mm": 1.5,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            }
+          ],
+          "fuse_solids": true,
+          "feature_design": {
+            "kind": "enclosure",
+            "length_mm": 120.0,
+            "width_mm": 80.0,
+            "height_mm": 45.0,
+            "wall_mm": 3.0,
+            "floor_mm": 3.0,
+            "post_diameter_mm": 8.0,
+            "post_hole_mm": 3.0,
+            "post_inset_mm": 10.0,
+            "columns": 1,
+            "rows": 1,
+            "divider_mm": 2.0,
+            "slot_length_mm": null,
+            "slot_width_mm": null,
+            "slot_centers_mm": [],
+            "corner_radius_mm": 0.0
+          }
+        }
+      },
+      "model_requests": 1,
+      "seconds": 5.734
+    },
+    {
+      "id": "bracket-offset-holes",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "four_corner_referenced_through_holes": true,
+        "plate_thickness_and_volume": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "evidence": {
+        "accepted_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "Corner-referenced L bracket",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+            "Each face has one centerline row. Hole distances are measured along each leg from the common outside corner."
+          ],
+          "components": [
+            {
+              "id": "base",
+              "name": "Horizontal leg",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 70.0,
+                "y_mm": 50.0,
+                "z_mm": 5.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                35.0,
+                0.0,
+                2.5
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 7.0,
+                    "radius_mm": 3.0,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -15.0,
+                    0.0,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 7.0,
+                    "radius_mm": 3.0,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    10.0,
+                    0.0,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            },
+            {
+              "id": "upright",
+              "name": "Vertical leg",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 5.0,
+                "y_mm": 50.0,
+                "z_mm": 80.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                2.5,
+                0.0,
+                40.0
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 7.0,
+                    "radius_mm": 3.0,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    -20.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    90.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 7.0,
+                    "radius_mm": 3.0,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    5.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    90.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            }
+          ],
+          "fuse_solids": true,
+          "feature_design": {
+            "kind": "bracket",
+            "length_mm": 70.0,
+            "width_mm": 50.0,
+            "height_mm": 80.0,
+            "thickness_mm": 5.0,
+            "hole_diameter_mm": 6.0,
+            "hole_positions_mm": [
+              20.0,
+              45.0
+            ]
+          }
+        }
+      },
+      "model_requests": 1,
+      "seconds": 2.844
+    },
+    {
+      "id": "sloped-phone-stand",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "support_angle": true,
+        "cable_notch_and_retaining_bridge": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "evidence": {
+        "accepted_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "One-piece sloped phone stand",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+            "Support angle is relative to the horizontal base. Lip rises above the base; its cable notch leaves a top bridge. Lip Y center 8 mm; support lower centerline Y 25 mm."
+          ],
+          "components": [
+            {
+              "id": "base",
+              "name": "Base",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 90.0,
+                "y_mm": 100.0,
+                "z_mm": 6.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                0.0,
+                50.0,
+                3.0
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 14.0,
+                    "y_mm": 20.0,
+                    "z_mm": 8.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    -42.0,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            },
+            {
+              "id": "support",
+              "name": "Sloped support",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 80.0,
+                "y_mm": 110.0,
+                "z_mm": 6.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                0.0,
+                48.24400439573847,
+                55.84692828701575
+              ],
+              "rotation_deg": [
+                65.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [],
+              "vertical_fillet_mm": 0.0
+            },
+            {
+              "id": "lip",
+              "name": "Retaining lip",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 80.0,
+                "y_mm": 6.0,
+                "z_mm": 12.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                0.0,
+                8.0,
+                12.0
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 14.0,
+                    "y_mm": 8.0,
+                    "z_mm": 8.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    -2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            }
+          ],
+          "fuse_solids": true,
+          "feature_design": {
+            "kind": "phone_stand",
+            "base_width_mm": 90.0,
+            "base_depth_mm": 100.0,
+            "base_thickness_mm": 6.0,
+            "support_width_mm": 80.0,
+            "support_length_mm": 110.0,
+            "support_thickness_mm": 6.0,
+            "angle_deg": 65.0,
+            "lip_height_mm": 12.0,
+            "cable_width_mm": 14.0
+          }
+        }
+      },
+      "model_requests": 1,
+      "seconds": 2.64
+    },
+    {
+      "id": "stepped-shaft",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "coaxial_section_diameters": true,
+        "transverse_hole": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "evidence": {
+        "accepted_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "Stepped shaft with transverse bore",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+            "Coaxial sections run along +X. The transverse bore is centered in its selected section and perpendicular to the shaft axis."
+          ],
+          "components": [
+            {
+              "id": "section1",
+              "name": "Shaft section 1",
+              "primitive": "cylinder",
+              "dimensions": {
+                "x_mm": null,
+                "y_mm": null,
+                "z_mm": 30.0,
+                "radius_mm": 10.0,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                15.0,
+                0.0,
+                10.0
+              ],
+              "rotation_deg": [
+                0.0,
+                90.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 22.0,
+                    "radius_mm": 2.0,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    90.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            },
+            {
+              "id": "section2",
+              "name": "Shaft section 2",
+              "primitive": "cylinder",
+              "dimensions": {
+                "x_mm": null,
+                "y_mm": null,
+                "z_mm": 40.0,
+                "radius_mm": 7.0,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                50.0,
+                0.0,
+                10.0
+              ],
+              "rotation_deg": [
+                0.0,
+                90.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "",
+              "symmetry_group": "",
+              "cutouts": [],
+              "vertical_fillet_mm": 0.0
+            },
+            {
+              "id": "section3",
+              "name": "Shaft section 3",
+              "primitive": "cylinder",
+              "dimensions": {
+                "x_mm": null,
+                "y_mm": null,
+                "z_mm": 30.0,
+                "radius_mm": 5.0,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                85.0,
+                0.0,
+                10.0
+              ],
+              "rotation_deg": [
+                0.0,
+                90.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "",
+              "symmetry_group": "",
+              "cutouts": [],
+              "vertical_fillet_mm": 0.0
+            }
+          ],
+          "fuse_solids": true,
+          "feature_design": {
+            "kind": "shaft",
+            "sections": [
+              {
+                "length_mm": 30.0,
+                "diameter_mm": 20.0
+              },
+              {
+                "length_mm": 40.0,
+                "diameter_mm": 14.0
+              },
+              {
+                "length_mm": 30.0,
+                "diameter_mm": 10.0
+              }
+            ],
+            "cross_hole_diameter_mm": 4.0,
+            "hole_section_index": 0
+          }
+        }
+      },
+      "model_requests": 1,
+      "seconds": 2.953
+    },
+    {
+      "id": "six-compartments",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "six_equal_compartments_and_dividers": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "evidence": {
+        "accepted_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "Equal-compartment organizer",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+            "3 columns and 2 rows of equal clear compartments; divider thickness 2 mm."
+          ],
+          "components": [
+            {
+              "id": "body",
+              "name": "Organizer",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 180.0,
+                "y_mm": 120.0,
+                "z_mm": 35.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                90.0,
+                60.0,
+                17.5
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 56.666666666666664,
+                    "y_mm": 56.0,
+                    "z_mm": 33.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -58.66666666666667,
+                    -29.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 56.666666666666664,
+                    "y_mm": 56.0,
+                    "z_mm": 33.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -58.66666666666667,
+                    29.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 56.666666666666664,
+                    "y_mm": 56.0,
+                    "z_mm": 33.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    -29.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 56.666666666666664,
+                    "y_mm": 56.0,
+                    "z_mm": 33.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    29.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 56.666666666666664,
+                    "y_mm": 56.0,
+                    "z_mm": 33.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    58.66666666666666,
+                    -29.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 56.666666666666664,
+                    "y_mm": 56.0,
+                    "z_mm": 33.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    58.66666666666666,
+                    29.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            }
+          ],
+          "fuse_solids": false,
+          "feature_design": {
+            "kind": "organizer",
+            "length_mm": 180.0,
+            "width_mm": 120.0,
+            "height_mm": 35.0,
+            "wall_mm": 3.0,
+            "floor_mm": 3.0,
+            "post_diameter_mm": null,
+            "post_hole_mm": null,
+            "post_inset_mm": null,
+            "columns": 3,
+            "rows": 2,
+            "divider_mm": 2.0,
+            "slot_length_mm": null,
+            "slot_width_mm": null,
+            "slot_centers_mm": [],
+            "corner_radius_mm": 0.0
+          }
+        }
+      },
+      "model_requests": 1,
+      "seconds": 3.032
+    },
+    {
+      "id": "conflicting-cap-fit",
+      "status": "passed",
+      "checks": {
+        "clarification_without_geometry": true,
+        "explicit_fit_conflict": true
+      },
+      "evidence": {},
+      "model_requests": 0,
+      "seconds": 0.156
+    },
+    {
+      "id": "hinged-box",
+      "status": "passed",
+      "checks": {
+        "clarification_without_geometry": true,
+        "explicit_limit": true
+      },
+      "evidence": {},
+      "model_requests": 0,
+      "seconds": 0.156
+    },
+    {
+      "id": "mixed-unit-plate",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "inch_conversion_and_hole_offsets": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "evidence": {
+        "accepted_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "Four-hole mounting plate",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+            "All input dimensions are millimeters, including converted inch dimensions. Hole centers use the same outside-corner reference."
+          ],
+          "components": [
+            {
+              "id": "plate",
+              "name": "Mounting plate",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 152.4,
+                "y_mm": 101.6,
+                "z_mm": 5.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                76.2,
+                50.8,
+                2.5
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 7.0,
+                    "radius_mm": 3.0,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -63.5,
+                    -38.099999999999994,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 7.0,
+                    "radius_mm": 3.0,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    63.500000000000014,
+                    -38.099999999999994,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 7.0,
+                    "radius_mm": 3.0,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -63.5,
+                    38.099999999999994,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "cylinder",
+                  "dimensions": {
+                    "x_mm": null,
+                    "y_mm": null,
+                    "z_mm": 7.0,
+                    "radius_mm": 3.0,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    63.500000000000014,
+                    38.099999999999994,
+                    0.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            }
+          ],
+          "fuse_solids": false,
+          "feature_design": {
+            "kind": "plate",
+            "length_mm": 152.4,
+            "width_mm": 101.6,
+            "thickness_mm": 5.0,
+            "hole_diameter_mm": 6.0,
+            "hole_edge_inset_mm": 12.7
+          }
+        }
+      },
+      "model_requests": 1,
+      "seconds": 2.828
+    },
+    {
+      "id": "scanner-clarification",
+      "status": "passed",
+      "checks": {
+        "clarification_without_geometry": true,
+        "essential_questions": true
+      },
+      "evidence": {},
+      "model_requests": 0,
+      "seconds": 0.063
+    },
+    {
+      "id": "tray-edit-preservation",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "two_real_floor_slots": true,
+        "floor_walls_and_corner_radii": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true,
+        "edit_downloads_open": true,
+        "edit_valid_connected_solid": true,
+        "edit_requested_overall_dimensions": true,
+        "edit_two_real_floor_slots": true,
+        "edit_floor_walls_and_corner_radii": true,
+        "edit_stl_parses": true,
+        "edit_stl_matches_step": true,
+        "edit_glb_parses_and_matches_step": true,
+        "edit_preview_matches_exports": true,
+        "exact_zero_model_restore": true
+      },
+      "evidence": {
+        "accepted_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "Slotted tray",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+            "Slot X/Y centers are measured from the same outside corner; corner radii preserve the straight-wall thickness."
+          ],
+          "components": [
+            {
+              "id": "body",
+              "name": "Slotted Tray",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 160.0,
+                "y_mm": 100.0,
+                "z_mm": 30.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                80.0,
+                50.0,
+                15.0
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 154.0,
+                    "y_mm": 94.0,
+                    "z_mm": 28.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 20.0,
+                    "y_mm": 8.0,
+                    "z_mm": 5.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -40.0,
+                    0.0,
+                    -13.5
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 20.0,
+                    "y_mm": 8.0,
+                    "z_mm": 5.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    40.0,
+                    0.0,
+                    -13.5
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 0.0
+            }
+          ],
+          "fuse_solids": false,
+          "feature_design": {
+            "kind": "slotted_tray",
+            "length_mm": 160.0,
+            "width_mm": 100.0,
+            "height_mm": 30.0,
+            "wall_mm": 3.0,
+            "floor_mm": 3.0,
+            "post_diameter_mm": null,
+            "post_hole_mm": null,
+            "post_inset_mm": null,
+            "columns": 1,
+            "rows": 1,
+            "divider_mm": 2.0,
+            "slot_length_mm": 20.0,
+            "slot_width_mm": 8.0,
+            "slot_centers_mm": [
+              [
+                40.0,
+                50.0
+              ],
+              [
+                120.0,
+                50.0
+              ]
+            ],
+            "corner_radius_mm": 0.0
+          }
+        },
+        "edited_spec": {
+          "part_type": "assembly",
+          "schema_version": 1,
+          "units": "mm",
+          "coordinates": "right-handed-z-up-xyz-degrees",
+          "name": "Slotted tray",
+          "concept": "custom",
+          "assumptions": [
+            "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+            "Slot X/Y centers are measured from the same outside corner; corner radii preserve the straight-wall thickness."
+          ],
+          "components": [
+            {
+              "id": "body",
+              "name": "Slotted Tray",
+              "primitive": "box",
+              "dimensions": {
+                "x_mm": 160.0,
+                "y_mm": 100.0,
+                "z_mm": 45.0,
+                "radius_mm": null,
+                "top_radius_mm": null
+              },
+              "position_mm": [
+                80.0,
+                50.0,
+                22.5
+              ],
+              "rotation_deg": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "parent_id": null,
+              "color": "#6d907b",
+              "role": "body",
+              "symmetry_group": "",
+              "cutouts": [
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 154.0,
+                    "y_mm": 94.0,
+                    "z_mm": 43.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    0.0,
+                    0.0,
+                    2.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 2.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 20.0,
+                    "y_mm": 8.0,
+                    "z_mm": 5.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    -40.0,
+                    0.0,
+                    -21.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                },
+                {
+                  "primitive": "box",
+                  "dimensions": {
+                    "x_mm": 20.0,
+                    "y_mm": 8.0,
+                    "z_mm": 5.0,
+                    "radius_mm": null,
+                    "top_radius_mm": null
+                  },
+                  "position_mm": [
+                    40.0,
+                    0.0,
+                    -21.0
+                  ],
+                  "rotation_deg": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  "vertical_fillet_mm": 0.0
+                }
+              ],
+              "vertical_fillet_mm": 5.0
+            }
+          ],
+          "fuse_solids": false,
+          "feature_design": {
+            "kind": "slotted_tray",
+            "length_mm": 160.0,
+            "width_mm": 100.0,
+            "height_mm": 45.0,
+            "wall_mm": 3.0,
+            "floor_mm": 3.0,
+            "post_diameter_mm": null,
+            "post_hole_mm": null,
+            "post_inset_mm": null,
+            "columns": 1,
+            "rows": 1,
+            "divider_mm": 2.0,
+            "slot_length_mm": 20.0,
+            "slot_width_mm": 8.0,
+            "slot_centers_mm": [
+              [
+                40.0,
+                50.0
+              ],
+              [
+                120.0,
+                50.0
+              ]
+            ],
+            "corner_radius_mm": 5.0
+          }
+        },
+        "edited_inspection": {
+          "workflow": "concept",
+          "checks": {
+            "components_valid": true,
+            "component_count_match": true,
+            "positive_volume": true,
+            "finite_transforms": true,
+            "referenced_ids_valid": true,
+            "part_step_nonempty": true,
+            "part_stl_nonempty": true,
+            "part_glb_nonempty": true,
+            "scene_json_nonempty": true
+          },
+          "solid_count": 1,
+          "component_count": 1,
+          "volume_mm3": 110226.50416948552,
+          "bounding_box_mm": [
+            160.0,
+            100.0,
+            45.0
+          ],
+          "tolerance_mm": 0.02,
+          "components": [
+            {
+              "id": "body",
+              "checks": {
+                "valid_shape": true,
+                "one_component_solid": true,
+                "positive_volume": true,
+                "volume_match": true,
+                "transformed_bounds_match": true
+              },
+              "bounds_mm": [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  160.0,
+                  100.0,
+                  45.0
+                ]
+              ],
+              "volume_mm3": 110226.50416948552
+            }
+          ],
+          "generation_seconds": 0.144,
+          "limitations": [
+            "Separate concept solids; intersections, balance, motion, strength and printability are not verified.",
+            "Summed component volume may double-count intersecting components."
+          ]
+        }
+      },
+      "model_requests": 2,
+      "seconds": 6.234
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 """Versioned primitive scene contract; Z-up, mm, local XYZ Euler degrees (Rz Ry Rx)."""
 from typing import Literal, Annotated
 from pydantic import BaseModel, ConfigDict, Field, FiniteFloat, model_validator, field_validator
+from backend.feature_schema import FeatureDesign
 
 class Strict(BaseModel):
     model_config=ConfigDict(extra='forbid',allow_inf_nan=False)
@@ -19,6 +20,22 @@ class Dimensions(Strict):
     radius_mm:Size|None=None
     top_radius_mm:Annotated[FiniteFloat,Field(ge=0,le=1000)]|None=None
 
+class Cutout(Strict):
+    """A bounded subtractive primitive in its component's local coordinates."""
+    primitive:Literal['box','cylinder','sphere','cone']
+    dimensions:Dimensions
+    position_mm:Vector=(0,0,0)
+    rotation_deg:Rotation=(0,0,0)
+    vertical_fillet_mm:Annotated[FiniteFloat,Field(ge=0,le=50)]=0
+
+    @model_validator(mode='after')
+    def valid_dimensions(self):
+        keys={k for k,v in self.dimensions.model_dump().items() if v is not None}
+        required={'box':{'x_mm','y_mm','z_mm'},'cylinder':{'radius_mm','z_mm'},'sphere':{'radius_mm'},'cone':{'radius_mm','top_radius_mm','z_mm'}}[self.primitive]
+        if keys!=required:raise ValueError('Cutout dimensions must match its primitive.')
+        if self.vertical_fillet_mm and (self.primitive!='box' or self.vertical_fillet_mm>=min(self.dimensions.x_mm,self.dimensions.y_mm)/2):raise ValueError('Vertical fillets require a box and radius smaller than half its footprint.')
+        return self
+
 class Component(Strict):
     id:ID
     name:str=Field(min_length=1,max_length=80)
@@ -30,12 +47,16 @@ class Component(Strict):
     color:str=Field(default='#6d907b',pattern=r'^#[0-9a-fA-F]{6}$')
     role:str=Field(default='',max_length=64)
     symmetry_group:str=Field(default='',max_length=64)
+    cutouts:list[Cutout]=Field(default_factory=list,max_length=24)
+    vertical_fillet_mm:Annotated[FiniteFloat,Field(ge=0,le=50)]=0
 
     @model_validator(mode='after')
     def primitive_dimensions(self):
         keys={k for k,v in self.dimensions.model_dump().items() if v is not None}
         required={'box':{'x_mm','y_mm','z_mm'},'cylinder':{'radius_mm','z_mm'},'sphere':{'radius_mm'},'cone':{'radius_mm','top_radius_mm','z_mm'},'group':set()}[self.primitive]
         if keys!=required:raise ValueError(f'{self.primitive} requires exactly these dimensions: {sorted(required)}')
+        if self.primitive=='group' and (self.cutouts or self.vertical_fillet_mm):raise ValueError('Groups cannot have solid features.')
+        if self.vertical_fillet_mm and (self.primitive!='box' or self.vertical_fillet_mm>=min(self.dimensions.x_mm,self.dimensions.y_mm)/2):raise ValueError('Vertical fillets require a box and a radius smaller than half its footprint.')
         return self
 
 class SceneSpec(Strict):
@@ -47,6 +68,8 @@ class SceneSpec(Strict):
     concept:Literal['robot','table','stand','cleaner','custom']='custom'
     assumptions:list[str]=Field(default_factory=list,max_length=8)
     components:list[Component]=Field(min_length=1,max_length=64)
+    fuse_solids:bool=False
+    feature_design:FeatureDesign|None=None
 
     @field_validator('schema_version',mode='before')
     @classmethod
@@ -69,6 +92,7 @@ class SceneSpec(Strict):
                 if len(seen)>8:raise ValueError('At most eight hierarchy levels are supported.')
                 parent=nodes[parent].parent_id
         if any(len(a)>500 for a in self.assumptions):raise ValueError('Keep assumptions concise.')
+        if sum(len(c.cutouts) for c in self.components)>128:raise ValueError('At most 128 subtractive features per scene.')
         return self
 
 class ConceptRequest(Strict):
@@ -89,6 +113,8 @@ class Patch(Strict):
     rotation_deg:Rotation|None=None
     color:str|None=Field(default=None,pattern=r'^#[0-9a-fA-F]{6}$')
     name:str|None=Field(default=None,min_length=1,max_length=80)
+    cutouts:list[Cutout]|None=Field(default=None,max_length=24)
+    vertical_fillet_mm:Annotated[FiniteFloat,Field(ge=0,le=50)]|None=None
 
 class Copy(Strict):
     source_id:ID

@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "url": "https://kevincyril.github.io/",
+      "status": 200,
+      "matches_authored_source": true
+    },
+    {
+      "url": "https://kevincyril.github.io/sketchless-backup/",
+      "status": 200,
+      "matches_authored_source": true
+    },
+    {
+      "url": "https://kevincyril.github.io/sketchless-backup/privacy.html",
+      "status": 200,
+      "matches_authored_source": true
+    },
+    {
+      "url": "https://kevincyril.github.io/sketchless-backup/terms.html",
+      "status": 200,
+      "matches_authored_source": true
+    },
+    {
+      "url": "https://kevincyril.github.io/sketchless-backup/site.css",
+      "status": 200,
+      "matches_authored_source": true
+    }
+  ],
+  "authorized_domain": "kevincyril.github.io",
+  "public_information_only": true,
+  "billing_changes": false
+}

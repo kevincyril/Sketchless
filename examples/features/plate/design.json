@@ -1,0 +1,141 @@
+{
+  "format": "sketchless-design",
+  "version": 1,
+  "name": "Plate",
+  "spec": {
+    "part_type": "assembly",
+    "schema_version": 1,
+    "units": "mm",
+    "coordinates": "right-handed-z-up-xyz-degrees",
+    "name": "Four-hole mounting plate",
+    "concept": "custom",
+    "assumptions": [
+      "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+      "All input dimensions are millimeters, including converted inch dimensions. Hole centers use the same outside-corner reference."
+    ],
+    "components": [
+      {
+        "id": "plate",
+        "name": "Mounting plate",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 152.4,
+          "y_mm": 101.6,
+          "z_mm": 5.0,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          76.2,
+          50.8,
+          2.5
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "body",
+        "symmetry_group": "",
+        "cutouts": [
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 7.0,
+              "radius_mm": 3.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              -63.5,
+              -38.099999999999994,
+              0.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          },
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 7.0,
+              "radius_mm": 3.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              63.500000000000014,
+              -38.099999999999994,
+              0.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          },
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 7.0,
+              "radius_mm": 3.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              -63.5,
+              38.099999999999994,
+              0.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          },
+          {
+            "primitive": "cylinder",
+            "dimensions": {
+              "x_mm": null,
+              "y_mm": null,
+              "z_mm": 7.0,
+              "radius_mm": 3.0,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              63.500000000000014,
+              38.099999999999994,
+              0.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          }
+        ],
+        "vertical_fillet_mm": 0.0
+      }
+    ],
+    "fuse_solids": false,
+    "feature_design": {
+      "kind": "plate",
+      "length_mm": 152.4,
+      "width_mm": 101.6,
+      "thickness_mm": 5.0,
+      "hole_diameter_mm": 6.0,
+      "hole_edge_inset_mm": 12.7
+    }
+  }
+}

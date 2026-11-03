@@ -64,10 +64,14 @@ def review_scene_requirements(scene, facts):
         matched=[c for c in matched if not nested(c)]
         if len(matched)!=count['count']:
             raise ValueError(f"Include {count['count']} separate {count['component'].replace('_',' ')} components; proposed scene has {len(matched)}. Each must appear in the actual model, not just its description.")
-    if facts.get('purpose')=='sitting' or ('seat','surface_height') in dimensions or ('seat','thickness') in dimensions:
+    if facts.get('purpose')=='sitting' or any(('seat',meaning) in dimensions for meaning in ('surface_height','thickness','width','depth')):
         seats=[c for c in parts if c.role=='seat'] or [c for c in parts if re.search(r'\bseat\b',label(c)) and not re.search(r'\b(leg|support)\b',label(c))]
         if len(seats)!=1:raise ValueError('Identify one seat component to verify seat surface height and thickness.')
         world=world_matrices(scene);low,high=expected_bounds(seats[0],world[seats[0].id])
+        for axis,meaning in ((0,'width'),(1,'depth')):
+            target=dimensions.get(('seat',meaning))
+            if target is not None and abs(high[axis]-low[axis]-target)>.1:
+                raise ValueError(f'Seat {meaning} must be {target:g} mm; proposed {high[axis]-low[axis]:g} mm in world coordinates.')
         for meaning,value in [('surface_height',high[2]),('thickness',high[2]-low[2])]:
             target=dimensions.get(('seat',meaning))
             if target is not None and abs(value-target)>.1:raise ValueError(f'Seat {meaning.replace("_"," ")} must be {target:g} mm; proposed {value:g} mm. Height means its top surface, not its center.')
@@ -76,6 +80,8 @@ def review_scene_requirements(scene, facts):
             if not legs:raise ValueError('The seat requires supporting legs beneath its underside.')
             for leg in legs:
                 bottom,top=expected_bounds(leg,world[leg.id])
+                if any(min(top[axis],high[axis])-max(bottom[axis],low[axis])<=.1 for axis in (0,1)):
+                    raise ValueError(f'{leg.name} must overlap the seat footprint beneath its underside. Matching vertical heights alone does not establish support. Check horizontal placement before confirmation.')
                 target=dimensions.get(('leg','length'))
                 if target is not None and abs(top[2]-bottom[2]-target)>.1:
                     raise ValueError(f'{leg.name} length must match the latest explicit requirement: {target:g} mm. Resolve conflicting seat/leg constraints before confirmation.')

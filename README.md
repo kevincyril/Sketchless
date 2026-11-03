@@ -16,6 +16,7 @@ Build the service-independent gallery with `npm --prefix frontend run build:gall
 
 - Generate precise open-top enclosures, trays and L-brackets with dimension and solid checks.
 - Propose editable concept assemblies built from boxes, cylinders, spheres, cones and groups.
+- Build bounded feature parts with real cutouts and connected solid fusion: bored enclosure posts, custom-hole brackets, sloped phone stands, stepped shafts, equal compartments, mounting plates and slotted/rounded trays. Use Brainstorm or Concept assembly; linked parameter edits preserve dependent floors and openings. [Feature workflow and evidence](docs/features.md).
 - Answer clarification questions, preview the proposed shapes, send corrections and explicitly approve before concept CAD is built.
 - Edit a selected component while preserving the rest of the assembly. Corrections before approval revise the pending proposal.
 - Save local designs, reopen conversations, restore immutable successful versions and start over.
@@ -117,3 +118,5 @@ The local application uses SQLite and local artifact folders. An opt-in [cloud s
 The synthetic classifier evaluation and small generation suite do not establish arbitrary prompt success or general design quality. Generated concepts may misinterpret form, placement or dimensions. Free API quotas and free-hosting availability are external limits. API reference: http://127.0.0.1:8000/docs when running locally.
 
 Further details: [concept contract](docs/concepts.md), [workspace behavior](docs/workspace.md), [chronological verification log](docs/verification.txt).
+
+The [user acceptance assessment](docs/acceptance-v2.md) retains the initial capability-gap report. The [feature acceptance follow-up](docs/features.md) records the implemented geometry, real export checks and corrected tray edit, including preserved failed development runs. These are development checks, not a new held-out accuracy score. Private weekly Drive backups are enabled after a verified cloud restore/upload check; see the [operations runbook](docs/operations.md).

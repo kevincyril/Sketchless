@@ -1,0 +1,41 @@
+{
+  "date_local": "2026-11-03",
+  "timezone": "America/Phoenix",
+  "sources": [
+    "https://neon.com/pricing",
+    "https://neon.com/docs/introduction/plans"
+  ],
+  "neon_free_allowances": {
+    "database_bytes_per_project": 1000000000,
+    "database_bytes_account_total": 20000000000,
+    "object_storage_bytes_per_project": 5000000000,
+    "shared_outbound_bytes_per_project_month": 5000000000,
+    "compute_cu_hours_per_project_month": 100
+  },
+  "owner_reported_usage": {
+    "database_mb": 31.4,
+    "object_storage_mb": 1.66,
+    "network_transfer_mb": 4.2,
+    "compute_cu_hours": 0.23,
+    "google_storage_available_gb": 14.18
+  },
+  "measured_reference_archive": {
+    "archive_bytes": 283418,
+    "sqlite_bytes": 282624,
+    "artifact_bytes": 1664414,
+    "successful_versions": 9,
+    "artifact_files": 46
+  },
+  "planning_estimates": {
+    "neon_transfer_bytes_per_run": 5000000,
+    "neon_transfer_bytes_five_runs": 25000000,
+    "neon_transfer_bytes_five_runs_plus_first_verification": 30000000,
+    "drive_bytes_eight_archives": 2267344,
+    "drive_bytes_transferred_per_run": 566836,
+    "note": "Estimates for the reference dataset, not enforced caps or exact provider meters. Retries, growth and unrelated app activity can increase use."
+  },
+  "no_neon_archive_storage_added": true,
+  "weekly_gate_enabled": false,
+  "billing_changes": false,
+  "preflight_passed": true
+}

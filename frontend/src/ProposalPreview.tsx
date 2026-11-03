@@ -5,6 +5,8 @@ import type {SceneSpec} from './types';
 export function ProposalPreview({spec,bounds}:{spec:SceneSpec;bounds?:number[]}){
  const [open,setOpen]=useState(false),dialog=useRef<HTMLDialogElement>(null);
  useEffect(()=>{if(open)dialog.current?.showModal();},[open]);
+ const featured=spec.fuse_solids||spec.components.some(c=>c.cutouts?.length||c.vertical_fillet_mm);
+ if(featured)return <p className="approval-hint">This proposal includes openings, rounded edges or joined bodies. Review the component measurements below; an accurate CAD preview becomes available after you approve the build.</p>;
  return <><button type="button" className="proposal-preview-button" onClick={()=>setOpen(true)}>Preview proposed design</button>
  {open&&<dialog ref={dialog} className="proposal-preview-dialog" aria-label="Proposed design preview" onClose={()=>setOpen(false)}>
   <header><div><span className="eyebrow">REVIEW BEFORE BUILDING</span><h2>{spec.name}</h2></div><button type="button" aria-label="Close proposed design preview" onClick={()=>setOpen(false)}>×</button></header>

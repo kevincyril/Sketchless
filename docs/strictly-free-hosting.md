@@ -46,7 +46,7 @@ The exporter reads a consistent database snapshot, downloads verified immutable 
 
 The 0.1-CPU check exposed intermittent 60-second CAD deadlines. Hosted worker timeouts are therefore configurable with `SKETCHLESS_CAD_TIMEOUT_SECONDS`, capped at 180 seconds; local default remains 60 seconds. The Free blueprint chooses 180. Cold start plus CAD can take several minutes. This is a resource/latency limitation, not a change to modeling interpretation or its bounded repair count. Keep the saved-example gallery as the immediate portfolio entry point.
 
-[Storage verification evidence](cloud-storage-verification.json) separates local regression tests, real PostgreSQL integration and actual private-object-storage roundtrips from pending hosted-runtime checks. No account identifiers, key values, connection strings or billing balances are part of this report.
+[Storage verification evidence](cloud-storage-verification.json) separates local regression tests, real PostgreSQL integration and actual private-object-storage roundtrips from the hosted-runtime checks recorded separately. No account identifiers, key values, connection strings or billing balances are part of this report.
 
 ## Hosted verification
 

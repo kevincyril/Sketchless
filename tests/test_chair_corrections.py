@@ -65,6 +65,28 @@ def test_geometry_and_assumptions_must_agree_before_confirmation(fault):
     with pytest.raises(ValueError):review_scene_requirements(scene,facts)
 
 
+@pytest.mark.parametrize('position', [(400,0,210),(0,-400,210),(240,0,210)])
+def test_leg_outside_seat_footprint_is_rejected(position):
+    scene=chair()
+    scene.components[1].position_mm=position
+    facts=requirements_summary('A chair for sitting. Seat surface height 450 mm; seat thickness 30 mm; legs meet the underside of the seat.')
+    with pytest.raises(ValueError,match='seat footprint'):
+        review_scene_requirements(scene,facts)
+
+
+@pytest.mark.parametrize('axis,meaning', [(0,'width'),(1,'depth')])
+def test_explicit_seat_dimensions_are_checked_independently_of_overall(axis,meaning):
+    scene=chair()
+    facts=requirements_summary(INITIAL)
+    facts['dimensions'].append({'component':'seat','meaning':meaning,'value_mm':400})
+    with pytest.raises(ValueError,match='Seat '+meaning):
+        review_scene_requirements(scene,facts)
+
+
+def test_supported_chair_passes_footprint_review():
+    review_scene_requirements(chair(),requirements_summary(INITIAL))
+
+
 def test_correct_legacy_chair_regenerates_confirmation_and_builds_exact_proposal(monkeypatch):
     monkeypatch.setenv('DEMO_MODE','false');calls=[];cad=[]
     original_run=server.subprocess.run
@@ -145,13 +167,13 @@ def test_exact_saved_website_prompt_first_proposal_then_followup_reaches_builder
     monkeypatch.setattr(server.subprocess,'run',build)
     with TestClient(server.app) as client:
         config=client.get('/api/config');assert config.headers['cache-control']=='no-store'
-        assert config.json()['modeling_contract_version']==2 and len(config.json()['modeling_source_digest'])==16
+        assert config.json()['modeling_contract_version']==3 and len(config.json()['modeling_source_digest'])==16
         sid=client.post('/api/sessions').json()['session_id']
         def send(**payload):return wait(client,client.post('/api/jobs',json={'session_id':sid,**payload}).json()['id'])
         first=send(description=request['description'],workflow='auto')
         assert first['status']=='clarification',first.get('message')
         assert first['brief']['requirements']['purpose']=='sitting' and len(first['brief']['components'])==10
-        assert first['modeling_contract_version']==2 and first['brief']['overall_dimensions_mm']==[450,450,850]
+        assert first['modeling_contract_version']==3 and first['brief']['overall_dimensions_mm']==[450,450,850]
         assert cad==[] and len(calls)==2
         built=send(confirm_job_id=first['id'])
         assert built['status']=='succeeded',built.get('message')

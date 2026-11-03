@@ -1,0 +1,139 @@
+{
+  "format": "sketchless-design",
+  "version": 1,
+  "name": "Slotted Tray",
+  "spec": {
+    "part_type": "assembly",
+    "schema_version": 1,
+    "units": "mm",
+    "coordinates": "right-handed-z-up-xyz-degrees",
+    "name": "Slotted tray",
+    "concept": "custom",
+    "assumptions": [
+      "Millimeters. Bounded CAD features; strength, printability and physical fit are not verified.",
+      "Slot X/Y centers are measured from the same outside corner; corner radii preserve the straight-wall thickness."
+    ],
+    "components": [
+      {
+        "id": "body",
+        "name": "Slotted Tray",
+        "primitive": "box",
+        "dimensions": {
+          "x_mm": 160.0,
+          "y_mm": 100.0,
+          "z_mm": 30.0,
+          "radius_mm": null,
+          "top_radius_mm": null
+        },
+        "position_mm": [
+          80.0,
+          50.0,
+          15.0
+        ],
+        "rotation_deg": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "parent_id": null,
+        "color": "#6d907b",
+        "role": "body",
+        "symmetry_group": "",
+        "cutouts": [
+          {
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 154.0,
+              "y_mm": 94.0,
+              "z_mm": 28.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              0.0,
+              0.0,
+              2.0
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          },
+          {
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 20.0,
+              "y_mm": 8.0,
+              "z_mm": 5.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              -40.0,
+              0.0,
+              -13.5
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          },
+          {
+            "primitive": "box",
+            "dimensions": {
+              "x_mm": 20.0,
+              "y_mm": 8.0,
+              "z_mm": 5.0,
+              "radius_mm": null,
+              "top_radius_mm": null
+            },
+            "position_mm": [
+              40.0,
+              0.0,
+              -13.5
+            ],
+            "rotation_deg": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "vertical_fillet_mm": 0.0
+          }
+        ],
+        "vertical_fillet_mm": 0.0
+      }
+    ],
+    "fuse_solids": false,
+    "feature_design": {
+      "kind": "slotted_tray",
+      "length_mm": 160.0,
+      "width_mm": 100.0,
+      "height_mm": 30.0,
+      "wall_mm": 3.0,
+      "floor_mm": 3.0,
+      "post_diameter_mm": null,
+      "post_hole_mm": null,
+      "post_inset_mm": null,
+      "columns": 1,
+      "rows": 1,
+      "divider_mm": 2.0,
+      "slot_length_mm": 20.0,
+      "slot_width_mm": 8.0,
+      "slot_centers_mm": [
+        [
+          40.0,
+          50.0
+        ],
+        [
+          120.0,
+          50.0
+        ]
+      ],
+      "corner_radius_mm": 0.0
+    }
+  }
+}

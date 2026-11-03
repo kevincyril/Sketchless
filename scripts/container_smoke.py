@@ -74,15 +74,16 @@ def main():
         thread = threading.Thread(target=sample_memory, daemon=True)
         thread.start()
         sessions = []
-        for label, relative in [('enclosure', 'spec.json'), ('robot', 'robot/spec.json')]:
+        for label, relative in [('enclosure', 'spec.json'), ('robot', 'robot/spec.json'), ('posted_enclosure','features/enclosure/design.json'), ('slotted_tray','features/slotted_tray/design.json')]:
             sid = request('/api/sessions', {})['session_id']
             spec = json.loads((ROOT / 'examples' / relative).read_text(encoding='utf-8'))
+            spec = spec.get('spec',spec)
             job, latency = build(sid, spec=spec)
             assert all(job['inspection']['checks'].values())
             step = request('/api/artifacts/' + job['id'] + '/step', raw=True)
             assert step.startswith(b'ISO-10303-21')
             assert len(request('/api/artifacts/' + job['id'] + '/stl', raw=True)) > 84
-            if label == 'robot':
+            if spec.get('part_type')=='assembly':
                 assert request('/api/artifacts/' + job['id'] + '/glb', raw=True)[:4] == b'glTF'
             request('/api/sessions/' + sid + '/name', {'name': 'Container ' + label})
             report[label + '_seconds'] = latency

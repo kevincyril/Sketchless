@@ -1,0 +1,187 @@
+{
+  "scope": "User-authored development acceptance, not an untouched held-out benchmark or manufacturing guarantee. Offline uses scripted SDK responses with real API/CAD; live uses bounded real Gemini requests.",
+  "mode": "offline",
+  "implementation_digest": "203d20103346f826",
+  "suite_sha256": "939fe89c5af145278f55ec47faecf44ff7f439528fc9280d798f322d4c035727",
+  "model_requests": 8,
+  "passed": 10,
+  "cases": [
+    {
+      "id": "enclosure-posts",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "hollow_with_floor": true,
+        "four_bored_connected_posts": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "model_requests": 1,
+      "seconds": 5.969
+    },
+    {
+      "id": "bracket-offset-holes",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "four_corner_referenced_through_holes": true,
+        "plate_thickness_and_volume": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "model_requests": 1,
+      "seconds": 2.781
+    },
+    {
+      "id": "sloped-phone-stand",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "support_angle": true,
+        "cable_notch_and_retaining_bridge": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "model_requests": 1,
+      "seconds": 2.953
+    },
+    {
+      "id": "stepped-shaft",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "coaxial_section_diameters": true,
+        "transverse_hole": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "model_requests": 1,
+      "seconds": 3.031
+    },
+    {
+      "id": "six-compartments",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "six_equal_compartments_and_dividers": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "model_requests": 1,
+      "seconds": 2.969
+    },
+    {
+      "id": "conflicting-cap-fit",
+      "status": "passed",
+      "checks": {
+        "clarification_without_geometry": true,
+        "explicit_fit_conflict": true
+      },
+      "model_requests": 0,
+      "seconds": 0.156
+    },
+    {
+      "id": "hinged-box",
+      "status": "passed",
+      "checks": {
+        "clarification_without_geometry": true,
+        "explicit_limit": true
+      },
+      "model_requests": 0,
+      "seconds": 0.078
+    },
+    {
+      "id": "mixed-unit-plate",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "inch_conversion_and_hole_offsets": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true
+      },
+      "model_requests": 1,
+      "seconds": 3.125
+    },
+    {
+      "id": "scanner-clarification",
+      "status": "passed",
+      "checks": {
+        "clarification_without_geometry": true,
+        "essential_questions": true
+      },
+      "model_requests": 0,
+      "seconds": 0.141
+    },
+    {
+      "id": "tray-edit-preservation",
+      "status": "passed",
+      "checks": {
+        "explicit_proposal_approval_required": true,
+        "proposal_survives_reopen": true,
+        "downloads_open": true,
+        "valid_connected_solid": true,
+        "requested_overall_dimensions": true,
+        "two_real_floor_slots": true,
+        "floor_walls_and_corner_radii": true,
+        "stl_parses": true,
+        "stl_matches_step": true,
+        "glb_parses_and_matches_step": true,
+        "preview_matches_exports": true,
+        "accepted_design_survives_reopen": true,
+        "edit_downloads_open": true,
+        "edit_valid_connected_solid": true,
+        "edit_requested_overall_dimensions": true,
+        "edit_two_real_floor_slots": true,
+        "edit_floor_walls_and_corner_radii": true,
+        "edit_stl_parses": true,
+        "edit_stl_matches_step": true,
+        "edit_glb_parses_and_matches_step": true,
+        "edit_preview_matches_exports": true,
+        "exact_zero_model_restore": true
+      },
+      "model_requests": 2,
+      "seconds": 6.0
+    }
+  ]
+}

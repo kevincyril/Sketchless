@@ -1,0 +1,2 @@
+# Local secret uploader only; not needed by the scheduled runner.
+PyNaCl==1.6.2

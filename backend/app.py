@@ -270,6 +270,13 @@ def run(job,req):
         workflow='concept' if req.confirm_job_id or isinstance(req.spec,SceneSpec) else 'precise' if req.spec else route_workflow(req.description,working_spec,context,req.workflow)
         job['workflow']=workflow
         emit('route_workflow',{'requested':req.workflow},{'workflow':workflow,'classifier_scope':'enclosure, tray, bracket only'},time.perf_counter())
+        if not req.spec and not req.confirm_job_id and req.edit_length_delta_mm is None:
+            from backend.capabilities import capability_question
+            question=capability_question(req.description,workflow,working_spec)
+            if question:
+                emit('clarify_capability',{'workflow':workflow},question,time.perf_counter())
+                job.update(status='clarification',message=question)
+                return
         routing=None
         if workflow=='precise' and not current['spec'] and req.edit_length_delta_mm is None:
             routing_text=req.spec.part_type if req.spec else ' '.join([m['content'] for m in context if m['role']=='user']+[req.description])[-3000:]
